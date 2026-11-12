@@ -36,6 +36,7 @@
   body {
     margin: 0;
     font-family: var(--font-sans);
+    font-variant-numeric: lining-nums;
     font-size: 1rem;
     line-height: 1.6;
     color: var(--color-body);
@@ -251,14 +252,13 @@
   .lifecycle li { display: flex; flex-direction: column; justify-content: center; gap: 0.3rem; min-width: 0; padding: 14px 18px; border-radius: 12px; background: var(--color-tint-2); font-weight: 600; color: var(--color-ink); }
   .lifecycle li.on { background: var(--color-blue); color: var(--color-white); }
   .lifecycle small { font-size: 0.82rem; font-weight: 500; line-height: 1.35; color: rgba(255, 255, 255, 0.85); }
+  .lifecycle li.eut { background: transparent; border: 2px dashed var(--color-blue); color: var(--color-blue-dark); }
+  .lifecycle li.eut small { color: var(--color-body); }
   @media (min-width: 900px) {
     .lifecycle { grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 2fr) minmax(0, 1fr); }
     .lifecycle li { align-items: center; text-align: center; min-height: 92px; padding: 14px 10px; }
+    .lifecycle li.eut { grid-column: 5; grid-row: 2; }
   }
-  .parallel { display: flex; align-items: flex-start; gap: 0.8rem; margin-top: 1.25rem; padding: 16px 20px; border: 1px dashed var(--color-line); border-radius: 12px; }
-  .parallel svg { width: 22px; height: 22px; flex: none; margin-top: 2px; color: var(--color-red); }
-  .parallel p { margin: 0; }
-  .parallel strong { color: var(--color-ink); }
 
   /* EUTaaS: four approach stages, chevron headers in deepening blues */
   .stages { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
@@ -273,7 +273,6 @@
   @media (min-width: 1100px) {
     .stages { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 6px; }
     .stages h3 { border-radius: 0; padding-left: 34px; clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%, 18px 50%); }
-    .stages li:first-child h3 { padding-left: 20px; clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%); border-radius: 12px 0 0 12px; }
     .stages .checks { padding-right: 14px; }
   }
 
@@ -320,6 +319,7 @@
   .card-btns .link, .card-btns .btn { margin-top: 0; align-self: center; }
   .card .checks + .link, .card .checks + .btn { margin-top: auto; }
   .checks { display: grid; gap: 0.55rem; }
+  .checks a { color: var(--color-blue); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
   .checks li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 0.6rem; align-items: start; color: var(--color-ink); font-size: 0.97rem; line-height: 1.45; }
   .checks svg { width: 18px; height: 18px; margin-top: 2px; color: var(--color-red); }
   .bg-navy .checks li { color: rgba(255, 255, 255, 0.88); }
@@ -555,7 +555,7 @@
   .module li:hover { background: var(--color-tint); }
   .module li svg { width: 16px; height: 16px; margin-top: 3px; color: var(--color-soft); }
   .module li span { min-width: 0; overflow-wrap: anywhere; }
-  .module li small { font-size: 0.84rem; color: var(--color-soft); white-space: nowrap; font-variant-numeric: tabular-nums; padding-top: 1px; }
+  .module li small { font-size: 0.84rem; color: var(--color-soft); white-space: nowrap; font-variant-numeric: lining-nums tabular-nums; padding-top: 1px; }
   .module li em { margin-left: 0.5rem; font-style: normal; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.1rem 0.45rem; border-radius: 999px; background: var(--color-tint-2); color: var(--color-blue); white-space: nowrap; }
 
   /* Instructor */

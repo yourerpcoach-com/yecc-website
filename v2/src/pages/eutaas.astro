@@ -6,13 +6,11 @@ import Hero from "../components/Hero.astro";
 import Section from "../components/Section.astro";
 import Card from "../components/Card.astro";
 import Checks from "../components/Checks.astro";
-import Chips from "../components/Chips.astro";
 import Cta from "../components/Cta.astro";
-import Icon from "../components/Icon.astro";
 import { FORM } from "../lib/site";
 
-// Implementation lifecycle, with the EUT window YECC takes on highlighted.
-const lifecycle = ["HLA", "CRP", "KUT", "UAT sign-off", "End User Training", "Go-live"];
+// Implementation lifecycle. Cutover is highlighted, with YECC's EUT running alongside it.
+const lifecycle = ["HLA", "CRP", "KUT", "UAT sign-off", "Cutover Activities", "Go-live"];
 
 const approach = [
   {
@@ -60,8 +58,8 @@ const approach = [
 >
   <Hero
     eyebrow="EUT-as-a-Service for Oracle SIs"
-    title="Outsource End User Training.| Keep your team on go-live."
-    lead="YECC runs role-based End User Training for your Oracle Cloud clients, from planning to assessment, while your consultants focus on cutover."
+    title="Outsource End User Training.| Let your team focus on cutover and go-live."
+    lead="YECC runs role-based End User Training for your Oracle Cloud clients, while your consultants focus on data migration, production configuration and go live."
   >
     <Btn href={FORM}>Discuss an EUTaaS engagement</Btn>
     <Btn href="#approach" ghost>See our approach</Btn>
@@ -70,39 +68,35 @@ const approach = [
   <Section id="why">
     <Head
       eyebrow="Why outsource EUT"
-      title="End users train in the busiest window| of the project."
+      title="End user training happens in the busiest window| of the project."
       lead="End users should learn the signed-off solution, as close to the live system as possible, and before it goes live. That puts EUT between UAT sign-off and go-live, exactly when your implementation team is busy with data migration and production configuration."
     />
     <ol class="lifecycle" aria-label="Oracle implementation lifecycle">
-      {lifecycle.map((phase) => (
-        <li class:list={{ on: phase === "End User Training" }}>
-          <span>{phase}</span>
-          {phase === "End User Training" && <small>YECC trains your client’s end users</small>}
-        </li>
+      {lifecycle.map((phase) => phase === "Cutover Activities" ? (
+        <>
+          <li class="on"><span>{phase}</span><small>DM and Production Config</small></li>
+          <li class="eut"><span>End User Training</span><small>YECC trains your client’s end users</small></li>
+        </>
+      ) : (
+        <li><span>{phase}</span></li>
       ))}
     </ol>
-    <div class="parallel">
-      <Icon name="users" />
-      <p><strong>Meanwhile, your team</strong> stays on data migration, production configuration and cutover.</p>
-    </div>
   </Section>
 
   <Section id="kut-vs-eut" class="bg-tint">
     <Head
-      eyebrow="EUT is not KUT"
-      title="More granular, more roles,| many more users."
+      eyebrow="Key Differences in EUT and KUT"
+      title="More granular, more role-specific,| covers wider user base."
       lead="Key User Training covers end-to-end flows for a small group. End User Training goes down to each role, for the client’s much larger user base."
     />
     <div class="grid c2">
       <Card
         icon="users" title="Key User Training (KUT)"
-        text="Usually in your SI’s scope, for a limited number of key users."
-        bullets={["One or more sessions for the entire P2P cycle", "End-to-end process flows", "A small group of key users"]}
+        bullets={["Usually in SI’s scope, through the ‘Train the Trainer’ approach", "Conducted for a limited number of key users", "Covers end-to-end process flows"]}
       />
       <Card
         icon="layers" title="End User Training (EUT)"
-        text="Specific sessions for each role, for everyone who will use the system."
-        bullets={["AP Invoice users", "AP Payment users", "AR Invoice users", "AR Receipts and Collections users, and so on", "The client’s full end-user base"]}
+        bullets={["Usually outside SI’s scope because of the conflicting execution priorities", "Often extends to client’s full end-user base", "Covers pin-pointed process training for each role or persona"]}
       />
     </div>
   </Section>
@@ -125,25 +119,24 @@ const approach = [
 
   <Section id="training-types" class="bg-tint">
     <Head
-      eyebrow="What we deliver"
+      eyebrow="Broader scope of EUTaaS engagements"
       title="Three kinds of training,| across the project lifecycle."
       lead="Each one is a full-stack training delivery project, run onsite or online as the engagement needs."
     />
     <div class="grid c3">
       <Card
-        num="A" icon="target" title="Pre-Implementation Orientation" tags={["Before HLA and CRP"]}
+        icon="target" title="Pre-Implementation Orientation" tags={["Before HLA and CRP"]}
         text="Client key users learn the vanilla Oracle Cloud process flows beforehand, so HLAs and CRPs run more smoothly."
-      />
+      ><Btn href={FORM}>Discuss an Orientation engagement</Btn></Card>
       <Card
-        num="B" icon="cap" title="Standard End User Training" tags={["After UAT, before go-live"]}
+        icon="cap" title="Standard End User Training" tags={["After UAT, before go-live"]}
         text="Role-based sessions on the signed-off solution, so every end user is ready on day one."
-      />
+      ><Btn href={FORM}>Discuss Standard EUT engagement</Btn></Card>
       <Card
-        num="C" icon="refresh" title="Refresher EUT" tags={["After go-live"]}
-        text="Refresher sessions for existing users and new joiners as processes settle and change."
-      />
+        icon="refresh" title="Refresher EUT" tags={["After go-live"]}
+        text="Refresher sessions for existing users and new joiners as processes settle; also covering the changes due to quarterly Oracle upgrades."
+      ><Btn href={FORM}>Discuss Refresher EUT engagement</Btn></Card>
     </div>
-    <Chips items={["Onsite sessions", "Online sessions", "Custom pricing for every engagement"]} />
   </Section>
 
   <Section id="included">
@@ -156,11 +149,12 @@ const approach = [
       <Card
         icon="file" title="Text, video and interactive guides"
         text="Text guides, video guides and interactive video guides for every process in scope."
-        bullets={["Delivered through SHERPA (recommended), so updates stay easy", "Text and video guides also available as offline downloads"]}
+        bullets={["Delivered through [SHERPA](/sherpa) (recommended), so updates stay easy", "Text and video guides also available as offline downloads"]}
       />
       <Card
         icon="book" title="Built per process, bundled by role"
         text="Each guide and video covers one process. We then bundle them by role, so every user persona gets exactly the processes they need."
+        bullets={["Customized role-based course bundles", "Dashboard for L&D Administrators on the client team to monitor progress and assign courses to users", "Completion certificates for end users, shareable directly to LinkedIn"]}
       />
       <Card
         icon="monitor" title="SHERPA access for users and your team"

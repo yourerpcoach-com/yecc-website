@@ -1,6 +1,13 @@
 ---
 import Icon from "./Icon.astro";
+import { to } from "../lib/site";
 const { items, class: cls = "checks" } = Astro.props as { items: string[]; class?: string };
+// Text between **double asterisks** is shown in bold; [label](href) becomes a link.
+const parts = (item: string) => item.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/).filter(Boolean);
 ---
-{/* Text between **double asterisks** is shown in bold. */}
-<ul class={cls}>{items.map((item) => <li><Icon name="check" /><span>{item.split("**").map((part, i) => (i % 2 ? <strong>{part}</strong> : part))}</span></li>)}</ul>
+<ul class={cls}>{items.map((item) => <li><Icon name="check" /><span>{parts(item).map((part) => {
+  const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+  if (link) return <a href={to(link[2])}>{link[1]}</a>;
+  if (part.startsWith("**") && part.endsWith("**")) return <strong>{part.slice(2, -2)}</strong>;
+  return part;
+})}</span></li>)}</ul>
