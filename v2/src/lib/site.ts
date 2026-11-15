@@ -28,7 +28,7 @@ export const PLAY_STORE = "https://play.google.com/store/apps/details?id=com.you
 export const COHORT_FORM = FORM;
 export const ECAMPUS = "https://ecampus.yourerpcoach.com";
 
-// The site has two audiences, each with its own menu. The header shows a plain link across to the other one.
+// The site has two audiences, each with its own menu. A slim bar above the header switches between them.
 export const NAV: NavItem[] = [
   { label: "EUTaaS", href: "/eutaas" },
   { label: "DaaS", href: "/daas" },
@@ -43,9 +43,6 @@ export const CONSULTANT_NAV: NavItem[] = [
   { label: "Mobile App", href: APP },
   { label: "eCampus", href: ECAMPUS },
 ];
-
-/** Landing pages whose hero tiles already list the menu, so the menu only shows once the hero is scrolled past. */
-export const LANDING_PATHS = ["/", "/consultants"];
 
 /** Pages that belong to the Oracle consultants side of the site. */
 export const CONSULTANT_PATHS = ["/consultants", "/courses", "/upcoming-cohorts"];

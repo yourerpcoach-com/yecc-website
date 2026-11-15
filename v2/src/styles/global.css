@@ -136,9 +136,14 @@
   .nav-item:hover button svg, .nav-item.open button svg { transform: rotate(180deg); }
   .header-cta { display: flex; align-items: center; gap: 0.5rem; flex: none; }
   .header-cta .btn { min-height: 40px; padding: 0.4rem 1rem; font-size: 0.9rem; }
-  /* Link across to the other audience: plain text with an underline, like a section switch */
-  .audience { margin-right: 0.5rem; font-size: 0.95rem; font-weight: 600; color: var(--color-ink); text-decoration: underline; text-decoration-color: var(--color-blue); text-decoration-thickness: 2px; text-underline-offset: 6px; white-space: nowrap; }
-  .audience:hover { color: var(--color-blue); }
+  /* Audience switch: a slim bar above the header that scrolls away, with the current audience highlighted */
+  .topbar { background: var(--color-ink); }
+  .topbar .wrap { display: flex; justify-content: flex-end; padding-block: 6px; }
+  .switch { display: flex; gap: 2px; padding: 2px; border-radius: 999px; background: rgba(255, 255, 255, 0.1); }
+  .switch a { padding: 0.28rem 0.85rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600; color: rgba(255, 255, 255, 0.78); white-space: nowrap; transition: background 0.15s, color 0.15s; }
+  .switch a:hover { color: var(--color-white); }
+  .switch a.on { background: var(--color-white); color: var(--color-ink); }
+  @media (max-width: 600px) { .topbar .wrap { justify-content: center; } .switch a { padding-inline: 0.7rem; font-size: 0.76rem; } }
   .menu-btn { display: none; margin-left: auto; width: 44px; height: 44px; padding: 10px; border: 1px solid var(--color-line); border-radius: 12px; background: var(--color-white); color: var(--color-ink); cursor: pointer; }
   .menu-btn svg { width: 22px; height: 22px; display: block; }
   .menu-btn .x, .menu-open .menu-btn .bars { display: none; }
@@ -166,12 +171,9 @@
     .dropdown-label { padding-inline: 0.25rem; }
     .header-cta { flex-direction: column; align-items: stretch; margin-top: 1rem; }
     .header-cta .btn { min-height: 46px; }
-    .header-cta .audience { order: -1; margin: 0 0 0.5rem; padding: 0.6rem 0.25rem; }
   }
   @media (min-width: 1280px) {
     .header-panel { display: contents; }
-    .nav { transition: opacity 0.2s, visibility 0.2s; }
-    .js .header[data-landing]:not(.past-hero) .nav { opacity: 0; visibility: hidden; }
   }
   @media (max-width: 420px) { .logo img { height: 18px; } }
 
@@ -185,7 +187,9 @@
   .hero-plain { text-align: center; }
   .hero-plain .hero-grid { max-width: 900px; margin-inline: auto; }
   .hero-plain h1 { text-wrap: balance; }
-  .hero-plain .lead { margin-inline: auto; }
+  /* The softer half of a centred title starts its own line, so the two halves read as two centred lines */
+  .hero-plain h1 .tone { display: block; }
+  .hero-plain .lead { margin-inline: auto; text-wrap: balance; }
   .hero-plain .btns { justify-content: center; }
   .hero-home {
     text-align: center;

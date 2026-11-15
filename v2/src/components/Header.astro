@@ -3,16 +3,26 @@ import { Image } from "astro:assets";
 import Icon from "./Icon.astro";
 import Btn from "./Btn.astro";
 import logo from "../assets/logo.png";
-import { NAV, CONSULTANT_NAV, CONSULTANT_PATHS, LANDING_PATHS, LOGIN, FORM, to, isExternal } from "../lib/site";
+import { NAV, CONSULTANT_NAV, CONSULTANT_PATHS, LOGIN, FORM, to, isExternal } from "../lib/site";
 const { path } = Astro.props as { path: string };
 // A link to a section of a page (#...) is not the page itself, so it never shows as current.
 const current = (href: string) => !href.includes("#") && href === path;
-// Each audience gets its own menu, plus a plain link across to the other audience's landing page.
+// Each audience gets its own menu; a slim bar above the header switches between the two audiences.
 const consultant = CONSULTANT_PATHS.includes(path);
 const nav = consultant ? CONSULTANT_NAV : NAV;
-const other = consultant ? { label: "YECC for SIs", href: "/" } : { label: "YECC for Oracle Consultants", href: "/consultants" };
+const audiences = [
+  { label: "YECC for SIs", href: "/", on: !consultant },
+  { label: "YECC for Oracle Consultants", href: "/consultants", on: consultant },
+];
 ---
-<header class="header" data-landing={LANDING_PATHS.includes(path) ? "" : undefined}>
+<div class="topbar">
+  <div class="wrap">
+    <nav class="switch" aria-label="Audience">
+      {audiences.map((a) => <a href={to(a.href)} class:list={{ on: a.on }} aria-current={a.on ? "true" : undefined}>{a.label}</a>)}
+    </nav>
+  </div>
+</div>
+<header class="header">
   <div class="wrap">
     <a class="logo" href={to("/")} aria-label="YourERPCoach.com home">
       <Image src={logo} alt="YourERPCoach.Com" width={434} loading="eager" />
@@ -43,7 +53,6 @@ const other = consultant ? { label: "YECC for SIs", href: "/" } : { label: "YECC
         )}
       </nav>
       <div class="header-cta">
-        <a class="audience" href={to(other.href)}>{other.label}</a>
         {/* SIs are sent to the discussion form; consultants sign in to their courses. */}
         {consultant ? <Btn href={LOGIN}>Sign in</Btn> : <Btn href={FORM}>Explore Partnership</Btn>}
       </div>
