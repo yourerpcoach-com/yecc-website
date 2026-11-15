@@ -214,6 +214,14 @@
   /* Long eyebrow: wraps as running text with the marker in the first line, not beside the whole block */
   .hero-alt .eyebrow { display: block; max-width: 640px; margin-inline: auto; line-height: 1.5; }
   .hero-alt .eyebrow::before { display: inline-block; margin-right: 0.55rem; vertical-align: 0.1em; }
+  /* Longer title and lead than the SI hero: the softer half takes its own line, and both run wider and a touch
+     smaller so title, lead, tiles and buttons sit in the first screen like the SI hero */
+  .hero-alt h1 { max-width: none; font-size: clamp(1.85rem, 1.3rem + 1.9vw, 2.75rem); }
+  .hero-alt h1 .tone { display: block; }
+  .hero-alt .lead { max-width: 62ch; text-wrap: balance; }
+  .hero-alt .tiles-title { margin-top: clamp(32px, 4.5vw, 52px); }
+  .hero-alt .tiles a { padding-block: 18px; gap: 0.65rem; }
+  .hero-alt .tiles small { margin-top: -0.3rem; }
   .hero-alt .tiles a { background: var(--color-white); box-shadow: 0 16px 32px -24px rgba(5, 15, 32, 0.6); }
   .hero-alt .tiles a:hover { border-color: var(--color-white); background: var(--color-tint-2); }
   .hero-alt .btn { background: var(--color-white); color: var(--color-ink); border-color: var(--color-white); }
