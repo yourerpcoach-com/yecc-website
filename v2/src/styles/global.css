@@ -354,9 +354,50 @@
     .cols.c4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   }
 
-  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.6rem; }
-  .chips li { padding: 0.45rem 0.9rem; border: 1px solid var(--color-line); border-radius: 999px; font-size: 0.9rem; font-weight: 500; color: var(--color-ink); background: var(--color-white); }
-  .bg-navy .chips li { background: transparent; border-color: var(--color-line-dark); color: var(--color-white); }
+  /* Text beside an illustration: stacked on small screens, two columns from 1024px */
+  .split-illo { display: grid; gap: clamp(40px, 6vw, 72px); align-items: center; }
+  .split-illo > * { min-width: 0; }
+  .split-illo .head h2 .tone { display: block; }
+  @media (min-width: 1024px) { .split-illo { grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr); } }
+
+  /* DaaS: a guide as SHERPA shows it, with version, roles and the review trail */
+  .gtrail { position: relative; max-width: 520px; width: 100%; margin-inline: auto; padding-bottom: 28px; }
+  .gt-window { border-radius: 18px; background: var(--color-white); color: var(--color-body); overflow: hidden; box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.7); }
+  .gt-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: var(--color-tint-2); border-bottom: 1px solid var(--color-line); }
+  .gt-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--color-line); }
+  .gt-bar span { margin-left: auto; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; color: var(--color-blue); }
+  .gt-body { padding: clamp(16px, 3vw, 24px); }
+  .gt-head { display: flex; gap: 12px; align-items: flex-start; }
+  .gt-icon { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: var(--color-tint-2); color: var(--color-blue); }
+  .gt-icon svg { width: 20px; height: 20px; }
+  .gt-title { margin: 0; font-size: 1rem; font-weight: 600; color: var(--color-ink); line-height: 1.3; }
+  .gt-meta { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; }
+  .gt-meta span { padding: 2px 9px; border-radius: 999px; font-size: 0.7rem; font-weight: 600; line-height: 1.6; }
+  .gt-ver { background: var(--color-blue); color: var(--color-white); }
+  .gt-role { border: 1px solid var(--color-line); color: var(--color-body); }
+  .gt-steps { display: grid; gap: 9px; margin: 18px 0 20px; padding: 14px; border-radius: 12px; background: var(--color-tint); }
+  .gt-step { display: flex; align-items: center; gap: 10px; }
+  .gt-step b { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; background: var(--color-white); border: 1px solid var(--color-line); font-size: 0.68rem; color: var(--color-blue); }
+  .gt-step span { height: 8px; border-radius: 4px; background: var(--color-line); }
+  .gt-label { margin: 0 0 10px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-soft); }
+  .gt-trail { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+  .gt-trail li { position: relative; display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+  .gt-trail li + li::before { content: ""; position: absolute; left: 8px; top: -8px; height: 16px; border-left: 2px solid var(--color-line); }
+  .gt-dot { flex: none; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--color-blue); background: var(--color-white); }
+  .gt-trail li.done .gt-dot { background: var(--color-blue); color: var(--color-white); }
+  .gt-dot svg { width: 11px; height: 11px; stroke-width: 3; }
+  .gt-text { flex: 1; min-width: 0; font-size: 0.78rem; line-height: 1.35; }
+  .gt-text strong { display: block; font-weight: 600; color: var(--color-ink); }
+  .gt-tag { flex: none; padding: 2px 8px; border-radius: 999px; background: var(--color-tint-2); font-size: 0.68rem; font-weight: 600; color: var(--color-blue); }
+  .gt-trail li.done .gt-tag { background: var(--color-blue); color: var(--color-white); }
+  .gt-float { position: absolute; left: -14px; bottom: 0; display: flex; align-items: center; gap: 8px; max-width: calc(100% + 14px); padding: 10px 14px; border-radius: 12px; background: var(--color-white); box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6); font-size: 0.78rem; font-weight: 600; color: var(--color-ink); }
+  .gt-float svg { flex: none; width: 18px; height: 18px; color: var(--color-red); }
+  @media (max-width: 600px) { .gt-float { left: 0; max-width: 100%; } }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; margin-top: 1.6rem; }
+  .chips li { display: flex; align-items: center; gap: 0.45rem; font-size: 0.95rem; font-weight: 500; color: var(--color-ink); }
+  .chips svg { flex: none; width: 17px; height: 17px; stroke-width: 2.6; color: var(--color-blue); }
+  .bg-navy .chips li { color: rgba(255, 255, 255, 0.9); }
+  .bg-navy .chips svg { color: #8fb6ee; }
   .note { margin-top: 1.5rem; font-size: 0.9rem; color: var(--color-soft); }
 
   /* Split (text + visual) */
@@ -489,7 +530,8 @@
   .cohort strong { display: block; margin: 1rem 0 1.2rem; font-family: var(--font-serif); font-weight: 500; font-size: clamp(1.8rem, 1.3rem + 2vw, 2.5rem); line-height: 1.1; color: var(--color-white); }
   .cohort small { display: block; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255, 255, 255, 0.6); }
   .cohort .checks li { color: var(--color-white); }
-  .cohort .chips li { background: transparent; border-color: var(--color-line-dark); color: var(--color-white); }
+  .cohort .chips li { color: var(--color-white); }
+  .cohort .chips svg { color: #8fb6ee; }
   .modules { display: grid; gap: 10px; }
   .modules li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.9rem; align-items: baseline; padding: 0.9rem 1.1rem; border: 1px solid var(--color-line); border-radius: 12px; background: var(--color-white); font-weight: 500; color: var(--color-ink); }
   @media (min-width: 700px) { .modules { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

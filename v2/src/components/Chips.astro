@@ -1,4 +1,6 @@
 ---
+import Icon from "./Icon.astro";
+// Short selling points: a plain row of ticked items, with no border or fill, so they never read as buttons.
 const { items } = Astro.props as { items: string[] };
 ---
-<ul class="chips">{items.map((item) => <li>{item}</li>)}</ul>
+<ul class="chips">{items.map((item) => <li><Icon name="check" />{item}</li>)}</ul>

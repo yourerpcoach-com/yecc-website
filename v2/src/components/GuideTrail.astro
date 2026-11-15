@@ -1,0 +1,40 @@
+---
+import Icon from "./Icon.astro";
+// Illustration for "Why deliver through SHERPA": one guide as SHERPA shows it, with the current version,
+// the roles that can see it, and the review and sign-off trail. Drawn in HTML so it scales without cropping.
+const trail = [
+  { who: "YECC writer", what: "Updated steps for the quarterly upgrade", tag: "v4" },
+  { who: "SI consultant", what: "Reviewed and commented on step 3", tag: "Resolved" },
+  { who: "SI consultant", what: "Signed off the guide", tag: "Signed off", done: true },
+];
+---
+<div class="gtrail" aria-hidden="true">
+  <div class="gt-window">
+    <div class="gt-bar"><i></i><i></i><i></i><span>SHERPA</span></div>
+    <div class="gt-body">
+      <div class="gt-head">
+        <span class="gt-icon"><Icon name="file" /></span>
+        <div>
+          <p class="gt-title">Create a Purchase Requisition</p>
+          <p class="gt-meta"><span class="gt-ver">v4 · Current version</span><span class="gt-role">Requisitioner</span><span class="gt-role">Buyer</span></p>
+        </div>
+      </div>
+      <div class="gt-steps">
+        {[78, 64, 86].map((w, i) => (
+          <div class="gt-step"><b>{i + 1}</b><span style={`width:${w}%`}></span></div>
+        ))}
+      </div>
+      <p class="gt-label">Review and sign-off trail</p>
+      <ol class="gt-trail">
+        {trail.map((t) => (
+          <li class:list={{ done: t.done }}>
+            <span class="gt-dot">{t.done ? <Icon name="check" /> : null}</span>
+            <span class="gt-text"><strong>{t.who}</strong>{t.what}</span>
+            <span class="gt-tag">{t.tag}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+  <div class="gt-float"><Icon name="refresh" /><span>Users always see the latest version</span></div>
+</div>

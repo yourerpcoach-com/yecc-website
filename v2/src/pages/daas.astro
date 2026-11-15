@@ -7,6 +7,7 @@ import Section from "../components/Section.astro";
 import Card from "../components/Card.astro";
 import Checks from "../components/Checks.astro";
 import Chips from "../components/Chips.astro";
+import GuideTrail from "../components/GuideTrail.astro";
 import Cta from "../components/Cta.astro";
 import { FORM } from "../lib/site";
 
@@ -116,14 +117,19 @@ const approach = [
   </Section>
 
   <Section id="why-sherpa" class="bg-navy">
-    <Head
-      eyebrow="Why deliver through SHERPA"
-      title="One place to find, review| and update every guide."
-      lead="Offline files go out of date the day they are shared. In SHERPA, users always see the current version, and your team can see exactly what changed and who signed it off."
-    >
-      <Chips items={["Always the current version", "Role-based access", "Review and sign-off trail", "Easy updates"]} />
-    </Head>
-    <div class="btns"><Btn href="/sherpa" ghost>Explore SHERPA</Btn></div>
+    <div class="split-illo">
+      <div>
+        <Head
+          eyebrow="Why deliver through SHERPA"
+          title="One place to find, review| and update every guide."
+          lead="Offline files go out of date the day they are shared. In SHERPA, users always see the current version, and your team can see exactly what changed and who signed it off."
+        >
+          <Chips items={["Always the current version", "Role-based access", "Review and sign-off trail", "Easy updates"]} />
+        </Head>
+        <div class="btns"><Btn href="/sherpa">Explore SHERPA</Btn></div>
+      </div>
+      <GuideTrail />
+    </div>
   </Section>
 
   <Cta eyebrow="Scoped to your client" title="Tell us the processes and roles in scope, and we will scope the documentation.">
