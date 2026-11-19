@@ -143,6 +143,11 @@
   .switch a { padding: 0.4rem 0.85rem; border-radius: 0 0 8px 8px; font-size: 0.8rem; font-weight: 600; line-height: 1.3; color: var(--color-body); white-space: nowrap; transition: background 0.15s, color 0.15s; }
   .switch a:hover { color: var(--color-blue); }
   .switch a.on { background: var(--color-blue); color: var(--color-white); }
+  /* Past the hero the tab slides up and tucks behind the header's bottom edge: it moves up by its own height while
+     its top is clipped by the same amount, so the bottom edge rises into the header line. */
+  .switch { clip-path: inset(0 -16px -16px -16px); transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1), clip-path 0.38s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.38s, visibility 0s; }
+  .past-hero .switch:not(:focus-within) { transform: translateY(-100%); clip-path: inset(100% -16px -16px -16px); box-shadow: none; visibility: hidden; transition-property: transform, clip-path, box-shadow, visibility; transition-delay: 0s, 0s, 0s, 0.38s; }
+  @media (prefers-reduced-motion: reduce) { .switch { transition: none; } }
   @media (max-width: 379px) { .switch a { padding-inline: 0.6rem; font-size: 0.74rem; } }
   .menu-btn { display: none; margin-left: auto; width: 44px; height: 44px; padding: 10px; border: 1px solid var(--color-line); border-radius: 12px; background: var(--color-white); color: var(--color-ink); cursor: pointer; }
   .menu-btn svg { width: 22px; height: 22px; display: block; }

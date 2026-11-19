@@ -16,6 +16,14 @@ document.addEventListener("click", (e) => {
   if (e.target.closest(".header-panel a")) header.classList.remove("menu-open");
 });
 
+// The audience tab under the logo shows only while the hero is on screen, so it does not sit over content further down.
+const hero = document.querySelector("main > :first-child");
+if (hero && "IntersectionObserver" in window) {
+  new IntersectionObserver(([entry]) => header.classList.toggle("past-hero", !entry.isIntersecting), {
+    rootMargin: `-${header.offsetHeight}px 0px 0px 0px`,
+  }).observe(hero);
+}
+
 // Accordion feature: one item open at a time, matching visual on the stage.
 // The progress bar under the stage shows the time left before the next tab opens. It waits while the
 // pointer or keyboard focus is on the section, and stops for good once the visitor picks a tab.
