@@ -1,0 +1,347 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Btn from "../components/Btn.astro";
+import Head from "../components/Head.astro";
+import Hero from "../components/Hero.astro";
+import Section from "../components/Section.astro";
+import Card from "../components/Card.astro";
+import Col from "../components/Col.astro";
+import Checks from "../components/Checks.astro";
+import Cta from "../components/Cta.astro";
+import Icon from "../components/Icon.astro";
+import TextLink from "../components/TextLink.astro";
+import { FORM, to } from "../lib/site";
+
+// SI-only page for the Consulting Training service line. Individual fresher cohorts live on the
+// "For Consultants & Grads" side; this page links to them once, from the FAQ.
+
+const facts = ["Batches of up to 15 consultants", "2.5 to 4 months, start to project-ready", "Online, hybrid or at your office"];
+
+// From hiring to deployment. The middle three steps are the ones YECC runs.
+const journey = [
+  { step: "Campus or lateral hiring" },
+  { step: "Oracle foundations", yecc: true },
+  { step: "Module-wise functional training", yecc: true },
+  { step: "Mock CRP / functional hackathon", yecc: true },
+  { step: "Deployed to a project" },
+];
+
+const tracks = [
+  {
+    icon: "trend", title: "Oracle Fusion Financials", pillar: "Finance",
+    suits: "Commerce, finance and Chartered Accountant hires",
+    modules: ["Common Basics", "General Ledger", "Payables", "Receivables", "Fixed Assets", "Cash Management", "Common Advanced"],
+    note: "Optional advanced module: Accounting Hub, Advanced Collections or Risk Management, at fundamentals level.",
+  },
+  {
+    icon: "layers", title: "Oracle Fusion SCM", pillar: "Supply Chain (SCM)",
+    suits: "Engineering, operations and MBA hires",
+    modules: ["SCM Common Basics", "Procure to Pay group", "Order to Cash group"],
+    note: "Split the batch into P2P and O2C groups; both share the common basics.",
+  },
+  {
+    icon: "users", title: "Oracle Fusion HCM", pillar: "Human Capital (HCM)",
+    suits: "HR, MBA and technical hires moving into functional work",
+    modules: ["Core HR", "Oracle Global Payroll"],
+    note: "Available as a fresher track or a focused end-user-process batch.",
+  },
+];
+
+const approach = [
+  {
+    step: "Scope",
+    bullets: [
+      "Confirm the track, batch size and start date",
+      "Split the batch into groups where needed, such as P2P and O2C",
+      "Choose online, hybrid or onsite delivery",
+      "Collect your practice’s business scenarios in week one",
+    ],
+  },
+  {
+    step: "Learn",
+    bullets: [
+      "Self-paced videos for every topic, with a quiz after each video",
+      "Hands-on practice in an Oracle Cloud instance",
+      "Assignments submitted on the portal and checked personally by YECC trainers",
+    ],
+  },
+  {
+    step: "Coach",
+    bullets: [
+      "Live doubt-solving, revision and consulting sessions every working day, led by a dedicated YECC trainer",
+      "Your own business scenarios built into the assignments",
+      "Feedback on soft skills and consulting behaviour at agreed intervals",
+    ],
+  },
+  {
+    step: "Assess",
+    bullets: [
+      "Written test or oral review after each module",
+      "Your own review format can be added to the plan",
+      "A mock CRP or functional hackathon as the final assessment",
+      "A progress report for every consultant, shared with L&D and the practice",
+    ],
+  },
+];
+
+const models = [
+  {
+    icon: "monitor", title: "Online instructor-led",
+    text: "Self-paced portal learning plus daily live online sessions over Teams or Zoom.",
+    cadence: "1 to 2 hours every working day",
+    best: "Distributed batches and remote hires",
+  },
+  {
+    icon: "users", title: "Hybrid with onsite days", featured: true,
+    text: "Daily live online sessions, plus regular trainer visits to your office for classroom days.",
+    cadence: "Daily online, plus 2 to 3 onsite days a week or about 8 a month",
+    best: "Batches in one office that want face-to-face coaching",
+  },
+  {
+    icon: "shield", title: "Onsite with training admin",
+    text: "Trainer at your office on agreed days, and a YECC training administrator who runs the programme day to day.",
+    cadence: "Agreed with you",
+    best: "Large or high-priority batches that need close governance",
+  },
+];
+
+const visibility = [
+  { icon: "sliders", title: "Admin dashboard", text: "Your nominated users track assessment progress and scores on the portal." },
+  { icon: "clock", title: "Attendance logs", text: "Session attendance shared with your stakeholders on a regular schedule." },
+  { icon: "check", title: "Module-wise results", text: "Written and oral review results reported to L&D and the practice after each module." },
+  { icon: "mail", title: "One point of contact", text: "A YECC training administrator coordinates the batch with your L&D and practice teams." },
+];
+
+// Illustration for the visibility section: a batch progress view as the portal dashboard shows it.
+const roster = [
+  { who: "Consultant A", module: "Payables", progress: 92, score: "88%", attendance: "100%" },
+  { who: "Consultant B", module: "Payables", progress: 84, score: "81%", attendance: "96%" },
+  { who: "Consultant C", module: "Receivables", progress: 76, score: "79%", attendance: "94%" },
+  { who: "Consultant D", module: "General Ledger", progress: 64, score: "72%", attendance: "90%" },
+];
+
+const faqs = [
+  { q: "How large can a batch be?", a: "Batches are usually scoped for up to 15 consultants. Larger batches are priced per additional consultant." },
+  { q: "How long does a batch take?", a: "Typically 2.5 to 4 months, depending on the track and the number of modules." },
+  { q: "Can you include our own projects and reviews?", a: "Yes. Share your business scenarios in week one and we build them into the assignments. Your own review format can be added to the assessment plan." },
+  { q: "Who provides the Oracle Cloud instance?", a: "YECC provides instance access for the batch, and for two weeks after it ends." },
+  { q: "What happens to portal access when a consultant leaves?", a: "Logins use email OTP, so access ends automatically when their company email is deactivated." },
+];
+---
+<Layout
+  path="/consulting-training"
+  title="Oracle Cloud ERP Consultant Training for System Integrators | YECC"
+  description="Project-ready Oracle Fusion Finance, SCM and HCM consultants in 2.5 to 4 months. Hybrid fresher and upskilling batches for Oracle SIs, with module-wise assessments reported to L&D."
+>
+  <Hero
+    eyebrow="Consulting Training for Oracle SIs"
+    title="You hire the graduates.| We make them project-ready."
+    lead="Structured Oracle Fusion Finance, SCM and HCM batches for your new hires and bench consultants. Hybrid self-paced and live training, module-wise assessments, and progress reports for your L&D and practice teams."
+  >
+    <Btn href={FORM}>Discuss a training batch</Btn>
+    <Btn href="#approach" ghost>See how a batch runs</Btn>
+  </Hero>
+
+  <section class="band batch-facts" aria-label="Batch at a glance">
+    <div class="wrap">
+      <ul>{facts.map((f) => <li><Icon name="check" />{f}</li>)}</ul>
+    </div>
+  </section>
+
+  <Section id="why">
+    <Head
+      eyebrow="Why outsource consultant training"
+      title="Every week on the bench| is a week not billed."
+      lead="New hires need months of structured training before they add value on a project. Your senior consultants are the people who could teach them, and they are already on billable work. YECC runs the batch end to end, so your practice gets job-ready juniors without pulling anyone off delivery."
+    />
+    <ol class="journey" aria-label="From hiring to a project">
+      {journey.map((j) => (
+        <li class:list={{ yecc: j.yecc }}>
+          <span>{j.step}</span>
+          {j.yecc && <small>Delivered by YECC</small>}
+        </li>
+      ))}
+      <li class="journey-by" aria-hidden="true"><span>Delivered by YECC</span></li>
+    </ol>
+    <div class="cols c3 journey-points">
+      <Col icon="clock" title="Shorter go-to-project time" text="A fixed 2.5 to 4 month plan instead of open-ended shadowing." />
+      <Col icon="users" title="No load on your delivery team" text="A dedicated YECC trainer and training administrator run the programme." />
+      <Col icon="target" title="A systematic programme" text="A defined syllabus, daily cadence and module-wise reviews, in a largely unstructured training market." />
+    </div>
+  </Section>
+
+  <Section id="tracks" class="bg-tint">
+    <Head
+      eyebrow="Training tracks"
+      title="Pick the Oracle Fusion pillar| your practice is hiring for."
+      lead="Every track starts with Oracle Cloud foundations, then goes module by module through the business process before the screens. Batches can be split into groups that share the common modules."
+    />
+    <div class="grid c3">
+      {tracks.map((t) => (
+        <Card icon={t.icon} title={t.title} tags={[t.pillar]}>
+          <p class="track-suits"><strong>Suits</strong>{t.suits}</p>
+          <ul class="track-modules" aria-label="Modules">{t.modules.map((m) => <li>{m}</li>)}</ul>
+          <p class="track-note">{t.note}</p>
+        </Card>
+      ))}
+    </div>
+  </Section>
+
+  <Section id="approach">
+    <Head
+      eyebrow="Our approach"
+      title="A structured batch,| from kick-off to project-ready."
+      lead="Four stages, planned around your hiring calendar and agreed with your L&D and practice teams before the batch starts."
+    />
+    <ol class="stages">
+      {approach.map((a, i) => (
+        <li>
+          <h3><span>{String(i + 1).padStart(2, "0")}</span>{a.step}</h3>
+          <Checks items={a.bullets} />
+        </li>
+      ))}
+    </ol>
+  </Section>
+
+  <Section id="delivery" class="bg-tint">
+    <Head
+      eyebrow="Delivery models"
+      title="Online, hybrid| or at your office."
+      lead="Every model combines self-paced learning on the YECC portal with live sessions from a dedicated trainer. You choose how much of it happens in your office."
+    />
+    <div class="grid c3 models">
+      {models.map((m) => (
+        <Card icon={m.icon} title={m.title} text={m.text} class={m.featured ? "featured" : undefined}>
+          {m.featured && <span slot="top" class="badge">Most common</span>}
+          <dl class="model-facts">
+            <div><dt>Live cadence</dt><dd>{m.cadence}</dd></div>
+            <div><dt>Best for</dt><dd>{m.best}</dd></div>
+          </dl>
+        </Card>
+      ))}
+    </div>
+    <p class="section-note">Delivered in India and overseas. Batch size and duration are scoped per engagement.</p>
+  </Section>
+
+  <Section id="engagements">
+    <Head
+      eyebrow="Broader scope of training engagements"
+      title="Three kinds of batches,| for three points in your talent plan."
+      lead="Each is a full training programme with its own plan, trainer and reporting."
+    />
+    <div class="grid c3">
+      <Card
+        icon="cap" title="Fresher Consultant Batch" tags={["After campus hiring"]}
+        text="Turns a batch of new graduates, engineers, MBAs or Chartered Accountants into junior functional consultants in 2.5 to 4 months."
+      ><Btn href={FORM}>Discuss a fresher batch</Btn></Card>
+      <Card
+        icon="refresh" title="Lateral Upskilling and Cross-skilling" tags={["For your existing workforce"]}
+        text="Moves bench or lateral consultants into a new Oracle Fusion module or pillar, such as an EBS consultant moving to Fusion, or Finance to SCM."
+      ><Btn href={FORM}>Discuss an upskilling batch</Btn></Card>
+      <Card
+        icon="target" title="Project Ramp-up Batch" tags={["Before a project or support start"]}
+        text="A short, focused batch that prepares a team, including technical staff, on the client’s end-user processes before they join an implementation or AMS engagement."
+      ><Btn href={FORM}>Discuss a ramp-up batch</Btn></Card>
+    </div>
+  </Section>
+
+  <Section id="included" class="bg-tint">
+    <Head
+      eyebrow="Included with every batch"
+      title="The learning stays with your consultants| after the batch ends."
+      lead="Portal access, practice material and SHERPA skills come with every engagement, so your consultants keep learning on the project."
+    />
+    <div class="grid c3">
+      <Card
+        icon="app" title="Lifetime portal access"
+        bullets={[
+          "Every video, quiz and assignment on the YECC portal, available for life",
+          "Email OTP login, so access ends automatically when a consultant leaves your organisation",
+          "Oracle Cloud instance access during the batch and for two weeks after it",
+        ]}
+      />
+      <Card
+        icon="book" title="Practice beyond the syllabus"
+        bullets={[
+          "Business case studies with model answer guidelines, to build business acumen",
+          "Oracle certification preparation questions",
+        ]}
+      />
+      <Card
+        icon="file" title="SHERPA skills for faster deployment"
+        bullets={[
+          "Consultants learn to create user guides in SHERPA, YECC’s documentation platform",
+          "They reach the project able to document configured processes from day one",
+        ]}
+      ><TextLink href="/sherpa">Explore SHERPA</TextLink></Card>
+    </div>
+  </Section>
+
+  <Section id="visibility">
+    <div class="split-illo">
+      <div>
+        <Head
+          eyebrow="Built for L&D and practice heads"
+          title="You see each consultant’s| progress, every week."
+          lead="Success is measured against the agenda agreed at kick-off, with a progress report for every consultant in the batch."
+        />
+        <div class="grid c2 vis-tiles">
+          {visibility.map((v) => <Col icon={v.icon} title={v.title} text={v.text} />)}
+        </div>
+      </div>
+      <div class="batch-dash" aria-hidden="true">
+        <div class="gt-window">
+          <div class="gt-bar"><i></i><i></i><i></i><span>YECC PORTAL</span></div>
+          <div class="gt-body">
+            <div class="bd-head">
+              <div>
+                <p class="gt-title">Fusion Financials batch</p>
+                <p class="bd-sub">Week 6 of 14 · 12 consultants</p>
+              </div>
+              <span class="bd-pill">On track</span>
+            </div>
+            <div class="bd-stats">
+              <div><b>94%</b><span>Attendance</span></div>
+              <div><b>81%</b><span>Avg. score</span></div>
+              <div><b>3 / 7</b><span>Modules done</span></div>
+            </div>
+            <p class="gt-label">Module-wise progress</p>
+            <ul class="bd-rows">
+              {roster.map((r) => (
+                <li>
+                  <span class="bd-who"><strong>{r.who}</strong>{r.module}</span>
+                  <span class="bd-bar"><i style={`width:${r.progress}%`}></i></span>
+                  <span class="bd-score">{r.score}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="faq" class="bg-tint">
+    <div class="faq-split">
+    <Head eyebrow="FAQ" title="Frequently asked questions.">
+      <TextLink href={FORM}>Discuss a training batch</TextLink>
+    </Head>
+    <div class="faq">
+      {faqs.map((f) => (
+        <details class="module">
+          <summary><span><strong>{f.q}</strong></span><Icon name="chevron" /></summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+      <details class="module">
+        <summary><span><strong>I’m an individual, not an SI. Can I join?</strong></span><Icon name="chevron" /></summary>
+        <p>Yes. See our <a href={to("/upcoming-cohorts")}>open fresher cohorts for individuals</a>.</p>
+      </details>
+    </div>
+    </div>
+  </Section>
+
+  <Cta eyebrow="Planned around your hiring calendar" title="Tell us your track, batch size and start date, and we will scope the batch.">
+    <Btn href={FORM}>Discuss a training batch</Btn>
+  </Cta>
+</Layout>
