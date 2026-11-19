@@ -119,7 +119,7 @@
   .header { position: sticky; top: 0; z-index: 50; background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(10px); border-bottom: 1px solid var(--color-line); }
   .header .wrap { display: flex; align-items: center; gap: 1.5rem; min-height: 68px; }
   .logo { flex: none; display: block; }
-  .logo img { height: 27.3px; width: auto; aspect-ratio: 986 / 109; }
+  .logo img { height: 22px; width: auto; aspect-ratio: 986 / 109; }
   .nav { display: flex; align-items: center; gap: 0.25rem; margin-inline: auto; }
   .nav a, .nav button {
     display: flex; align-items: center; gap: 0.3rem;
@@ -143,9 +143,13 @@
   .nav-item:hover button svg, .nav-item.open button svg { transform: rotate(180deg); }
   .header-cta { display: flex; align-items: center; gap: 0.5rem; flex: none; }
   .header-cta .btn { min-height: 40px; padding: 0.4rem 1rem; font-size: 0.9rem; }
-  /* The audience switch hangs below the header like a tab, lined up under the logo ("YourERPCoach.com, for SIs / for Consultants"), so it adds no height to the header. */
-  .header .wrap { position: relative; }
-  .switch { position: absolute; top: 100%; left: var(--gutter); display: flex; gap: 2px; padding: 0 3px 3px; border-radius: 0 0 11px 11px; background: var(--color-tint-2); border: 1px solid var(--color-line); border-top: 0; box-shadow: 0 4px 10px rgba(13, 35, 68, 0.1); }
+  /* The audience switch hangs below the header like a tab, centred under the logo ("YourERPCoach.com, for SIs / for Consultants"), so it adds no height to the header. */
+  /* Brand column: the logo centred in the header row, with a zero-height slot underneath that hangs the tab
+     from the header's bottom edge. The slot still counts towards the column's width, so the column is as wide as the tab. */
+  .brand { flex: none; align-self: stretch; display: grid; grid-template-rows: minmax(0, 1fr) 0; justify-items: center; }
+  .brand .logo { align-self: center; }
+  .switch-slot { display: flex; align-items: flex-start; height: 0; }
+  .switch { display: flex; gap: 2px; padding: 0 3px 3px; border-radius: 0 0 11px 11px; background: var(--color-tint-2); border: 1px solid var(--color-line); border-top: 0; box-shadow: 0 4px 10px rgba(13, 35, 68, 0.1); }
   .switch a { padding: 0.4rem 0.85rem; border-radius: 0 0 8px 8px; font-size: 0.8rem; font-weight: 600; line-height: 1.3; color: var(--color-body); white-space: nowrap; transition: background 0.15s, color 0.15s; }
   .switch a:hover { color: var(--color-blue); }
   .switch a.on { background: var(--color-blue); color: var(--color-white); }
@@ -187,7 +191,6 @@
     .header-panel { display: contents; }
   }
   /* The logo is sized to the same width as the audience tab hanging under it. */
-  @media (max-width: 379px) { .logo img { height: 24px; } }
 
   /* Hero */
   .hero { background: linear-gradient(180deg, var(--color-white) 0%, var(--color-tint-2) 100%); padding-block: clamp(48px, 7vw, 104px); }
@@ -783,7 +786,6 @@
   .footer { border-top: 1px solid var(--color-line); background: var(--color-white); font-size: 0.95rem; }
   .footer-grid { display: grid; gap: 36px; padding-block: clamp(40px, 6vw, 72px); }
   .footer-grid > * { min-width: 0; }
-  .footer .logo img { height: 26px; }
   .footer .about { margin: 1rem 0 0; max-width: 36ch; }
   .badges { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 1.4rem; }
   .badges figure { margin: 0; display: grid; justify-items: center; gap: 0.3rem; }

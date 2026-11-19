@@ -17,12 +17,17 @@ const audiences = [
 ---
 <header class="header">
   <div class="wrap">
-    <nav class="switch" aria-label="Audience">
-      {audiences.map((a) => <a href={to(a.href)} class:list={{ on: a.on }} aria-current={a.on ? "true" : undefined}>{a.label}</a>)}
-    </nav>
-    <a class="logo" href={to("/")} aria-label="YourERPCoach.com home">
-      <Image src={logo} alt="YourERPCoach.Com" width={434} loading="eager" />
-    </a>
+    {/* The logo is centred over the audience tab: both share one column as wide as the tab. */}
+    <div class="brand">
+      <a class="logo" href={to("/")} aria-label="YourERPCoach.com home">
+        <Image src={logo} alt="YourERPCoach.Com" width={434} loading="eager" />
+      </a>
+      <div class="switch-slot">
+        <nav class="switch" aria-label="Audience">
+          {audiences.map((a) => <a href={to(a.href)} class:list={{ on: a.on }} aria-current={a.on ? "true" : undefined}>{a.label}</a>)}
+        </nav>
+      </div>
+    </div>
     <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false">
       <span class="bars"><Icon name="menu" /></span>
       <span class="x"><Icon name="close" /></span>
