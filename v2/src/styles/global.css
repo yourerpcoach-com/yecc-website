@@ -613,7 +613,7 @@
   .cta { padding-block: clamp(40px, 6vw, 80px); background: var(--color-tint); }
   .cta-card { position: relative; display: grid; gap: 28px; align-items: center; overflow: hidden; padding: clamp(28px, 6vw, 72px); background: var(--color-white); border: 1px solid var(--color-line); border-radius: clamp(20px, 3vw, 32px); }
   .cta-card > * { min-width: 0; }
-  .cta-card h2 { max-width: 18ch; }
+  .cta-card h2 { max-width: 18ch; text-wrap: balance; }
   .cta-art { display: none; }
   @media (min-width: 900px) {
     .cta-card { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); }
