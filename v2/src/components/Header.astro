@@ -7,23 +7,19 @@ import { NAV, CONSULTANT_NAV, CONSULTANT_PATHS, LOGIN, FORM, to, isExternal } fr
 const { path } = Astro.props as { path: string };
 // A link to a section of a page (#...) is not the page itself, so it never shows as current.
 const current = (href: string) => !href.includes("#") && href === path;
-// Each audience gets its own menu; a slim bar above the header switches between the two audiences.
+// Each audience gets its own menu; a small tab hanging below the header, under the logo, switches between the two audiences.
 const consultant = CONSULTANT_PATHS.includes(path);
 const nav = consultant ? CONSULTANT_NAV : NAV;
 const audiences = [
-  { label: "YECC for SIs", href: "/", on: !consultant },
-  { label: "YECC for Oracle Consultants", href: "/consultants", on: consultant },
+  { label: "For SIs", href: "/", on: !consultant },
+  { label: "For Consultants & Grads", href: "/consultants", on: consultant },
 ];
 ---
-<div class="topbar">
+<header class="header">
   <div class="wrap">
     <nav class="switch" aria-label="Audience">
       {audiences.map((a) => <a href={to(a.href)} class:list={{ on: a.on }} aria-current={a.on ? "true" : undefined}>{a.label}</a>)}
     </nav>
-  </div>
-</div>
-<header class="header">
-  <div class="wrap">
     <a class="logo" href={to("/")} aria-label="YourERPCoach.com home">
       <Image src={logo} alt="YourERPCoach.Com" width={434} loading="eager" />
     </a>
