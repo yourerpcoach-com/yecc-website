@@ -106,14 +106,74 @@ document.querySelectorAll("[data-scroller]").forEach((root) => {
   build();
 });
 
-// There is no form backend, so submitting opens a pre-filled email to sales.
-const form = document.querySelector("form[data-mailto]");
-if (form) {
-  form.addEventListener("submit", (e) => {
+// Contact form. A link's ?topic= picks the "How can YECC help?" option and a starter message, so the form
+// can be sent as is. With an endpoint set it posts JSON (the option becomes the email subject); until then
+// it opens the visitor's email app with everything filled in. Either way it confirms, then returns home.
+const contactForm = document.querySelector("form[data-contact]");
+if (contactForm) {
+  const select = contactForm.elements.subject;
+  const message = contactForm.elements.message;
+  const topicField = contactForm.elements.topic;
+  const panel = contactForm.parentElement;
+  const done = panel.querySelector(".form-done");
+  const error = contactForm.querySelector(".form-error");
+  let topics = {};
+  try { topics = JSON.parse(document.getElementById("contact-topics").textContent); } catch {}
+
+  // The starter message is replaced when the option changes, unless the visitor has written their own.
+  let starter = message.value;
+  const setStarter = (text) => { if (message.value.trim() === starter.trim() || !message.value.trim()) message.value = text; starter = text; };
+  const topic = topics[new URLSearchParams(location.search).get("topic")];
+  if (topic) {
+    select.value = topic.option;
+    setStarter(topic.message);
+    topicField.value = new URLSearchParams(location.search).get("topic");
+  }
+  select.addEventListener("change", () => setStarter(select.selectedOptions[0].dataset.message || ""));
+
+  const finish = (title, text) => {
+    done.querySelector("[data-done-title]").textContent = title;
+    done.querySelector("[data-done-text]").textContent = text;
+    contactForm.hidden = true;
+    done.hidden = false;
+    done.focus();
+    let left = 8;
+    const count = done.querySelector("[data-countdown]");
+    const timer = setInterval(() => {
+      left -= 1;
+      count.textContent = left;
+      if (left <= 0) { clearInterval(timer); location.href = contactForm.dataset.home; }
+    }, 1000);
+  };
+
+  contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const d = new FormData(form);
-    const body = ["name", "company", "email", "role", "interest", "message"].map((k) => `${k}: ${d.get(k)}`).join("\n");
-    location.href = `mailto:${form.dataset.mailto}?subject=${encodeURIComponent("YECC discussion request")}&body=${encodeURIComponent(body)}`;
+    error.hidden = true;
+    const d = Object.fromEntries(new FormData(contactForm));
+    const payload = { subject: d.subject, name: d.name, company: d.company, email: d.email, role: d.role, message: d.message, topic: d.topic, page: document.referrer || location.href };
+    const first = d.name.trim().split(/\s+/)[0];
+    const endpoint = contactForm.dataset.endpoint;
+
+    if (!endpoint) {
+      const body = [`Name: ${d.name}`, `Company: ${d.company}`, `Work email: ${d.email}`, `Role: ${d.role}`, "", d.message].join("\n");
+      location.href = `mailto:${contactForm.dataset.mailto}?subject=${encodeURIComponent(d.subject)}&body=${encodeURIComponent(body)}`;
+      finish(`Thanks, ${first}. One last step.`, `Your email app has opened with your message ready. Press send there and the YECC team will get back to you at ${d.email}.`);
+      return;
+    }
+
+    const button = contactForm.querySelector("button[type=submit]");
+    button.disabled = true;
+    button.textContent = "Sending…";
+    try {
+      const res = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      if (!res.ok) throw new Error(String(res.status));
+      finish(`Thank you, ${first}. Your message is on its way.`, `The YECC team will review your note about “${d.subject}” and get back to you at ${d.email}.`);
+    } catch {
+      error.textContent = `Sorry, your message could not be sent. Please try again, or email us at ${contactForm.dataset.mailto}.`;
+      error.hidden = false;
+      button.disabled = false;
+      button.textContent = "Send message";
+    }
   });
 }
 

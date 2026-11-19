@@ -8,9 +8,10 @@ import Checks from "../components/Checks.astro";
 import Col from "../components/Col.astro";
 import Card from "../components/Card.astro";
 import SherpaPhases from "../components/SherpaPhases.astro";
+import PilotSummit from "../components/PilotSummit.astro";
 import Cta from "../components/Cta.astro";
 import Video from "../components/Video.astro";
-import { FORM } from "../lib/site";
+import { contact } from "../lib/contact";
 
 // The three steps SHERPA covers, each with what YECC produces or runs at that step.
 const flow = [
@@ -146,20 +147,21 @@ const pilot = [
           title="See the value first,| with no financial commitment."
           lead="YECC offers an executive pilot focused on Oracle Fusion self-service adoption, the area with the highest user volume and support demand."
         />
-        <div class="btns"><Btn href={FORM} arrow>Discuss a SHERPA pilot</Btn></div>
+        <ol class="pilot-list">
+          {pilot.map((item, i) => (
+            <li>
+              <span class="pilot-num">{String(i + 1).padStart(2, "0")}</span>
+              <div><h3>{item.title}</h3><p>{item.text}</p></div>
+            </li>
+          ))}
+        </ol>
+        <div class="btns"><Btn href={contact("sherpa")} arrow>Discuss a SHERPA pilot</Btn></div>
       </div>
-      <ol class="pilot-list">
-        {pilot.map((item, i) => (
-          <li>
-            <span class="num">{String(i + 1).padStart(2, "0")}</span>
-            <div><h3>{item.title}</h3><p>{item.text}</p></div>
-          </li>
-        ))}
-      </ol>
+      <PilotSummit />
     </div>
   </Section>
 
   <Cta eyebrow="See SHERPA in action" title="See how SHERPA can power your user enablement.">
-    <Btn href={FORM} arrow>Discuss a SHERPA pilot</Btn>
+    <Btn href={contact("sherpa")} arrow>Discuss a SHERPA pilot</Btn>
   </Cta>
 </Layout>

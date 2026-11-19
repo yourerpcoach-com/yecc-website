@@ -9,7 +9,7 @@ import Checks from "../components/Checks.astro";
 import Chips from "../components/Chips.astro";
 import Cta from "../components/Cta.astro";
 import LogoBand from "../components/LogoBand.astro";
-import { FORM } from "../lib/site";
+import { contact } from "../lib/contact";
 
 const steps = [
   {
@@ -50,7 +50,7 @@ const figures = [
     title="Experienced Oracle talent,| when your projects need it."
     lead="Trusted community of 5,000+ Oracle Consultants across various tracks and modules."
   >
-    <Btn href={FORM}>Share a resource requirement</Btn>
+    <Btn href={contact("resources")}>Share a resource requirement</Btn>
     <Btn href="#how-it-works" ghost>See how it works</Btn>
   </Hero>
 
@@ -104,6 +104,6 @@ const figures = [
   </Section>
 
   <Cta eyebrow="Need Oracle consultants?" title="Tell us the module, the role and the start date, and we will share profiles.">
-    <Btn href={FORM}>Share a resource requirement</Btn>
+    <Btn href={contact("resources")}>Share a resource requirement</Btn>
   </Cta>
 </Layout>

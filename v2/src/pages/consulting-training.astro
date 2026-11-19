@@ -10,7 +10,8 @@ import Checks from "../components/Checks.astro";
 import Cta from "../components/Cta.astro";
 import Icon from "../components/Icon.astro";
 import TextLink from "../components/TextLink.astro";
-import { FORM, to } from "../lib/site";
+import { to } from "../lib/site";
+import { contact } from "../lib/contact";
 
 // SI-only page for the Consulting Training service line. Individual fresher cohorts live on the
 // "For Consultants & Grads" side; this page links to them once, from the FAQ.
@@ -28,19 +29,19 @@ const journey = [
 
 const tracks = [
   {
-    icon: "trend", title: "Oracle Fusion Financials", pillar: "Finance",
+    icon: "trend", title: "Oracle Fusion Financials",
     suits: "Commerce, finance and Chartered Accountant hires",
-    modules: ["Common Basics", "General Ledger", "Accounts Payable", "Accounts Receivable", "Fixed Assets", "Cash Management", "Common Advanced"],
+    modules: ["Common Basics", "General Ledger", "Payables", "Receivables", "Fixed Assets", "Cash Management", "Common Advanced"],
     optional: "Expenses, FAH, Advanced Collections, Risk Management, RMCS",
   },
   {
-    icon: "layers", title: "Oracle Fusion SCM", pillar: "Supply Chain (SCM)",
+    icon: "layers", title: "Oracle Fusion SCM",
     suits: "Engineering, operations and MBA hires, and Supply Chain Domain Experts",
     modules: ["Common Basics", "SCM Basics", "SSP", "Purchasing", "Sourcing", "SQM", "Inventory", "PDH", "Order Management"],
     optional: "Procurement Contracts, Manufacturing, Planning, Quality",
   },
   {
-    icon: "users", title: "Oracle Fusion HCM", pillar: "Human Capital (HCM)",
+    icon: "users", title: "Oracle Fusion HCM",
     suits: "HR, MBA and technical hires moving into functional work",
     modules: ["Common Basics", "Core HR", "Absence", "Talent", "Recruitment", "Compensation", "Benefits", "Learn"],
     optional: "Global and Regional Payroll, OTL, HR Helpdesk",
@@ -114,9 +115,9 @@ const visibility = [
 
 // Illustration for the visibility section: a batch progress view as the portal dashboard shows it.
 const roster = [
-  { who: "Consultant A", module: "Accounts Payable", progress: 92, score: "88%", attendance: "100%" },
-  { who: "Consultant B", module: "Accounts Payable", progress: 84, score: "81%", attendance: "96%" },
-  { who: "Consultant C", module: "Accounts Receivable", progress: 76, score: "79%", attendance: "94%" },
+  { who: "Consultant A", module: "Payables", progress: 92, score: "88%", attendance: "100%" },
+  { who: "Consultant B", module: "Payables", progress: 84, score: "81%", attendance: "96%" },
+  { who: "Consultant C", module: "Receivables", progress: 76, score: "79%", attendance: "94%" },
   { who: "Consultant D", module: "General Ledger", progress: 64, score: "72%", attendance: "90%" },
 ];
 
@@ -138,7 +139,7 @@ const faqs = [
     title="You hire the graduates.| We make them project-ready."
     lead="Structured Oracle Fusion Finance, SCM and HCM batches for your new hires and bench consultants. Hybrid self-paced and live training, module-wise assessments, and progress reports for your L&D and practice teams."
   >
-    <Btn href={FORM}>Discuss a training batch</Btn>
+    <Btn href={contact("training")}>Discuss a training batch</Btn>
     <Btn href="#approach" ghost>See how a batch runs</Btn>
   </Hero>
 
@@ -176,9 +177,9 @@ const faqs = [
       title="Pick the Oracle Fusion pillar| your practice is hiring for."
       lead="Every track starts with Oracle Cloud foundations, then goes module by module through the business process before the screens. Batches can be split into groups that share the common modules."
     />
-    <div class="grid c3">
+    <div class="grid c3 tracks">
       {tracks.map((t) => (
-        <Card icon={t.icon} title={t.title} tags={[t.pillar]}>
+        <Card icon={t.icon} title={t.title}>
           <p class="track-suits"><strong>Suits</strong>{t.suits}</p>
           <ul class="track-modules" aria-label="Modules">{t.modules.map((m) => <li>{m}</li>)}</ul>
           <p class="track-note"><strong>Optional advanced modules</strong>{t.optional}</p>
@@ -233,15 +234,15 @@ const faqs = [
       <Card
         icon="cap" title="Fresher Consultant Batch" tags={["After campus hiring"]}
         text="Turns a batch of new graduates, engineers, MBAs or Chartered Accountants into junior functional consultants in 2.5 to 4 months."
-      ><Btn href={FORM}>Discuss a fresher batch</Btn></Card>
+      ><Btn href={contact("training-fresher")}>Discuss a fresher batch</Btn></Card>
       <Card
         icon="refresh" title="Lateral Upskilling and Cross-skilling" tags={["For your existing workforce"]}
         text="Moves bench or lateral consultants into a new Oracle Fusion module or pillar, such as an EBS consultant moving to Fusion, or Finance to SCM."
-      ><Btn href={FORM}>Discuss an upskilling batch</Btn></Card>
+      ><Btn href={contact("training-upskilling")}>Discuss an upskilling batch</Btn></Card>
       <Card
         icon="target" title="Project Ramp-up Batch" tags={["Before a project or support start"]}
         text="A short, focused batch that prepares a team, including technical staff, on the client’s end-user processes before they join an implementation or AMS engagement."
-      ><Btn href={FORM}>Discuss a ramp-up batch</Btn></Card>
+      ><Btn href={contact("training-rampup")}>Discuss a ramp-up batch</Btn></Card>
     </div>
   </Section>
 
@@ -324,7 +325,7 @@ const faqs = [
   <Section id="faq" class="bg-tint">
     <div class="faq-split">
     <Head eyebrow="FAQ" title="Frequently asked questions.">
-      <TextLink href={FORM}>Discuss a training batch</TextLink>
+      <TextLink href={contact("training")}>Discuss a training batch</TextLink>
     </Head>
     <div class="faq">
       {faqs.map((f) => (
@@ -342,6 +343,6 @@ const faqs = [
   </Section>
 
   <Cta eyebrow="Planned around your hiring calendar" title="Tell us your track, batch size and start date, and we will scope the batch.">
-    <Btn href={FORM}>Discuss a training batch</Btn>
+    <Btn href={contact("training")}>Discuss a training batch</Btn>
   </Cta>
 </Layout>

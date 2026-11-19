@@ -1,63 +1,96 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Btn from "../components/Btn.astro";
 import Head from "../components/Head.astro";
-import Hero from "../components/Hero.astro";
 import Section from "../components/Section.astro";
+import Card from "../components/Card.astro";
 import Checks from "../components/Checks.astro";
-import { EMAIL } from "../lib/site";
-const options = [
-  "I need enablement support for an Oracle customer engagement",
-  "I want to explore SHERPA for documentation and learning",
-  "I am planning corporate fresher training for an SI team",
-  "I want to join an individual Oracle training cohort",
-  "I am not sure yet, please guide me",
+import Tone from "../components/Tone.astro";
+import Icon from "../components/Icon.astro";
+import { EMAIL, PHONE, to } from "../lib/site";
+import { OPTIONS, TOPICS, CONTACT_ANCHOR, CONTACT_ENDPOINT } from "../lib/contact";
+
+// Central Contact page for the "For SIs" site. Every call to action links here with a topic
+// (?topic=...), which pre-selects "How can YECC help?" and fills in a starter message.
+const general = OPTIONS.find((o) => o.label === "General enquiry")!;
+
+const services = [
+  { icon: "users", title: "End User Training (EUTaaS)", href: "/eutaas", text: "Role-based end user training for your Oracle Cloud clients, between UAT sign-off and go-live." },
+  { icon: "file", title: "Documentation-as-a-Service", href: "/daas", text: "Client-specific process guides and videos, signed off by your consultants and kept current in SHERPA." },
+  { icon: "target", title: "Resource Augmentation", href: "/resource-augmentation", text: "Experienced Oracle consultants from a trusted network of 5,000+, deployed to your projects quickly." },
+  { icon: "cap", title: "Consulting Training", href: "/consulting-training", text: "Structured Oracle Fusion batches that make your new hires and bench consultants project-ready." },
+  { icon: "monitor", title: "SHERPA platform", href: "/sherpa", text: "YECC’s platform for guides, process videos and in-app learning, with a complimentary executive pilot." },
 ];
 ---
 <Layout
   path="/book-a-discussion"
-  title="Book an Oracle SI Partnership Discussion | YECC"
-  description="Discuss Oracle Fusion implementation enablement, AMS, DaaS, SHERPA, or corporate training with YECC."
+  title="Contact YECC | User Enablement Partner for Oracle SIs"
+  description="Contact YECC about End User Training, Documentation-as-a-Service, Oracle resource augmentation, consultant training batches or a SHERPA pilot for your Oracle Cloud clients."
 >
-  <Hero
-    eyebrow="Start a partnership conversation"
-    title="Tell us where user enablement fits| into your Oracle delivery."
-    lead="Share your engagement context and the areas where you need support. YECC can help with implementation enablement, AMS, Documentation as a Service, SHERPA, and consultant training."
-  >
-    <Btn href="#discussion-form">Complete the form</Btn>
-    <Btn href={`mailto:${EMAIL}`} ghost>Email {EMAIL}</Btn>
-  </Hero>
+  <section class="hero contact-hero" id={CONTACT_ANCHOR}>
+    <div class="wrap">
+      <div class="hero-grid split">
+        <div>
+          <p class="eyebrow">Contact YECC</p>
+          <h1><Tone text="Tell us what you need.| We’ll take it from there." /></h1>
+          <p class="lead">Whether it is End User Training, client documentation, experienced Oracle consultants, a training batch for your new hires or a SHERPA pilot, one message reaches the right YECC team.</p>
+          <Checks items={[
+            "The topic is already chosen for you; change it if you need to",
+            "Add any detail you have: client, modules, users, dates",
+            "The right YECC specialist follows up with you directly",
+          ]} />
+          <ul class="contact-direct">
+            <li><Icon name="mail" /><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
+            <li><Icon name="phone" /><a href={`tel:${PHONE.replace(/\s/g, "")}`}>{PHONE}</a></li>
+          </ul>
+        </div>
 
-  <Section id="discussion-form">
-    <div class="split items-start">
-      <div>
-        <Head
-          eyebrow="A focused first conversation"
-          title="Let's discuss| your Oracle enablement needs."
-          lead="Tell us what you're working on. We'll review your requirements and connect you with the right people for a focused discussion."
-        />
-        <Checks items={["Implementation, AMS, or DaaS requirements", "Target users, roles, and timelines", "Direct follow-up from the YECC team"]} />
+        <div class="contact-panel">
+          <form class="form" data-contact data-endpoint={CONTACT_ENDPOINT} data-mailto={EMAIL} data-home={to("/")}>
+            <div class="row">
+              <label>Name<input type="text" name="name" placeholder="Enter your name" autocomplete="name" required /></label>
+              <label>Company<input type="text" name="company" placeholder="Enter your company name" autocomplete="organization" required /></label>
+            </div>
+            <div class="row">
+              <label>Work email<input type="email" name="email" placeholder="Enter your work email" autocomplete="email" required /></label>
+              <label>Role<input type="text" name="role" placeholder="Enter your role" autocomplete="organization-title" required /></label>
+            </div>
+            <label>How can YECC help?
+              <select name="subject" required>
+                {OPTIONS.map((o) => <option value={o.label} data-message={o.message} selected={o === general}>{o.label}</option>)}
+              </select>
+            </label>
+            <label>Your message
+              <textarea name="message" rows="5" required placeholder="Share the client, modules, users, timeline or training path you have in mind">{general.message}</textarea>
+            </label>
+            <input type="hidden" name="topic" value="general" />
+            <p class="form-error" role="alert" hidden></p>
+            <button class="btn" type="submit">Send message</button>
+          </form>
+
+          <div class="form-done" role="status" tabindex="-1" hidden>
+            <span class="form-done-icon"><Icon name="check" /></span>
+            <h2 data-done-title>Thank you. Your message is on its way.</h2>
+            <p data-done-text>The YECC team will review it and get back to you shortly.</p>
+            <p class="form-done-redirect">Taking you to the home page in <b data-countdown>8</b> seconds. <a href={to("/")}>Go now</a></p>
+          </div>
+        </div>
       </div>
-      <form class="form" data-mailto={EMAIL}>
-        <div class="row">
-          <label>Name<input type="text" name="name" placeholder="Enter your name" autocomplete="name" required /></label>
-          <label>Company<input type="text" name="company" placeholder="Enter your company name" autocomplete="organization" required /></label>
-        </div>
-        <div class="row">
-          <label>Work email<input type="email" name="email" placeholder="Enter your work email" autocomplete="email" required /></label>
-          <label>Role<input type="text" name="role" placeholder="Enter your role" autocomplete="organization-title" required /></label>
-        </div>
-        <label>How can YECC help?
-          <select name="interest" required>
-            <option value="">Choose the closest option</option>
-            {options.map((o) => <option>{o}</option>)}
-          </select>
-        </label>
-        <label>Tell us what you are working on
-          <textarea name="message" rows="6" required placeholder="Share the engagement, audience, timeline, or training path you have in mind..."></textarea>
-        </label>
-        <button class="btn" type="submit">Submit</button>
-      </form>
+    </div>
+  </section>
+
+  <Section id="services" class="bg-tint">
+    <Head
+      eyebrow="How YECC can help"
+      title="One partner for user enablement| across your Oracle delivery."
+      lead="Not sure which service fits? Pick “General enquiry” above, or read more about each one first."
+    />
+    <div class="grid c3 contact-services">
+      {services.map((s) => <Card icon={s.icon} title={s.title} text={s.text} href={s.href} />)}
     </div>
   </Section>
+
+  {/* Topic data for the form script: which option and starter message each ?topic= opens. */}
+  <script type="application/json" id="contact-topics" set:html={JSON.stringify(
+    Object.fromEntries(Object.entries(TOPICS).map(([k, t]) => [k, { option: t.option, message: t.message ?? OPTIONS.find((o) => o.label === t.option)!.message }]))
+  )} />
 </Layout>

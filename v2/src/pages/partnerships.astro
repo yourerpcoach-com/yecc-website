@@ -7,7 +7,7 @@ import Section from "../components/Section.astro";
 import Card from "../components/Card.astro";
 import Chips from "../components/Chips.astro";
 import Cta from "../components/Cta.astro";
-import { FORM } from "../lib/site";
+import { contact } from "../lib/contact";
 ---
 <Layout
   path="/partnerships"
@@ -19,7 +19,7 @@ import { FORM } from "../lib/site";
     title="Extend your delivery team| with a dedicated user enablement workstream."
     lead="YECC partners with Oracle System Integrators across Oracle Fusion implementations and AMS engagements, providing documentation, training, and SHERPA through a dedicated enablement workstream."
   >
-    <Btn href={FORM}>Contact the YECC Team</Btn>
+    <Btn href={contact("partnership")}>Contact the YECC Team</Btn>
   </Hero>
 
   <Section>
@@ -57,6 +57,6 @@ import { FORM } from "../lib/site";
   </Section>
 
   <Cta eyebrow="Ready to strengthen your delivery?" title="Add a dedicated enablement workstream to your Oracle delivery.">
-    <Btn href={FORM}>Contact the YECC Team</Btn>
+    <Btn href={contact("partnership")}>Contact the YECC Team</Btn>
   </Cta>
 </Layout>

@@ -1,9 +1,11 @@
 // Shared site facts and URL helpers.
+import { contact } from "./contact";
 
 export const SITE_NAME = "YourERPCoach";
 export const TAGLINE = "Oracle Cloud ERP enablement, documentation & training for System Integrators and consultants.";
 export const LOGIN = "https://www.yourerpcoach.com/";
-export const FORM = "/book-a-discussion#discussion-form";
+/** The Contact page with no particular topic. Buttons should prefer contact("<topic>") from ./contact. */
+export const FORM = contact("general");
 export const VIDEO = "https://cdn.ploy.ai/793769cf-b7a4-4bc2-a4e6-490b75f7c3cc/user/bbb32fc3-yecc-sherpa-pitch-video.mp4";
 export const EMAIL = "sales@yecc.tech";
 export const PHONE = "+91 99208 15714";
@@ -13,8 +15,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 /** Internal link: adds the deploy base path and the trailing slash every page URL uses. */
 export function to(href: string): string {
   if (!href.startsWith("/")) return href;
-  const [path, hash] = href.split("#");
-  return base + (path.endsWith("/") ? path : path + "/") + (hash ? "#" + hash : "");
+  const [rest, hash] = href.split("#");
+  const [path, query] = rest.split("?");
+  return base + (path.endsWith("/") ? path : path + "/") + (query ? "?" + query : "") + (hash ? "#" + hash : "");
 }
 
 export const isExternal = (href: string) => /^https?:/.test(href);
@@ -24,8 +27,8 @@ export type NavItem = { label: string; href: string; children?: { label: string;
 export const APP = "/consultants#get-the-app";
 export const APP_STORE = "https://apps.apple.com/in/app/yecc/id6738484557";
 export const PLAY_STORE = "https://play.google.com/store/apps/details?id=com.yourerpcoach.app&hl=en_IN";
-/** Cohort registration request form. Until the Google Form link is in, this points at the discussion form. */
-export const COHORT_FORM = FORM;
+/** Cohort registration request. Until the Google Form link is in, this opens the Contact page on the cohort topic. */
+export const COHORT_FORM = contact("cohort");
 export const ECAMPUS = "https://ecampus.yourerpcoach.com";
 
 // The site has two audiences, each with its own menu. A tab under the logo switches between them.

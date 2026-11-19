@@ -5,10 +5,10 @@ import { Image } from "astro:assets";
 import Icon from "./Icon.astro";
 import Btn from "./Btn.astro";
 import Tone from "./Tone.astro";
-import { FORM } from "../lib/site";
 import manuals from "../assets/sherpa/author-manuals.png";
 import videos from "../assets/sherpa/author-process-videos.png";
 import byRole from "../assets/sherpa/deliver-by-role.png";
+import { contact } from "../lib/contact";
 
 const items = [
   {
@@ -47,7 +47,7 @@ const items = [
       ))}
     </div>
     <div class="btns">
-      <Btn href={FORM} arrow>Discuss a SHERPA pilot</Btn>
+      <Btn href={contact("sherpa")} arrow>Discuss a SHERPA pilot</Btn>
       <Btn href="/sherpa" ghost>Explore SHERPA</Btn>
     </div>
   </div>

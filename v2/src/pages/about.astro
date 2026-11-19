@@ -4,6 +4,7 @@ import Btn from "../components/Btn.astro";
 import Section from "../components/Section.astro";
 import Cta from "../components/Cta.astro";
 import paragraphs from "../data/about.json";
+import { contact } from "../lib/contact";
 ---
 <Layout
   path="/about"
@@ -18,6 +19,6 @@ import paragraphs from "../data/about.json";
     </div>
   </Section>
   <Cta eyebrow="Start a conversation" title="Tell us where user enablement fits into your Oracle delivery.">
-    <Btn href="/book-a-discussion">Contact the YECC Team</Btn>
+    <Btn href={contact("partnership")}>Contact the YECC Team</Btn>
   </Cta>
 </Layout>

@@ -8,7 +8,8 @@ import SherpaPhases from "../components/SherpaPhases.astro";
 import Cta from "../components/Cta.astro";
 import SherpaShowcase from "../components/SherpaShowcase.astro";
 import LogoBand from "../components/LogoBand.astro";
-import { FORM, to } from "../lib/site";
+import { to } from "../lib/site";
+import { contact } from "../lib/contact";
 const tiles = [
   { icon: "layers", label: "EUT-as-a-Service", href: "/eutaas" },
   { icon: "file", label: "Documentation-as-a-Service", href: "/daas" },
@@ -32,7 +33,7 @@ const tiles = [
         {tiles.map((t) => <a href={to(t.href)}><Icon name={t.icon} /><span>{t.label}</span></a>)}
       </div>
       <div class="btns">
-        <Btn href={FORM}>Explore SI Partnership</Btn>
+        <Btn href={contact("partnership")}>Explore SI Partnership</Btn>
         <Btn href="/sherpa" ghost>See how SHERPA works</Btn>
       </div>
     </div>
@@ -52,6 +53,6 @@ const tiles = [
   <Section id="sherpa" class="bg-navy"><SherpaShowcase /></Section>
 
   <Cta eyebrow="Ready to strengthen your delivery?" title="Add a dedicated enablement workstream to your Oracle delivery.">
-    <Btn href={FORM}>Contact the YECC Team</Btn>
+    <Btn href={contact("partnership")}>Contact the YECC Team</Btn>
   </Cta>
 </Layout>

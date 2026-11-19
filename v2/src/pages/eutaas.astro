@@ -7,7 +7,7 @@ import Section from "../components/Section.astro";
 import Card from "../components/Card.astro";
 import Checks from "../components/Checks.astro";
 import Cta from "../components/Cta.astro";
-import { FORM } from "../lib/site";
+import { contact } from "../lib/contact";
 
 // Implementation lifecycle. Cutover is highlighted, with YECC's EUT running alongside it.
 const lifecycle = ["HLA", "CRP", "KUT", "UAT sign-off", "Cutover Activities", "Go-live"];
@@ -61,7 +61,7 @@ const approach = [
     title="Outsource End User Training.| Let your team focus on go-live."
     lead="YECC runs role-based End User Training for your Oracle Cloud clients, while your consultants focus on data migration, production configuration and go live."
   >
-    <Btn href={FORM}>Discuss an EUTaaS engagement</Btn>
+    <Btn href={contact("eutaas")}>Discuss an EUTaaS engagement</Btn>
     <Btn href="#approach" ghost>See our approach</Btn>
   </Hero>
 
@@ -127,15 +127,15 @@ const approach = [
       <Card
         icon="target" title="Pre-Implementation Orientation" tags={["Before HLA and CRP"]}
         text="Client key users learn the vanilla Oracle Cloud process flows beforehand, so HLAs and CRPs run more smoothly."
-      ><Btn href={FORM}>Discuss an Orientation engagement</Btn></Card>
+      ><Btn href={contact("eutaas-orientation")}>Discuss an Orientation engagement</Btn></Card>
       <Card
         icon="cap" title="Standard End User Training" tags={["After UAT, before go-live"]}
         text="Role-based sessions on the signed-off solution, so every end user is ready on day one."
-      ><Btn href={FORM}>Discuss Standard EUT engagement</Btn></Card>
+      ><Btn href={contact("eutaas-standard")}>Discuss Standard EUT engagement</Btn></Card>
       <Card
         icon="refresh" title="Refresher EUT" tags={["After go-live"]}
         text="Refresher sessions for existing users and new joiners as processes settle; also covering the quarterly upgrade-led changes."
-      ><Btn href={FORM}>Discuss Refresher EUT engagement</Btn></Card>
+      ><Btn href={contact("eutaas-refresher")}>Discuss Refresher EUT engagement</Btn></Card>
     </div>
   </Section>
 
@@ -165,6 +165,6 @@ const approach = [
   </Section>
 
   <Cta eyebrow="Custom-built for every project" title="Tell us about your client and timeline, and we will scope the EUT.">
-    <Btn href={FORM}>Discuss an EUTaaS engagement</Btn>
+    <Btn href={contact("eutaas")}>Discuss an EUTaaS engagement</Btn>
   </Cta>
 </Layout>
