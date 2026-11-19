@@ -6,7 +6,8 @@ import Hero from "../components/Hero.astro";
 import Section from "../components/Section.astro";
 import Checks from "../components/Checks.astro";
 import Col from "../components/Col.astro";
-import Chips from "../components/Chips.astro";
+import Card from "../components/Card.astro";
+import SherpaPhases from "../components/SherpaPhases.astro";
 import Cta from "../components/Cta.astro";
 import Video from "../components/Video.astro";
 import { FORM } from "../lib/site";
@@ -38,6 +39,22 @@ const flow = [
     ],
   },
 ];
+
+// What the complimentary executive pilot includes.
+const pilot = [
+  {
+    title: "Free transformation of up to 25 self-service processes",
+    text: "Convert your client’s existing static SOPs, PDFs and user manuals into modern training assets (videos, interactive web guides and in-app walkthroughs), covering up to 25 high-usage employee self-service flows at no cost.",
+  },
+  {
+    title: "Redwood-ready documentation and guidance",
+    text: "Rebuild learning assets to reflect Oracle’s latest Redwood UX, so users are guided correctly on redesigned pages, new navigation patterns and changed interaction models.",
+  },
+  {
+    title: "Multi-format, in-app delivery for immediate adoption",
+    text: "Deliver the transformed documentation directly where work happens, as videos, web-based guides and contextual in-app guidance, reducing dependency on HR and IT support teams from day one.",
+  },
+];
 ---
 <Layout
   path="/sherpa"
@@ -49,7 +66,7 @@ const flow = [
     title="Create once. Govern centrally.| Deliver learning by role."
     lead="SHERPA is YECC's IP platform for creating user guides, process videos, and in-app learning, delivering role-based end user training, and keeping enablement available beyond go-live."
   >
-    <Btn href={FORM} arrow>Discuss a SHERPA pilot</Btn>
+    <Btn href="#pilot" arrow>Discuss a SHERPA pilot</Btn>
     <Video slot="media" />
   </Hero>
 
@@ -98,14 +115,48 @@ const flow = [
     </ol>
   </Section>
 
+  <Section id="authoring">
+    <Head
+      eyebrow="Author"
+      title="Turn configured processes| into governed user knowledge."
+      lead="SHERPA helps automatically capture your client’s Oracle instance screens through a browser extension, write contextual navigational instructions and business explanations for every step using YECC’s purpose-built AI agents, and transform this same authored content into multiple delivery formats."
+    />
+    <div class="grid c4">
+      <Card icon="file" title="User guides" text="Step-by-step text guides that can be embedded anywhere, or downloaded as Word Docs, PDFs or SCORM packages." />
+      <Card icon="video" title="Process videos" text="Natural-sounding visual walkthroughs, in your chosen language, voice and accent." />
+      <Card icon="target" title="Interactive simulations" text="Click-through videos that let users practise the system processes before going to their Oracle Cloud instance." />
+      <Card icon="monitor" title="In-app learning" text="SHERPA User Extension sits on top of your client’s Oracle Cloud instance, and guides users while they do the processes." />
+    </div>
+  </Section>
+
   <Section>
     <Head
       eyebrow="One connected enablement system"
       title="SHERPA sits at the centre| of every YECC engagement."
       lead="Whether the engagement begins during implementation or AMS, the same governed manuals, process videos, learning paths, and portal access move from creation to delivery and remain current after go-live."
-    >
-      <Chips items={["Manuals", "Process videos", "Learning paths", "Portal access"]} />
-    </Head>
+    />
+    <SherpaPhases />
+  </Section>
+
+  <Section id="pilot" class="bg-navy">
+    <div class="split-illo pilot">
+      <div>
+        <Head
+          eyebrow="Complimentary executive pilot"
+          title="See the value first,| with no financial commitment."
+          lead="YECC offers an executive pilot focused on Oracle Fusion self-service adoption, the area with the highest user volume and support demand."
+        />
+        <div class="btns"><Btn href={FORM} arrow>Discuss a SHERPA pilot</Btn></div>
+      </div>
+      <ol class="pilot-list">
+        {pilot.map((item, i) => (
+          <li>
+            <span class="num">{String(i + 1).padStart(2, "0")}</span>
+            <div><h3>{item.title}</h3><p>{item.text}</p></div>
+          </li>
+        ))}
+      </ol>
+    </div>
   </Section>
 
   <Cta eyebrow="See SHERPA in action" title="See how SHERPA can power your user enablement.">

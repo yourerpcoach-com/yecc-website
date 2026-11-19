@@ -1,0 +1,28 @@
+---
+import Card from "./Card.astro";
+// The two points where an SI brings SHERPA in: during implementation and during support (AMS).
+// Shared by the home page and the SHERPA page so both always show the same cards.
+---
+<div class="grid c2">
+  <Card
+    title="SHERPA during Implementation" icon="layers" num="01" href="/partnerships#implementation-enablement"
+    text="Bring YECC into your implementation workstream to manage documentation and user enablement from project kick-off through go-live."
+    bullets={[
+      "**Early enablement of client users** through the access to vanilla process guides and videos",
+      "**Capture client’s configured processes** as soon as the project configurations are approved",
+      "**Prepare key users** before the wider end-user rollout through client-specific training documentation and videos",
+      "**Deliver role-based** guides, process videos, and **training** for client’s end users",
+      "Launch **SHERPA as the user knowledge hub** (for training delivery as well as authoring for maintenance) for go-live",
+    ]}
+  />
+  <Card
+    title="SHERPA during Support" icon="refresh" num="02" href="/partnerships#ams-enablement"
+    text="Extend your post-go-live support/ AMS services with ongoing user enablement, refresher training, and updated documentation as the processes evolve with quarterly Oracle Cloud ERP releases."
+    bullets={[
+      "**Upload the existing static user guide Word docs or PDFs** to SHERPA to convert them into dynamic, maintainable guides and videos",
+      "**Update the client-specific guides and process videos** in the easiest possible way: change only what needs to be fixed, and it gets published automatically",
+      "**Deliver training** for affected roles and users, as the processes, workflows and screens evolve",
+      "**Keep current guidance always available** for new joiners and existing employees through SHERPA portal",
+    ]}
+  />
+</div>

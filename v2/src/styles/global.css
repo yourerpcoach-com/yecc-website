@@ -297,6 +297,14 @@
     .lifecycle li.eut { grid-column: 5; grid-row: 2; }
   }
 
+  /* SHERPA: complimentary pilot, the offer on the left and its three inclusions as numbered cards on the right */
+  .pilot-list { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+  .pilot-list li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px; padding: clamp(20px, 2.6vw, 28px); border-radius: var(--radius); background: var(--color-white); box-shadow: 0 30px 60px -40px rgba(0, 0, 0, 0.7); }
+  .pilot-list .num { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--color-tint-2); font-size: 1.1rem; }
+  .pilot-list h3 { margin: 0 0 0.4rem; font-size: 1.08rem; line-height: 1.35; color: var(--color-ink); }
+  .pilot-list p { margin: 0; font-size: 0.95rem; color: var(--color-body); }
+  .pilot .btns { margin-top: 1.75rem; }
+
   /* Consulting Training: hiring-to-project journey, with the three steps YECC runs bracketed underneath */
   .journey { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
   .journey li { display: flex; flex-direction: column; justify-content: center; gap: 0.3rem; min-width: 0; padding: 14px 18px; border-radius: 12px; background: var(--color-tint-2); font-weight: 600; color: var(--color-ink); }
