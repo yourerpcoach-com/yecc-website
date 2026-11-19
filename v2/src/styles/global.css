@@ -362,7 +362,7 @@
   .faq .module a { color: var(--color-blue); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
 
   /* EUTaaS: four approach stages, chevron headers in deepening blues */
-  .stages { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
+  .stages { display: grid; gap: 28px; margin: 0; padding: 0; list-style: none; }
   .stages > li { min-width: 0; }
   .stages h3 { display: flex; align-items: center; gap: 0.6rem; margin: 0 0 1rem; padding: 14px 20px; border-radius: 12px; background: var(--color-blue-dark); color: var(--color-white); font-size: 1.1rem; }
   .stages li:nth-child(2) h3 { background: var(--color-blue); }
@@ -376,6 +376,13 @@
     .stages h3 { border-radius: 0; padding-left: 34px; clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%, 18px 50%); }
     .stages .checks { padding-right: 14px; }
   }
+  /* Three-stage variant (SHERPA): three columns side by side, with a short title under each chevron */
+  @media (min-width: 900px) { .stages.c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 6px; } }
+  @media (min-width: 900px) and (max-width: 1099px) {
+    .stages.c3 h3 { border-radius: 0; padding-left: 34px; clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%, 18px 50%); }
+    .stages.c3 .checks { padding-right: 14px; }
+  }
+  .stage-title { margin: 0 0 0.9rem; font-size: 1.05rem; font-weight: 600; color: var(--color-ink); }
 
   /* Logo band */
   .band { background: var(--color-navy); color: var(--color-white); padding-block: 28px; }

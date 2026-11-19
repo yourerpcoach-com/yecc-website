@@ -4,12 +4,40 @@ import Btn from "../components/Btn.astro";
 import Head from "../components/Head.astro";
 import Hero from "../components/Hero.astro";
 import Section from "../components/Section.astro";
-import Card from "../components/Card.astro";
+import Checks from "../components/Checks.astro";
 import Col from "../components/Col.astro";
 import Chips from "../components/Chips.astro";
 import Cta from "../components/Cta.astro";
 import Video from "../components/Video.astro";
 import { FORM } from "../lib/site";
+
+// The three steps SHERPA covers, each with what YECC produces or runs at that step.
+const flow = [
+  {
+    id: "author", step: "Author", title: "Capture configured processes",
+    bullets: [
+      "**User guides:** role-based guidance built around configured business processes",
+      "**Process videos:** visual walkthroughs users can revisit at the point of need",
+      "The steps, roles and client-specific context behind each process",
+    ],
+  },
+  {
+    id: "deliver", step: "Deliver", title: "Assign learning through SHERPA",
+    bullets: [
+      "**Training delivery:** structured key-user and end-user training aligned with the approved content",
+      "**User portal:** a role-based destination for assigned learning and reference materials",
+      "Quizzes, completion tracking and reports for each role",
+    ],
+  },
+  {
+    id: "maintain", step: "Maintain", title: "Keep learning content current",
+    bullets: [
+      "Guides and videos updated for quarterly Oracle releases",
+      "A review and sign-off trail for every change",
+      "Users always see the current version, long after go-live",
+    ],
+  },
+];
 ---
 <Layout
   path="/sherpa"
@@ -45,9 +73,9 @@ import { FORM } from "../lib/site";
       lead="SHERPA turns process-aligned authoring and role-based delivery into stronger user capability, smoother programs, measurable business value, and sustained readiness."
     />
     <div class="cols c4">
-      <Col icon="users" title="Capability" bullets={["Oracle Cloud process understanding", "Confident, role-based users", "Super users and internal experts"]} />
+      <Col icon="users" title="Capability" bullets={["Better Oracle Cloud process understanding", "More confident end users, in the processes their roles need them to perform"]} />
       <Col icon="target" title="Program success" bullets={["Better design decisions", "Higher-quality SIT and UAT", "Fewer defects and less rework", "Faster decision-making"]} />
-      <Col icon="trend" title="Business value" bullets={["Faster user adoption", "Reduced support demand", "Improved productivity"]} />
+      <Col icon="trend" title="Business value" bullets={["Faster user adoption", "Reduced support need for repetitive ‘how to’ queries", "Improved productivity"]} />
       <Col icon="shield" title="Strategic impact" bullets={["Lower transformation risk", "A sustainable operating model", "Release readiness"]} />
     </div>
     <p class="note">Powered by SHERPA as the authoring and delivery system.</p>
@@ -55,25 +83,19 @@ import { FORM } from "../lib/site";
 
   <Section id="how-it-works" class="bg-tint">
     <Head
+      eyebrow="How SHERPA works"
       title="Author → Deliver → Maintain"
       lead="Turn configured process knowledge into practical learning assets, role-based delivery, and continuously updated guidance, all through one connected system."
     />
-    <div class="cols c3">
-      <Col id="author" num="01" label="Author" title="Capture configured processes" />
-      <Col id="deliver" num="02" label="Deliver" title="Assign learning through SHERPA" />
-      <Col id="maintain" num="03" label="Maintain" title="Keep learning content current" />
-    </div>
-    <Head
-      eyebrow="Author"
-      title="Turn configured processes| into governed user knowledge."
-      lead="Capture the steps, decisions, roles, and customer-specific context behind each process so the enablement layer starts with the solution users will actually work with."
-    />
-    <div class="grid c4">
-      <Card id="user-manuals" icon="book" title="User manuals" text="Role-based guidance built around configured business processes." />
-      <Card id="process-videos" icon="video" title="Process videos" text="Visual walkthroughs users can revisit at the point of need." />
-      <Card id="training-delivery" icon="cap" title="Training delivery" text="Structured key-user and end-user training aligned with the approved content." />
-      <Card id="user-portal" icon="monitor" title="User portal" text="A role-based destination for assigned learning and reference materials." />
-    </div>
+    <ol class="stages c3">
+      {flow.map((f, i) => (
+        <li id={f.id}>
+          <h3><span>{String(i + 1).padStart(2, "0")}</span>{f.step}</h3>
+          <p class="stage-title">{f.title}</p>
+          <Checks items={f.bullets} />
+        </li>
+      ))}
+    </ol>
   </Section>
 
   <Section>
