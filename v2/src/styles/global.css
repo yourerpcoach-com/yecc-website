@@ -264,6 +264,16 @@
     .figures dl > div + div { border-left: 0; border-top: 1px solid var(--color-line); padding-top: 28px; }
     .figures dd { font-size: 2.3rem; }
   }
+  /* Six track figures: a caption over a 3 x 2 grid (2 x 3 on phones) */
+  .figures-cap { margin: 0 0 clamp(24px, 3vw, 36px); text-align: center; font-size: 0.95rem; font-weight: 600; color: var(--color-ink); }
+  .figures-tracks dl { row-gap: clamp(28px, 3vw, 40px); }
+  .figures-tracks dl > div:nth-child(3n + 1) { border-left: 0; }
+  @media (max-width: 699px) {
+    .figures-tracks dl { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 0; }
+    .figures-tracks dl > div + div { border-top: 0; padding-top: 0; border-left: 1px solid var(--color-line); }
+    .figures-tracks dl > div:nth-child(odd) { border-left: 0; }
+    .figures-tracks dd { font-size: 2rem; }
+  }
 
   /* EUTaaS: implementation lifecycle with the EUT window picked out */
   .lifecycle { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }

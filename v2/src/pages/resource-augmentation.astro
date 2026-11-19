@@ -30,21 +30,25 @@ const steps = [
   },
 ];
 
+// Experienced consultants in YECC's network, by Oracle track.
 const figures = [
-  { value: "150+", label: "learners trained" },
-  { value: "50+", label: "placed in Oracle Consulting roles" },
-  { value: "3", label: "Oracle Cloud tracks: Financials, SCM and HCM" },
+  { value: "1,500+", label: "Financials (FIN)" },
+  { value: "1,000+", label: "Supply Chain Management (SCM)" },
+  { value: "1,000+", label: "Human Capital Management (HCM)" },
+  { value: "300+", label: "Enterprise Performance Management (EPM)" },
+  { value: "300+", label: "Projects Portfolio Management (PPM)" },
+  { value: "1,500+", label: "Oracle Technical" },
 ];
 ---
 <Layout
   path="/resource-augmentation"
   title="Oracle Resource Augmentation for SIs | YECC"
-  description="Project-ready Oracle Cloud ERP consultants for System Integrators, trained by YECC across Financials, Supply Chain and HCM, to fill delivery gaps quickly."
+  description="Experienced Oracle consultants for System Integrators, from a trusted community of 5,000+ Oracle Consultants across tracks and modules, deployed quickly to fill delivery gaps."
 >
   <Hero
     eyebrow="Oracle Resource Augmentation for SIs"
-    title="Project-ready Oracle talent,| when your projects need it."
-    lead="YECC trains Oracle Cloud ERP consultants the way consulting companies do, and places them in your delivery teams."
+    title="Experienced Oracle talent,| when your projects need it."
+    lead="Trusted community of 5,000+ Oracle Consultants across various tracks and modules."
   >
     <Btn href={FORM}>Share a resource requirement</Btn>
     <Btn href="#how-it-works" ghost>See how it works</Btn>
@@ -52,8 +56,9 @@ const figures = [
 
   <LogoBand label="YECC learners now work at" />
 
-  <section class="figures" aria-label="YECC talent outcomes">
+  <section class="figures figures-tracks" aria-labelledby="figures-cap">
     <div class="wrap">
+      <p class="figures-cap" id="figures-cap">Experienced consultants in our network, by track</p>
       <dl>
         {figures.map((f) => <div><dt>{f.label}</dt><dd>{f.value}</dd></div>)}
       </dl>
@@ -64,36 +69,12 @@ const figures = [
     <Head
       eyebrow="Why SIs augment with YECC"
       title="Fill delivery gaps| without slowing the project."
-      lead="Implementation and support projects need extra hands at short notice. YECC gives you consultants who already know the processes, the Oracle Cloud screens and how consulting projects run."
+      lead="Implementation and support projects need extra hands at short notice. YECC gives you consultants from the trusted network who can quickly adopt and contribute to your delivery projects."
     />
     <div class="grid c3">
-      <Card icon="target" title="Ready from day one" text="Trained on business processes, Oracle demo systems and consulting skills, so ramp-up time is short." />
-      <Card icon="clock" title="Quick to deploy" text="A trained talent pool across Finance, Supply Chain and HCM means shortlists arrive fast." />
-      <Card icon="shield" title="Screened by experts" text="Every profile is checked by YECC’s Oracle functional experts before it reaches you." />
-    </div>
-  </Section>
-
-  <Section id="roles" class="bg-tint">
-    <Head
-      eyebrow="Who we provide"
-      title="The right level| for each role."
-    />
-    <div class="grid c3">
-      <Card
-        icon="cap" num="01" title="Junior functional consultants"
-        text="Graduates and domain experts trained through YECC’s fresher cohorts and corporate batches."
-        bullets={["Oracle Cloud Financials", "Oracle Cloud Supply Chain", "Oracle Cloud HCM"]}
-      />
-      <Card
-        icon="users" num="02" title="Experienced Oracle consultants"
-        text="Consultants from YECC’s network who are upskilling and cross-skilling with us."
-        bullets={["Module specialists for project phases", "Support and AMS roles", "Cross-skilled consultants for new modules"]}
-      />
-      <Card
-        icon="layers" num="03" title="Delivery support roles"
-        text="Extra capacity for the busiest phases of a project."
-        bullets={["Testing and UAT support", "Documentation and training", "Data validation for migration"]}
-      />
+      <Card icon="shield" title="Trusted Network" text="We provide consultants from our founding team’s trusted network, built over 15+ years in the Oracle ecosystem, not random profiles sourced from the open market." />
+      <Card icon="clock" title="Quick Deployment" text="Thanks to standardised contracting processes and a flexible talent pool, resources can be deployed to your projects in no time." />
+      <Card icon="refresh" title="Continuous Monitoring" text="We don’t just deploy the resources and step away. Through continuous engagement with your delivery leads and the augmented consultants, we act as your indirect project management team." />
     </div>
   </Section>
 
