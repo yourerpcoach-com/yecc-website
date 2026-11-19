@@ -63,7 +63,14 @@
 @layer components {
   .wrap { width: 100%; max-width: calc(var(--wrap) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
   .section { padding-block: clamp(56px, 8vw, 112px); }
-  .section + .section.same { padding-top: 0; }
+  /* Two sections on the same background read as one block, so the second drops its top padding instead of doubling the gap. */
+  .section + .section.same,
+  .section:not(.bg-tint):not(.bg-navy) + .section:not(.bg-tint):not(.bg-navy),
+  .section.bg-tint + .section.bg-tint,
+  .section.bg-navy + .section.bg-navy,
+  .section.bg-tint + .cta { padding-top: 0; }
+  /* Under the figures strip the divider line already separates the blocks, so match the strip's own padding. */
+  .figures + .section:not(.bg-tint):not(.bg-navy) { padding-top: clamp(40px, 6vw, 72px); }
   .bg-tint { background: var(--color-tint); }
   .bg-navy { background: var(--color-navy); color: rgba(255, 255, 255, 0.74); }
   .bg-navy h1, .bg-navy h2, .bg-navy h3, .bg-navy h4 { color: var(--color-white); }
@@ -303,7 +310,8 @@
 
   /* Consulting Training: track cards and delivery models */
   .track-suits { display: grid; gap: 0.2rem; }
-  .track-suits strong, .model-facts dt { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-soft); }
+  .track-note { display: grid; gap: 0.2rem; }
+  .track-suits strong, .track-note strong, .model-facts dt { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-soft); }
   .track-modules { display: flex; flex-wrap: wrap; gap: 0.4rem; }
   .track-modules li { padding: 0.25rem 0.7rem; border: 1px solid var(--color-line); border-radius: 999px; background: var(--color-white); font-size: 0.82rem; font-weight: 600; color: var(--color-ink); }
   .track-note { margin-top: auto !important; padding-top: 0.9rem; border-top: 1px solid var(--color-line); font-size: 0.88rem; color: var(--color-body); }

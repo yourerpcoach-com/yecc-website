@@ -31,19 +31,19 @@ const tracks = [
     icon: "trend", title: "Oracle Fusion Financials", pillar: "Finance",
     suits: "Commerce, finance and Chartered Accountant hires",
     modules: ["Common Basics", "General Ledger", "Payables", "Receivables", "Fixed Assets", "Cash Management", "Common Advanced"],
-    note: "Optional advanced module: Accounting Hub, Advanced Collections or Risk Management, at fundamentals level.",
+    optional: "Expenses, FAH, Advanced Collections, Risk Management, RMCS",
   },
   {
     icon: "layers", title: "Oracle Fusion SCM", pillar: "Supply Chain (SCM)",
     suits: "Engineering, operations and MBA hires",
-    modules: ["SCM Common Basics", "Procure to Pay group", "Order to Cash group"],
-    note: "Split the batch into P2P and O2C groups; both share the common basics.",
+    modules: ["Common Basics", "SCM Basics", "SSP", "Purchasing", "Sourcing", "SQM", "Inventory", "PDH", "Order Management"],
+    optional: "Procurement Contracts, Manufacturing, Planning, Quality",
   },
   {
     icon: "users", title: "Oracle Fusion HCM", pillar: "Human Capital (HCM)",
     suits: "HR, MBA and technical hires moving into functional work",
-    modules: ["Core HR", "Oracle Global Payroll"],
-    note: "Available as a fresher track or a focused end-user-process batch.",
+    modules: ["Common Basics", "Core HR", "Absence", "Talent", "Recruitment", "Compensation", "Benefits", "Learn"],
+    optional: "Global and Regional Payroll, OTL, HR Helpdesk",
   },
 ];
 
@@ -181,7 +181,7 @@ const faqs = [
         <Card icon={t.icon} title={t.title} tags={[t.pillar]}>
           <p class="track-suits"><strong>Suits</strong>{t.suits}</p>
           <ul class="track-modules" aria-label="Modules">{t.modules.map((m) => <li>{m}</li>)}</ul>
-          <p class="track-note">{t.note}</p>
+          <p class="track-note"><strong>Optional advanced modules</strong>{t.optional}</p>
         </Card>
       ))}
     </div>
