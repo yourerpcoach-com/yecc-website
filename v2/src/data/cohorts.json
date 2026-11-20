@@ -8,7 +8,7 @@
   "code": "HCM",
   "month": "Early 2027",
   "highlights": [
-   "9-module curriculum",
+   "8-module curriculum",
    "Oracle demo-system access",
    "Interview preparation"
   ],
@@ -30,49 +30,53 @@
     ],
     [
      "Live sessions",
-     "Monday, Wednesday, and Friday, from 7:30 AM to 9:30 AM, three days a week"
+     "Monday, Wednesday, Friday or Tuesday, Thursday, Saturday, from 7:30 AM to 9:30 AM, three days a week"
     ]
    ]
   },
   "curriculum": {
-   "heading": "Build working knowledge| across 9 modules.",
-   "lead": "The curriculum starts with ERP foundations, then moves into the functional modules used across the Oracle Cloud Human Capital Management pathway.",
+   "heading": "Build working knowledge| across 8 modules.",
+   "lead": "The curriculum starts with a foundation in ERP, then moves into the functional modules used across the Oracle Cloud Human Capital Management pathway.",
    "modules": [
     [
      "01",
-     "Basics of ERP"
+     "Common Basic Concepts",
+     "The Oracle Cloud foundations every functional consultant uses: navigation, enterprise structures, users and roles, setup tasks, approvals and reporting basics."
     ],
     [
      "02",
-     "Common Basic Concepts"
+     "Global HR (Core HR)",
+     "The core of Oracle HCM: workforce structures, the employee record, and hire, transfer, promotion and termination processes."
     ],
     [
      "03",
-     "Global HR (Core HR)"
+     "Absence Management",
+     "Leave plans, absence types and accrual rules, and how employees request and managers approve time off."
     ],
     [
      "04",
-     "Oracle Cloud Recruiting"
+     "Talent Management",
+     "Goals, performance reviews and talent profiles that help organisations assess and develop their people."
     ],
     [
      "05",
-     "Oracle Learning Cloud"
+     "Oracle Cloud Recruiting",
+     "The hiring cycle from job requisition and candidate sourcing to selection, offers and onboarding."
     ],
     [
      "06",
-     "Compensation"
+     "Compensation",
+     "Salary structures, grades, and the workforce compensation cycles used to plan merit increases and bonuses."
     ],
     [
      "07",
-     "Benefits"
+     "Benefits",
+     "Benefit programs, plans and eligibility, and how employees enrol in health, insurance and other benefits."
     ],
     [
      "08",
-     "Absence Management"
-    ],
-    [
-     "09",
-     "Talent Management"
+     "Oracle Learning Cloud",
+     "Courses, learning assignments and tracking of employee training and certifications."
     ]
    ],
    "includedLead": "Detailed self-paced videos cover selected topics in the listed modules, supported by practical checks and trainer guidance.",
@@ -93,6 +97,10 @@
      "Interview preparation",
      "Get support preparing for Oracle Cloud Functional Consultant interviews."
     ]
+   ],
+   "foundation": [
+    "Basics of ERP",
+    "Covers some interesting facts about how ERP projects start, the different roles in ERP consulting, and the components of an ERP system, which are important for building your career as an ERP Consultant."
    ]
   },
   "delivery": {
@@ -115,7 +123,7 @@
      "num": "03",
      "label": "Clarify",
      "title": "Join expert-led live sessions",
-     "text": "After completing the weekly self-study, join live online sessions led by expert trainers."
+     "text": "After completing the self-study, join live online sessions, three times a week, led by expert trainers."
     }
    ]
   },
@@ -144,11 +152,11 @@
     ],
     [
      "Live-session schedule",
-     "Monday, Wednesday, and Friday, from 7:30 AM to 9:30 AM, three days a week"
+     "Monday, Wednesday, Friday or Tuesday, Thursday, Saturday, from 7:30 AM to 9:30 AM, three days a week"
     ],
     [
      "Expected daily commitment",
-     "4 to 5 hours a day. The brochure notes that participants can complete the program alongside a day job."
+     "4 to 5 hours a day on an average, combining self-study through videos, quizzes and assignments, additional hands-on practice on the demo instance, and the live online sessions."
     ]
    ]
   },
@@ -191,35 +199,42 @@
   },
   "curriculum": {
    "heading": "Build working knowledge| across 7 modules.",
-   "lead": "The curriculum starts with ERP foundations, then moves into the functional modules used across the Oracle Cloud Financials pathway.",
+   "lead": "The curriculum starts with a foundation in ERP, then moves into the functional modules used across the Oracle Cloud Financials pathway.",
    "modules": [
     [
      "01",
-     "Basics of ERP"
+     "Common Basic Concepts",
+     "The Oracle Cloud foundations every functional consultant uses: navigation, enterprise structures, users and roles, setup tasks, approvals and reporting basics."
     ],
     [
      "02",
-     "Common Basic Concepts"
+     "General Accounting (GL)",
+     "The ledger at the centre of Oracle Financials: chart of accounts, journals, period close and financial reporting."
     ],
     [
      "03",
-     "General Accounting (GL)"
+     "Accounts Payable (AP)",
+     "Supplier invoices, payments and the Procure-to-Pay steps seen from the Payables side."
     ],
     [
      "04",
-     "Accounts Payable (AP)"
+     "Accounts Receivable (AR)",
+     "Customer invoicing, receipts and collections in the Order-to-Cash cycle."
     ],
     [
      "05",
-     "Accounts Receivable (AR)"
+     "Fixed Assets (FA)",
+     "Asset additions, depreciation, transfers and retirements across the asset lifecycle."
     ],
     [
      "06",
-     "Cash Management (CM)"
+     "Cash Management (CM)",
+     "Bank accounts, bank statement reconciliation and cash positioning."
     ],
     [
      "07",
-     "Fixed Assets (FA)"
+     "Common Advanced Concepts",
+     "Cross-module topics such as subledger accounting, intercompany and period-end activities that tie Financials together."
     ]
    ],
    "includedLead": "Detailed self-paced videos cover all topics in the listed modules, supported by practical checks and trainer guidance.",
@@ -240,6 +255,10 @@
      "Interview preparation",
      "Get support preparing for Oracle Cloud Functional Consultant interviews."
     ]
+   ],
+   "foundation": [
+    "Basics of ERP",
+    "Covers some interesting facts about how ERP projects start, the different roles in ERP consulting, and the components of an ERP system, which are important for building your career as an ERP Consultant."
    ]
   },
   "delivery": {
@@ -262,7 +281,7 @@
      "num": "03",
      "label": "Clarify",
      "title": "Join expert-led live sessions",
-     "text": "Bring your completed videos, quizzes, and assignments into live online sessions where trainers resolve doubts."
+     "text": "After completing the self-study, join live online sessions, three times a week, led by expert trainers."
     }
    ]
   },
@@ -295,7 +314,7 @@
     ],
     [
      "Expected daily commitment",
-     "4 to 5 hours a day. The brochure notes that participants can complete the program alongside a day job."
+     "4 to 5 hours a day on an average, combining self-study through videos, quizzes and assignments, additional hands-on practice on the demo instance, and the live online sessions."
     ]
    ]
   },
@@ -310,7 +329,7 @@
   "code": "SCM",
   "month": "December 2026",
   "highlights": [
-   "10-module curriculum",
+   "9-module curriculum",
    "Oracle demo-system access",
    "Interview preparation"
   ],
@@ -337,48 +356,53 @@
    ]
   },
   "curriculum": {
-   "heading": "Build working knowledge| across 10 modules.",
-   "lead": "The curriculum starts with ERP foundations, then moves into the functional modules used across the Oracle Cloud Supply Chain Management pathway.",
+   "heading": "Build working knowledge| across 9 modules.",
+   "lead": "The curriculum starts with a foundation in ERP, then moves into the functional modules used across the Oracle Cloud Supply Chain Management pathway.",
    "modules": [
     [
      "01",
-     "Basics of ERP"
+     "Common Basic Concepts",
+     "The Oracle Cloud foundations every functional consultant uses: navigation, enterprise structures, users and roles, setup tasks, approvals and reporting basics."
     ],
     [
      "02",
-     "Common Basic Concepts"
+     "SCM Basics",
+     "Supply chain foundations: items, organisations, units of measure and how procurement, inventory and order flows connect."
     ],
     [
      "03",
-     "Purchasing"
+     "Self Service Procurement (SSP)",
+     "How employees raise purchase requisitions from catalogues, and how they are approved and turned into orders."
     ],
     [
      "04",
-     "Self Service Procurement"
+     "Purchasing",
+     "Purchase orders, agreements and the supplier master, from order creation through to receipt."
     ],
     [
      "05",
-     "Sourcing"
+     "Sourcing",
+     "Negotiations such as RFQs and auctions to select suppliers and award business."
     ],
     [
      "06",
-     "Supplier Qualification Management (SQM)"
+     "Supplier Qualification Management (SQM)",
+     "Questionnaires and assessments used to qualify and evaluate suppliers before and during engagement."
     ],
     [
      "07",
-     "Supplier Master"
+     "Inventory",
+     "Item storage, receipts, transfers, counts and stock tracking across inventory organisations."
     ],
     [
      "08",
-     "Procurement Contracts Overview"
+     "Product Data Hub (PDH) Overview",
+     "How product and item master data is created, governed and shared across the supply chain."
     ],
     [
      "09",
-     "Inventory"
-    ],
-    [
-     "10",
-     "Product Data Hub (PDH) Overview"
+     "Order Management",
+     "Sales order entry, pricing and fulfilment across the Order-to-Cash flow."
     ]
    ],
    "includedLead": "Detailed self-paced videos cover selected topics in the listed modules, supported by practical checks and trainer guidance.",
@@ -399,6 +423,10 @@
      "Interview preparation",
      "Get support preparing for Oracle Cloud Functional Consultant interviews."
     ]
+   ],
+   "foundation": [
+    "Basics of ERP",
+    "Covers some interesting facts about how ERP projects start, the different roles in ERP consulting, and the components of an ERP system, which are important for building your career as an ERP Consultant."
    ]
   },
   "delivery": {
@@ -421,7 +449,7 @@
      "num": "03",
      "label": "Clarify",
      "title": "Join expert-led live sessions",
-     "text": "After completing the weekly self-study, join live online sessions led by expert trainers."
+     "text": "After completing the self-study, join live online sessions, three times a week, led by expert trainers."
     }
    ]
   },
@@ -454,7 +482,7 @@
     ],
     [
      "Expected daily commitment",
-     "4 to 5 hours a day. The brochure notes that participants can complete the program alongside a day job."
+     "4 to 5 hours a day on an average, combining self-study through videos, quizzes and assignments, additional hands-on practice on the demo instance, and the live online sessions."
     ]
    ]
   },

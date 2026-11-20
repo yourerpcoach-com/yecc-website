@@ -186,8 +186,8 @@ if (inquiry) {
   const done = panel.querySelector(".form-done");
   const error = inquiry.querySelector(".form-error");
   const slug = new URLSearchParams(location.search).get("cohort");
-  const pick = slug && inquiry.querySelector(`input[data-cohort="${CSS.escape(slug)}"]`);
-  if (pick) pick.checked = true;
+  const pick = slug && inquiry.querySelector(`option[data-cohort="${CSS.escape(slug)}"]`);
+  if (pick) pick.selected = true;
 
   // WhatsApp number: the code keeps a leading "+" and digits, the number keeps digits only. An Indian (+91)
   // number must be 10 digits starting 6 to 9. Both are joined into the Google Form answer on submit.
@@ -209,11 +209,8 @@ if (inquiry) {
 
   // "I was referred by" only appears when the visitor says someone referred them.
   const referred = inquiry.querySelector(".referred");
-  inquiry.addEventListener("change", (e) => {
-    if (e.target.name === referred.querySelector("input").name || e.target.type !== "radio") return;
-    const source = inquiry.querySelector('input[type=radio][value^="I got your reference"]');
-    if (e.target.name === source.name) referred.hidden = !source.checked;
-  });
+  const source = inquiry.querySelector("select.source");
+  source.addEventListener("change", () => { referred.hidden = !source.value.startsWith("I got your reference"); });
 
   inquiry.addEventListener("submit", async (e) => {
     e.preventDefault();

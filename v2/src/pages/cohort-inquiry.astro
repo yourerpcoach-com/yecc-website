@@ -4,7 +4,7 @@ import Tone from "../components/Tone.astro";
 import Icon from "../components/Icon.astro";
 import Checks from "../components/Checks.astro";
 import { to } from "../lib/site";
-import { GOOGLE_FORM_ACTION, ENTRY, COHORT_OPTIONS, SOURCE_OPTIONS, QUALIFICATION_OPTIONS } from "../lib/cohort-form";
+import { GOOGLE_FORM_ACTION, ENTRY, COHORT_OPTIONS, SOURCE_OPTIONS } from "../lib/cohort-form";
 
 // Cohort inquiry: the "YECC Fresher Trainings - Leads" Google Form, built into the site.
 // ?cohort=oracle-hcm (or oracle-financials, oracle-scm) pre-selects the cohort the visitor came from.
@@ -23,7 +23,7 @@ import { GOOGLE_FORM_ACTION, ENTRY, COHORT_OPTIONS, SOURCE_OPTIONS, QUALIFICATIO
           <p class="lead">Mark your interest in YECC’s fresher training cohorts for Oracle Cloud Financials, Supply Chain Management or Human Capital Management.</p>
           <Checks items={[
             "Pick the cohort you are interested in",
-            "Tell us a little about your background",
+            "Tell us how to reach you",
             "Our team gets in touch with the next steps",
           ]} />
           <p class="inquiry-links">Not sure yet? Read the cohort details first:</p>
@@ -58,54 +58,32 @@ import { GOOGLE_FORM_ACTION, ENTRY, COHORT_OPTIONS, SOURCE_OPTIONS, QUALIFICATIO
               </div>
             </fieldset>
 
-            <fieldset>
-              <legend>I am interested to join <span class="req" aria-hidden="true">*</span></legend>
-              <div class="choices">
-                {COHORT_OPTIONS.map((c, i) => (
-                  <label class="choice"><input type="radio" name={ENTRY.cohort} value={c.label} data-cohort={c.slug} required={i === 0} /><span>{c.label}</span></label>
-                ))}
-              </div>
-              <label class="choice confirm">
-                <input type="checkbox" name={ENTRY.understood} value="Yes" required />
-                <span>I have already gone through and understood the details of the cohort. <span class="req" aria-hidden="true">*</span> <small>Haven’t yet? See the cohort pages linked on this page.</small></span>
+            <div class="row">
+              <label><span>I am interested to join <span class="req" aria-hidden="true">*</span></span>
+                <span class="select">
+                  <select name={ENTRY.cohort} required>
+                    <option value="" disabled selected>Choose a cohort</option>
+                    {COHORT_OPTIONS.map((c) => <option value={c.label} data-cohort={c.slug}>{c.short}</option>)}
+                  </select>
+                  <Icon name="chevron" />
+                </span>
               </label>
-            </fieldset>
+              <label><span>How did you come to know about us? <span class="req" aria-hidden="true">*</span></span>
+                <span class="select">
+                  <select class="source" name={ENTRY.source} required>
+                    <option value="" disabled selected>Choose one</option>
+                    {SOURCE_OPTIONS.map((o) => <option value={o}>{o.replace(" (mention their name in the answer to next question)", "")}</option>)}
+                  </select>
+                  <Icon name="chevron" />
+                </span>
+              </label>
+            </div>
+            <label class="referred" hidden>I was referred by (full name)<input type="text" name={ENTRY.referredBy} autocomplete="off" /></label>
+            {/* The Google Form requires "I have already gone through and understood the details of the cohort".
+                The question is no longer shown here, so its answer is always sent. */}
+            <input type="hidden" name={ENTRY.understood} value="Yes" />
 
-            <fieldset>
-              <legend>How did you come to know about us? <span class="req" aria-hidden="true">*</span></legend>
-              <div class="choices">
-                {SOURCE_OPTIONS.map((o, i) => (
-                  <label class="choice"><input type="radio" name={ENTRY.source} value={o} required={i === 0} /><span>{o.replace(" (mention their name in the answer to next question)", "")}</span></label>
-                ))}
-              </div>
-              <label class="referred" hidden>I was referred by (full name)<input type="text" name={ENTRY.referredBy} autocomplete="off" /></label>
-            </fieldset>
 
-            <details class="optional">
-              <summary><span>Education and professional background <small>Optional</small></span><Icon name="chevron" /></summary>
-              <div class="optional-body">
-                <fieldset>
-                  <legend>Highest educational qualification</legend>
-                  <div class="choices pills">
-                    {QUALIFICATION_OPTIONS.map((o) => <label class="choice"><input type="radio" name={ENTRY.qualification} value={o} /><span>{o}</span></label>)}
-                  </div>
-                </fieldset>
-                <div class="row">
-                  <label>Stream / specialisation<input type="text" name={ENTRY.stream} /></label>
-                  <label>Year of graduation<input type="number" name={ENTRY.graduationYear} min="2010" max="2028" inputmode="numeric" /></label>
-                </div>
-                <div class="row">
-                  <label>Total years of work experience<input type="number" name={ENTRY.experience} min="0" max="10" step="0.5" inputmode="decimal" /></label>
-                  <label>Current / last company<input type="text" name={ENTRY.company} autocomplete="organization" /></label>
-                </div>
-                <div class="row">
-                  <label>Current / last job title<input type="text" name={ENTRY.jobTitle} autocomplete="organization-title" /></label>
-                  <label>LinkedIn profile URL<input type="url" name={ENTRY.linkedin} placeholder="https://www.linkedin.com/in/…" /></label>
-                </div>
-                <label>Domain experience<textarea name={ENTRY.domain} rows="3" placeholder="Briefly describe your experience that relates to the course you want to opt for"></textarea></label>
-                <label>Expectations<textarea name={ENTRY.expectation} rows="3" placeholder="What do you hope to get from the cohort?"></textarea></label>
-              </div>
-            </details>
 
             <p class="form-error" role="alert" hidden></p>
             <button class="btn" type="submit">Send Inquiry</button>

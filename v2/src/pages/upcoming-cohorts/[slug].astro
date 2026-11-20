@@ -40,8 +40,10 @@ const includedIcons = ["video", "file", "monitor", "users"];
 
   <Section class="bg-tint">
     <Head eyebrow="Curriculum" title={c.curriculum.heading} lead={c.curriculum.lead} />
+    {/* "Basics of ERP" comes first as an unnumbered foundation; the numbered modules match the cohort card's chips. */}
     <ul class="modules">
-      {c.curriculum.modules.map(([num, name]) => <li><span class="num">{num}</span><span>{name}</span></li>)}
+      <li class="foundation"><span class="num">Foundation</span><span><strong>{c.curriculum.foundation[0]}</strong><small>{c.curriculum.foundation[1]}</small></span></li>
+      {c.curriculum.modules.map(([num, name, desc]) => <li><span class="num">{num}</span><span><strong>{name}</strong><small>{desc}</small></span></li>)}
     </ul>
     <div class="head mt-[clamp(40px,6vw,72px)]">
       <h3 class="serif text-[1.6rem]">What is included</h3>
@@ -62,7 +64,7 @@ const includedIcons = ["video", "file", "monitor", "users"];
   <Section class="bg-navy">
     <div class="split items-start">
       <Head eyebrow="What this course supports" title={c.supports.heading} lead={c.supports.lead} />
-      <Checks items={c.supports.items} />
+      <Checks items={c.supports.items} class="checks supports-checks" />
     </div>
   </Section>
 

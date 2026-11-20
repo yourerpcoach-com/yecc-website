@@ -650,8 +650,18 @@
   .cohort .chips li { color: var(--color-white); }
   .cohort .chips svg { color: #8fb6ee; }
   .modules { display: grid; gap: 10px; }
-  .modules li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.9rem; align-items: baseline; padding: 0.9rem 1.1rem; border: 1px solid var(--color-line); border-radius: 12px; background: var(--color-white); font-weight: 500; color: var(--color-ink); }
-  @media (min-width: 700px) { .modules { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .modules li { display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); gap: 0.9rem; align-items: baseline; padding: 1rem 1.2rem; border: 1px solid var(--color-line); border-radius: 12px; background: var(--color-white); color: var(--color-ink); }
+  .modules li > span:last-child { display: grid; gap: 0.3rem; min-width: 0; }
+  .modules strong { font-weight: 600; }
+  .modules small { font-size: 0.9rem; line-height: 1.5; color: var(--color-body); }
+  .modules li.foundation { grid-template-columns: minmax(0, 1fr); gap: 0.5rem; border-color: var(--color-blue); background: var(--color-tint); }
+  .modules li.foundation .num { justify-self: start; padding: 0.1rem 0.6rem; border-radius: 999px; background: var(--color-blue); color: var(--color-white); font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  @media (min-width: 700px) {
+    .modules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .modules li.foundation { grid-column: 1 / -1; }
+  }
+  /* Cohort pages: the "What this course supports" list starts level with the heading rather than the small label above it */
+  @media (min-width: 960px) { .supports-checks { padding-top: 2.4rem; } }
 
   /* Course detail: one reading column with a sticky purchase card beside it */
   .course { display: grid; gap: 40px; padding-block: clamp(40px, 6vw, 80px) clamp(64px, 8vw, 112px); }
@@ -826,6 +836,10 @@
   .form legend + * { clear: both; }
   .form .req { color: var(--color-red); font-weight: 700; }
   .form .field { display: grid; gap: 0.4rem; min-width: 0; }
+  .form .select { display: block; width: 100%; }
+  .form .select select { width: 100%; padding: 0.75rem 2.6rem 0.75rem 0.9rem; border-radius: 10px; font-size: 1rem; font-weight: 400; }
+  .form .select select:invalid { color: var(--color-soft); }
+  .form .select option { color: var(--color-ink); }
   .phone { display: grid; grid-template-columns: 4.6rem minmax(0, 1fr); gap: 0.5rem; }
   .form .phone-code { text-align: center; font-variant-numeric: tabular-nums; }
   .form .phone-number { font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }

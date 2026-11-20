@@ -34,11 +34,12 @@ export const ENTRY = {
   linkedin: "entry.658498754",
 } as const;
 
-/** "I am interested to join" options, keyed by the cohort page slug that pre-selects them. */
+/** "I am interested to join" options, keyed by the cohort page slug that pre-selects them. `label` is sent to the
+ * Google Form and must match it exactly; `short` is what the dropdown shows. */
 export const COHORT_OPTIONS = [
-  { slug: "oracle-financials", label: "Oracle Cloud Financials (FIN) cohort" },
-  { slug: "oracle-scm", label: "Oracle Cloud Supply Chain Management (SCM) cohort" },
-  { slug: "oracle-hcm", label: "Oracle Cloud Human Capital Management (HCM or HR) cohort" },
+  { slug: "oracle-financials", label: "Oracle Cloud Financials (FIN) cohort", short: "Oracle Financials (FIN)" },
+  { slug: "oracle-scm", label: "Oracle Cloud Supply Chain Management (SCM) cohort", short: "Oracle Supply Chain (SCM)" },
+  { slug: "oracle-hcm", label: "Oracle Cloud Human Capital Management (HCM or HR) cohort", short: "Oracle Human Capital (HCM)" },
 ];
 
 export const SOURCE_OPTIONS = [
