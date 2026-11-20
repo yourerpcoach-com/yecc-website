@@ -569,26 +569,6 @@
   .quote footer img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex: none; }
   .quote.empty blockquote { color: var(--color-soft); }
 
-  /* Voices: staggered quote cards standing on a baseline of names */
-  .voices { display: grid; gap: 28px 12px; align-items: end; }
-  .voice { display: flex; flex-direction: column; min-width: 0; margin: 0; }
-  .voice blockquote { margin: 0; padding: 24px; border-radius: 16px; background: var(--color-tint); }
-  .voice strong { display: block; margin-bottom: 0.5rem; font-size: 1.25rem; font-weight: 500; line-height: 1.2; color: var(--color-ink); }
-  .voice p { margin: 0; font-size: 0.97rem; line-height: 1.55; }
-  .voice blockquote::after { content: none; }
-  .voice figcaption { display: flex; align-items: center; gap: 0.7rem; font-weight: 500; color: var(--color-ink); white-space: nowrap; }
-  .voice figcaption::before { content: none; }
-  .voice figcaption img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; flex: none; }
-  .voice figcaption i { flex: 1; min-width: 12px; height: 36px; border-radius: 4px; background: radial-gradient(circle, var(--color-line) 1.2px, transparent 1.3px) 0 0 / 9px 9px, var(--color-tint); }
-  .voice blockquote + figcaption { position: relative; margin-top: 28px; }
-  .voice blockquote + figcaption::after { content: ""; position: absolute; left: 17px; bottom: 100%; height: 28px; border-left: 3px dotted var(--color-line); }
-  @media (min-width: 700px) { .voices { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1040px) {
-    .voices { grid-template-columns: repeat(4, minmax(0, 1fr)); padding-top: 8px; }
-    .voice blockquote + figcaption { margin-top: var(--stem); }
-    .voice blockquote + figcaption::after { height: var(--stem); }
-  }
-
   /* Upcoming cohort cards (home) */
   .cohort-card { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; padding: clamp(22px, 3vw, 32px); border: 1px solid transparent; border-radius: var(--radius); background: var(--color-tint); transition: border-color 0.18s, background 0.18s; }
   .cohort-card:hover { border-color: var(--color-blue); background: var(--color-white); }

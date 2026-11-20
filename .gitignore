@@ -6,10 +6,3 @@ dist/
 .env.*
 tools/.cache/
 
-# Local-only material, not part of the site: the raw scrape of the old site and its mirror server,
-# the design reference, and an earlier hand-built prototype.
-/scrape/
-/serve.py
-/scribe.com-*/
-/legacy/
-/yecc_logo.png
