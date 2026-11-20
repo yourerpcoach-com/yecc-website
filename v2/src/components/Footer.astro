@@ -4,7 +4,11 @@ import Icon from "./Icon.astro";
 import logo from "../assets/logo.png";
 import soc2 from "../assets/badge-soc2.svg?url";
 import gdpr from "../assets/badge-gdpr.svg?url";
-import { SOCIAL, TAGLINE, EMAIL, PHONE, to } from "../lib/site";
+import { SOCIAL, TAGLINE, EMAIL, PHONE, CONSULTANT_PATHS, to } from "../lib/site";
+import { cohortInquiry } from "../lib/cohort-form";
+// On the consultants side, "Contact" opens the cohort inquiry form; on the SI side, the Contact page.
+const { path = "" } = Astro.props as { path?: string };
+const consultant = CONSULTANT_PATHS.includes(path);
 const badges = [
   { src: soc2, alt: "SOC 2 Type II" },
   { src: gdpr, alt: "GDPR" },
@@ -18,7 +22,7 @@ const solutions = [
 const company = [
   ["About", "/about"],
   ["Blogs", "/blogs"],
-  ["Contact", "/book-a-discussion"],
+  ["Contact", consultant ? cohortInquiry() : "/book-a-discussion"],
 ];
 ---
 <footer class="footer">

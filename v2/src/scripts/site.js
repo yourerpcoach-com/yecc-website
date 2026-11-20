@@ -189,6 +189,24 @@ if (inquiry) {
   const pick = slug && inquiry.querySelector(`input[data-cohort="${CSS.escape(slug)}"]`);
   if (pick) pick.checked = true;
 
+  // WhatsApp number: the code keeps a leading "+" and digits, the number keeps digits only. An Indian (+91)
+  // number must be 10 digits starting 6 to 9. Both are joined into the Google Form answer on submit.
+  const code = inquiry.querySelector(".phone-code");
+  const phone = inquiry.querySelector(".phone-number");
+  const phoneField = inquiry.querySelector(".phone ~ input[type=hidden]");
+  const checkPhone = () => {
+    const india = code.value === "+91";
+    phone.setCustomValidity(india && phone.value && !/^[6-9][0-9]{9}$/.test(phone.value) ? "Please enter a valid 10-digit Indian mobile number." : "");
+  };
+  code.addEventListener("input", () => {
+    code.value = "+" + code.value.replace(/[^0-9]/g, "").slice(0, 4);
+    checkPhone();
+  });
+  phone.addEventListener("input", () => {
+    phone.value = phone.value.replace(/[^0-9]/g, "");
+    checkPhone();
+  });
+
   // "I was referred by" only appears when the visitor says someone referred them.
   const referred = inquiry.querySelector(".referred");
   inquiry.addEventListener("change", (e) => {
@@ -200,6 +218,7 @@ if (inquiry) {
   inquiry.addEventListener("submit", async (e) => {
     e.preventDefault();
     error.hidden = true;
+    phoneField.value = `${code.value} ${phone.value}`;
     const button = inquiry.querySelector("button[type=submit]");
     button.disabled = true;
     button.textContent = "Sending…";

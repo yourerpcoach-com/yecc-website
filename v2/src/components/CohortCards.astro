@@ -1,0 +1,38 @@
+---
+import Card from "./Card.astro";
+import Btn from "./Btn.astro";
+import TextLink from "./TextLink.astro";
+import cohortData from "../data/cohorts.json";
+import { MODULES, SUITABLE } from "../data/modules";
+import { cohortInquiry } from "../lib/cohort-form";
+// The three fresher cohort cards: start date, duration and fee, who each suits best, module chips, and the
+// inquiry and details links. Shared by the consultants landing page and the Cohorts page.
+// Per cohort: tile name, icon, who it suits best, and its module chips (shared with the Consulting Training tracks).
+const names: Record<string, { name: string; icon: string; suits: string; modules: readonly string[] }> = {
+  "oracle-hcm": { name: "Oracle Cloud HCM", icon: "users", suits: SUITABLE.hcm, modules: MODULES.hcm },
+  "oracle-financials": { name: "Oracle Cloud Financials", icon: "layers", suits: SUITABLE.fin, modules: MODULES.fin },
+  "oracle-scm": { name: "Oracle Cloud Supply Chain", icon: "refresh", suits: SUITABLE.scm, modules: MODULES.scm },
+};
+const fact = (c: (typeof cohortData)[number], key: string) => c.details.facts.find((f) => f[0] === key)?.[1] ?? "";
+const cohorts = cohortData.map((c) => ({
+  slug: c.slug,
+  name: names[c.slug]?.name ?? c.code,
+  icon: names[c.slug]?.icon ?? "cap",
+  suits: names[c.slug]?.suits ?? "",
+  modules: names[c.slug]?.modules ?? [],
+  // "Starts December 2026", or "Starts early 2027" when the month is not fixed yet.
+  tags: [`Starts ${c.month.replace(/^Early\b/, "early")}`, fact(c, "Course duration"), fact(c, "Course fee")].filter(Boolean),
+}));
+---
+<div class="grid c3 tracks" style="--rows: 6">
+  {cohorts.map((c) => (
+    <Card icon={c.icon} title={c.name} tags={c.tags}>
+      <p class="track-suits"><strong>Most suitable for</strong>{c.suits}</p>
+      <ul class="track-modules" aria-label="Modules">{c.modules.map((m) => <li>{m}</li>)}</ul>
+      <div class="card-btns">
+        <Btn href={cohortInquiry(c.slug)}>Send Inquiry</Btn>
+        <TextLink href={`/upcoming-cohorts/${c.slug}`}>View Details</TextLink>
+      </div>
+    </Card>
+  ))}
+</div>

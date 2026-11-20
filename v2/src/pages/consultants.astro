@@ -9,10 +9,8 @@ import Card from "../components/Card.astro";
 import Head from "../components/Head.astro";
 import Checks from "../components/Checks.astro";
 import TextLink from "../components/TextLink.astro";
-import cohortData from "../data/cohorts.json";
+import CohortCards from "../components/CohortCards.astro";
 import { Image } from "astro:assets";
-import { MODULES, SUITABLE } from "../data/modules";
-import { cohortInquiry } from "../lib/cohort-form";
 import { catalog } from "../data/catalog";
 import CourseCard from "../components/CourseCard.astro";
 import appScreens from "../assets/app/app-screens.png";
@@ -25,22 +23,7 @@ const tiles = [
   { icon: "app", label: "YECC Mobile App", note: "for Oracle Consultants looking for upskilling & work opportunities", href: APP },
   { icon: "cap", label: "eCampus", note: "for colleges and universities", href: ECAMPUS },
 ];
-// Per cohort: tile name, icon, who it suits best, and its module chips (shared with the Consulting Training tracks).
-const names: Record<string, { name: string; icon: string; suits: string; modules: readonly string[] }> = {
-  "oracle-hcm": { name: "Oracle Cloud HCM", icon: "users", suits: SUITABLE.hcm, modules: MODULES.hcm },
-  "oracle-financials": { name: "Oracle Cloud Financials", icon: "layers", suits: SUITABLE.fin, modules: MODULES.fin },
-  "oracle-scm": { name: "Oracle Cloud Supply Chain", icon: "refresh", suits: SUITABLE.scm, modules: MODULES.scm },
-};
-const fact = (c: (typeof cohortData)[number], key: string) => c.details.facts.find((f) => f[0] === key)?.[1] ?? "";
-const cohorts = cohortData.map((c) => ({
-  slug: c.slug,
-  name: names[c.slug]?.name ?? c.code,
-  icon: names[c.slug]?.icon ?? "cap",
-  suits: names[c.slug]?.suits ?? "",
-  modules: names[c.slug]?.modules ?? [],
-  // "Starts December 2026", or "Starts early 2027" when the month is not fixed yet.
-  tags: [`Starts ${c.month.replace(/^Early\b/, "early")}`, fact(c, "Course duration"), fact(c, "Course fee")].filter(Boolean),
-}));
+
 const figures = [
   { value: "150+", label: "learners trained" },
   { value: "50+", label: "placed in Oracle Consulting roles" },
@@ -85,18 +68,7 @@ const figures = [
       title="Pick your Oracle path.| Join the next batch."
       lead="Live fresher training cohorts in Oracle Cloud Human Capital, Financials, and Supply Chain."
     />
-    <div class="grid c3 tracks" style="--rows: 6">
-      {cohorts.map((c) => (
-        <Card icon={c.icon} title={c.name} tags={c.tags}>
-          <p class="track-suits"><strong>Most suitable for</strong>{c.suits}</p>
-          <ul class="track-modules" aria-label="Modules">{c.modules.map((m) => <li>{m}</li>)}</ul>
-          <div class="card-btns">
-            <Btn href={cohortInquiry(c.slug)}>Send Inquiry</Btn>
-            <TextLink href={`/upcoming-cohorts/${c.slug}`}>View Details</TextLink>
-          </div>
-        </Card>
-      ))}
-    </div>
+    <CohortCards />
   </Section>
 
   {/* Self-paced courses: a strip of course cards sliding right to left. The track is doubled so the loop is
@@ -105,7 +77,7 @@ const figures = [
     <Head
       eyebrow="Self-paced courses for Oracle consultants, graduates and domain experts"
       title="Build practical Oracle Cloud ERP skills| at your own pace."
-      lead="Recorded lessons and assessments, for when you want to upskill or cross-skill on your own schedule."
+      lead="Courses built specifically for self-paced consumption, with studio-quality professional videos, quizzes, and assignments, for when you want to upskill or cross-skill on your own schedule."
     >
       <TextLink href="/courses">Browse all courses</TextLink>
     </Head>

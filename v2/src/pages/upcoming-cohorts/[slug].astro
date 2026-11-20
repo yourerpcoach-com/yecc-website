@@ -10,6 +10,7 @@ import Checks from "../../components/Checks.astro";
 import Chips from "../../components/Chips.astro";
 import Cta from "../../components/Cta.astro";
 import cohorts from "../../data/cohorts.json";
+import { cohortInquiry } from "../../lib/cohort-form";
 
 export function getStaticPaths() {
   return cohorts.map((cohort) => ({ params: { slug: cohort.slug }, props: { cohort } }));
@@ -20,7 +21,7 @@ const includedIcons = ["video", "file", "monitor", "users"];
 <Layout path="/upcoming-cohorts" title={c.title} description={c.description}>
   <Hero eyebrow="Fresher Training Cohorts" title={c.heading} lead={c.lead}>
     <Btn href="#program-details">Explore Program Details</Btn>
-    <Btn href="/book-a-discussion" ghost>Contact the YECC Team</Btn>
+    <Btn href={cohortInquiry(c.slug)} ghost>Contact the YECC Team</Btn>
     <div class="cohort" slot="media">
       <small>Upcoming cohort</small>
       <p class="mt-3 mb-0"><span class="tag">{c.code}</span></p>
@@ -73,6 +74,6 @@ const includedIcons = ["video", "file", "monitor", "users"];
   </Section>
 
   <Cta eyebrow="Interested in this cohort?" title={c.closing}>
-    <Btn href="/book-a-discussion">Contact the YECC Team</Btn>
+    <Btn href={cohortInquiry(c.slug)}>Contact the YECC Team</Btn>
   </Cta>
 </Layout>

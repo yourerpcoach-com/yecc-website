@@ -35,25 +35,31 @@ import { GOOGLE_FORM_ACTION, ENTRY, COHORT_OPTIONS, SOURCE_OPTIONS, QUALIFICATIO
         <div class="contact-panel">
           <form class="form inquiry" data-inquiry action={GOOGLE_FORM_ACTION} method="post" data-home={to("/consultants")}>
             <fieldset>
-              <legend>About you</legend>
               <div class="row">
-                <label>First name<input type="text" name={ENTRY.firstName} autocomplete="given-name" required /></label>
-                <label>Last name<input type="text" name={ENTRY.lastName} autocomplete="family-name" required /></label>
+                <label><span>First name <span class="req" aria-hidden="true">*</span></span><input type="text" name={ENTRY.firstName} autocomplete="given-name" required /></label>
+                <label><span>Last name <span class="req" aria-hidden="true">*</span></span><input type="text" name={ENTRY.lastName} autocomplete="family-name" required /></label>
               </div>
               <div class="row">
-                <label>Country<input type="text" name={ENTRY.country} autocomplete="country-name" required /></label>
-                <label>City<input type="text" name={ENTRY.city} autocomplete="address-level2" required /></label>
+                <label><span>Country <span class="req" aria-hidden="true">*</span></span><input type="text" name={ENTRY.country} autocomplete="country-name" required /></label>
+                <label><span>City <span class="req" aria-hidden="true">*</span></span><input type="text" name={ENTRY.city} autocomplete="address-level2" required /></label>
               </div>
               <div class="row">
-                <label>Email ID<input type="email" name={ENTRY.email} autocomplete="email" required /></label>
-                <label>WhatsApp mobile number
-                  <input type="tel" name={ENTRY.whatsapp} autocomplete="tel" inputmode="tel" required pattern="[+0-9][0-9 ()\-]{6,19}" title="Please enter a valid mobile number. If you are outside India, include the ISD code." placeholder="+91 98765 43210" />
-                </label>
+                <label><span>Email ID <span class="req" aria-hidden="true">*</span></span><input type="email" name={ENTRY.email} autocomplete="email" required /></label>
+                {/* Country code (defaults to +91, editable) and a digits-only number. They are joined into the
+                    one Google Form answer, e.g. "+91 9876543210", just before sending. */}
+                <div class="field">
+                  <label for="wa-number"><span>WhatsApp mobile number <span class="req" aria-hidden="true">*</span></span></label>
+                  <div class="phone">
+                    <input class="phone-code" type="text" value="+91" aria-label="Country code" inputmode="tel" maxlength="5" pattern="\+[0-9]{1,4}" title="Country code, for example +91" required />
+                    <input class="phone-number" id="wa-number" type="tel" inputmode="numeric" autocomplete="tel-national" pattern="[0-9]{6,14}" maxlength="14" placeholder="9876543210" required />
+                  </div>
+                  <input type="hidden" name={ENTRY.whatsapp} />
+                </div>
               </div>
             </fieldset>
 
             <fieldset>
-              <legend>I am interested to join <span class="req">*</span></legend>
+              <legend>I am interested to join <span class="req" aria-hidden="true">*</span></legend>
               <div class="choices">
                 {COHORT_OPTIONS.map((c, i) => (
                   <label class="choice"><input type="radio" name={ENTRY.cohort} value={c.label} data-cohort={c.slug} required={i === 0} /><span>{c.label}</span></label>
@@ -61,12 +67,12 @@ import { GOOGLE_FORM_ACTION, ENTRY, COHORT_OPTIONS, SOURCE_OPTIONS, QUALIFICATIO
               </div>
               <label class="choice confirm">
                 <input type="checkbox" name={ENTRY.understood} value="Yes" required />
-                <span>I have already gone through and understood the details of the cohort. <small>Haven’t yet? See the cohort pages linked on this page.</small></span>
+                <span>I have already gone through and understood the details of the cohort. <span class="req" aria-hidden="true">*</span> <small>Haven’t yet? See the cohort pages linked on this page.</small></span>
               </label>
             </fieldset>
 
             <fieldset>
-              <legend>How did you come to know about us? <span class="req">*</span></legend>
+              <legend>How did you come to know about us? <span class="req" aria-hidden="true">*</span></legend>
               <div class="choices">
                 {SOURCE_OPTIONS.map((o, i) => (
                   <label class="choice"><input type="radio" name={ENTRY.source} value={o} required={i === 0} /><span>{o.replace(" (mention their name in the answer to next question)", "")}</span></label>
