@@ -477,7 +477,7 @@
   .split-illo .head h2 .tone { display: block; }
   @media (min-width: 1024px) { .split-illo { grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr); } }
 
-  /* DaaS: a guide as SHERPA shows it, with version, roles and the review trail */
+  /* DOCaaS: a guide as SHERPA shows it, with version, roles and the review trail */
   .gtrail { position: relative; max-width: 520px; width: 100%; margin-inline: auto; padding-bottom: 28px; }
   .gt-window { border-radius: 18px; background: var(--color-white); color: var(--color-body); overflow: hidden; box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.7); }
   .gt-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: var(--color-tint-2); border-bottom: 1px solid var(--color-line); }

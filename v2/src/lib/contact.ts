@@ -23,7 +23,7 @@ export const CONTACT_ENDPOINT = "";
 export const OPTIONS = [
   { label: "SI partnership with YECC", message: "We are an Oracle SI and would like to explore a partnership with YECC for user enablement on our client projects. Please get in touch to set up a discussion." },
   { label: "End User Training (EUTaaS)", message: "We would like to discuss outsourcing End User Training for an Oracle Cloud client engagement. Please get in touch to scope it." },
-  { label: "Documentation-as-a-Service (DaaS)", message: "We would like to discuss client-specific user guides and process videos for an Oracle Cloud engagement. Please get in touch to scope it." },
+  { label: "Documentation-as-a-Service (DOCaaS)", message: "We would like to discuss client-specific user guides and process videos for an Oracle Cloud engagement. Please get in touch to scope it." },
   { label: "Oracle resource augmentation", message: "We need experienced Oracle consultants for a project. Please get in touch so we can share the module, role and start date." },
   { label: "Consultant training batch", message: "We would like to discuss an Oracle Fusion training batch for our consultants. Please get in touch so we can share the track, batch size and start date." },
   { label: "SHERPA pilot", message: "We would like to discuss a complimentary SHERPA executive pilot for one of our Oracle Cloud clients. Please get in touch to set it up." },
@@ -40,7 +40,7 @@ export const TOPICS: Record<string, { option: Label; message?: string }> = {
   "eutaas-orientation": { option: "End User Training (EUTaaS)", message: "We would like to discuss a Pre-Implementation Orientation for our client’s key users, before HLA and CRP. Please get in touch to scope it." },
   "eutaas-standard": { option: "End User Training (EUTaaS)", message: "We would like to discuss Standard End User Training for our client’s end users, between UAT sign-off and go-live. Please get in touch to scope it." },
   "eutaas-refresher": { option: "End User Training (EUTaaS)", message: "We would like to discuss Refresher EUT for our client’s existing users and new joiners after go-live. Please get in touch to scope it." },
-  daas: { option: "Documentation-as-a-Service (DaaS)" },
+  daas: { option: "Documentation-as-a-Service (DOCaaS)" },
   resources: { option: "Oracle resource augmentation" },
   training: { option: "Consultant training batch" },
   "training-fresher": { option: "Consultant training batch", message: "We would like to discuss a Fresher Consultant Batch for our new campus hires. Please get in touch so we can share the track, batch size and start date." },
