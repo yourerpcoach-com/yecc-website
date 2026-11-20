@@ -40,6 +40,8 @@ export const TOPICS: Record<string, { option: Label; message?: string }> = {
   "eutaas-orientation": { option: "End User Training (EUTaaS)", message: "We would like to discuss a Pre-Implementation Orientation for our client’s key users, before HLA and CRP. Please get in touch to scope it." },
   "eutaas-standard": { option: "End User Training (EUTaaS)", message: "We would like to discuss Standard End User Training for our client’s end users, between UAT sign-off and go-live. Please get in touch to scope it." },
   "eutaas-refresher": { option: "End User Training (EUTaaS)", message: "We would like to discuss Refresher EUT for our client’s existing users and new joiners after go-live. Please get in touch to scope it." },
+  docaas: { option: "Documentation-as-a-Service (DOCaaS)" },
+  // Old name, kept so links made before the rename still pre-select DOCaaS.
   daas: { option: "Documentation-as-a-Service (DOCaaS)" },
   resources: { option: "Oracle resource augmentation" },
   training: { option: "Consultant training batch" },

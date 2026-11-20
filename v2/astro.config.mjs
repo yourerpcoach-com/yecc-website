@@ -8,6 +8,7 @@ export default defineConfig({
   site: process.env.SITE_URL || "http://localhost:4180",
   base: process.env.BASE_PATH || "/",
   trailingSlash: "always",
-  integrations: [sitemap()],
+  // /daas/ only forwards to /docaas/, so it stays out of the sitemap.
+  integrations: [sitemap({ filter: (page) => !/\/daas\/$/.test(page) })],
   vite: { plugins: [tailwindcss()] },
 });
