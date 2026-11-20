@@ -2,9 +2,12 @@
 node_modules/
 dist/
 .astro/
+.env
+.env.*
+tools/.cache/
 
-# Local-only material, not part of the published sites: the raw scrape and its mirror server,
-# the design reference, and the earlier hand-built version of v2.
+# Local-only material, not part of the site: the raw scrape of the old site and its mirror server,
+# the design reference, and an earlier hand-built prototype.
 /scrape/
 /serve.py
 /scribe.com-*/

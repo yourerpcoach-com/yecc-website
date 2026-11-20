@@ -1,4 +1,4 @@
-/* YourERPCoach v2. Tailwind supplies the reset, the design tokens and utility classes;
+/* YourERPCoach. Tailwind supplies the reset, the design tokens and utility classes;
    the site's own components live in Tailwind's "components" layer so utilities can still override them. */
 @import "tailwindcss";
 @import "@fontsource-variable/newsreader/opsz.css";

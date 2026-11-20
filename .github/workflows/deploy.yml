@@ -1,6 +1,5 @@
-# Builds both Astro sites and publishes them to GitHub Pages:
-#   <pages url>/v1/  the current site
-#   <pages url>/v2/  the new design
+# Builds the Astro site and publishes it to GitHub Pages (the preview host).
+# On GitHub Pages it is served from the repository sub-path, e.g. https://<user>.github.io/yecc-webpage/
 name: Deploy to GitHub Pages
 
 on:
@@ -26,32 +25,32 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: |
-            v1/package-lock.json
-            v2/package-lock.json
       - id: pages
         uses: actions/configure-pages@v5
-      - name: Build v1
-        working-directory: v1
+      - name: Build
         env:
           SITE_URL: ${{ steps.pages.outputs.origin }}
-          BASE_PATH: ${{ steps.pages.outputs.base_path }}/v1
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
         run: npm ci && npm run build
-      - name: Build v2
-        working-directory: v2
+      # The preview used to be published under /v2/ (and the old design under /v1/). Links shared before the
+      # move land on GitHub Pages' 404 page, which forwards them to the same page without the version folder.
+      - name: Forward old /v1/ and /v2/ preview links
         env:
-          SITE_URL: ${{ steps.pages.outputs.origin }}
-          BASE_PATH: ${{ steps.pages.outputs.base_path }}/v2
-        run: npm ci && npm run build
-      - name: Assemble site
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
         run: |
-          mkdir _site
-          cp -r pages-root/. _site/
-          cp -r v1/dist _site/v1
-          cp -r v2/dist _site/v2
+          cat > dist/404.html <<EOF
+          <!doctype html>
+          <meta charset="utf-8"><meta name="robots" content="noindex"><title>Page not found</title>
+          <script>
+            var base = "${BASE_PATH}", p = location.pathname, old = base + "/v1/", old2 = base + "/v2/";
+            var rest = p.indexOf(old) === 0 ? p.slice(old.length) : p.indexOf(old2) === 0 ? p.slice(old2.length) : "";
+            location.replace(base + "/" + rest + location.search + location.hash);
+          </script>
+          <p>Page not found. <a href="${BASE_PATH}/">Go to the home page</a>.</p>
+          EOF
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: dist
 
   deploy:
     needs: build
