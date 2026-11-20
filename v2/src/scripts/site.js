@@ -177,6 +177,56 @@ if (contactForm) {
   });
 }
 
+// Cohort inquiry form. It posts to the Google Form that collects fresher cohort leads, so answers land in the
+// same responses sheet. Google does not let other sites read its reply, so a sent request counts as done;
+// only a network failure shows an error. ?cohort=<slug> pre-selects the cohort.
+const inquiry = document.querySelector("form[data-inquiry]");
+if (inquiry) {
+  const panel = inquiry.parentElement;
+  const done = panel.querySelector(".form-done");
+  const error = inquiry.querySelector(".form-error");
+  const slug = new URLSearchParams(location.search).get("cohort");
+  const pick = slug && inquiry.querySelector(`input[data-cohort="${CSS.escape(slug)}"]`);
+  if (pick) pick.checked = true;
+
+  // "I was referred by" only appears when the visitor says someone referred them.
+  const referred = inquiry.querySelector(".referred");
+  inquiry.addEventListener("change", (e) => {
+    if (e.target.name === referred.querySelector("input").name || e.target.type !== "radio") return;
+    const source = inquiry.querySelector('input[type=radio][value^="I got your reference"]');
+    if (e.target.name === source.name) referred.hidden = !source.checked;
+  });
+
+  inquiry.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    error.hidden = true;
+    const button = inquiry.querySelector("button[type=submit]");
+    button.disabled = true;
+    button.textContent = "Sending…";
+    try {
+      await fetch(inquiry.action, { method: "POST", mode: "no-cors", body: new URLSearchParams(new FormData(inquiry)) });
+      const first = (inquiry.querySelector('[autocomplete="given-name"]').value || "").trim();
+      done.querySelector("[data-done-title]").textContent = `Thank you${first ? ", " + first : ""}. Your inquiry is on its way.`;
+      inquiry.hidden = true;
+      done.hidden = false;
+      done.focus();
+      done.scrollIntoView({ block: "center" });
+      let left = 8;
+      const count = done.querySelector("[data-countdown]");
+      const timer = setInterval(() => {
+        left -= 1;
+        count.textContent = left;
+        if (left <= 0) { clearInterval(timer); location.href = inquiry.dataset.home; }
+      }, 1000);
+    } catch {
+      error.textContent = "Sorry, your inquiry could not be sent. Please check your connection and try again.";
+      error.hidden = false;
+      button.disabled = false;
+      button.textContent = "Send Inquiry";
+    }
+  });
+}
+
 // Course page: sections fade in as they come into view
 const reveals = document.querySelectorAll(".reveal");
 if (reveals.length && "IntersectionObserver" in window) {

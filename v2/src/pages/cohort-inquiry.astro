@@ -1,0 +1,118 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Tone from "../components/Tone.astro";
+import Icon from "../components/Icon.astro";
+import Checks from "../components/Checks.astro";
+import { to } from "../lib/site";
+import { GOOGLE_FORM_ACTION, ENTRY, COHORT_OPTIONS, SOURCE_OPTIONS, QUALIFICATION_OPTIONS } from "../lib/cohort-form";
+
+// Cohort inquiry: the "YECC Fresher Trainings - Leads" Google Form, built into the site.
+// ?cohort=oracle-hcm (or oracle-financials, oracle-scm) pre-selects the cohort the visitor came from.
+---
+<Layout
+  path="/cohort-inquiry"
+  title="Send an Inquiry for a Fresher Training Cohort | YECC"
+  description="Send an inquiry for YECC's Oracle Cloud Financials, Supply Chain Management or Human Capital Management fresher training cohorts. Our team will connect with you."
+>
+  <section class="hero inquiry-hero" id="inquiry-form">
+    <div class="wrap">
+      <div class="inquiry-grid">
+        <div class="inquiry-intro">
+          <p class="eyebrow">Fresher training cohorts</p>
+          <h1><Tone text="Send an inquiry.| Our team will connect with you." /></h1>
+          <p class="lead">Mark your interest in YECC’s fresher training cohorts for Oracle Cloud Financials, Supply Chain Management or Human Capital Management.</p>
+          <Checks items={[
+            "Pick the cohort you are interested in",
+            "Tell us a little about your background",
+            "Our team gets in touch with the next steps",
+          ]} />
+          <p class="inquiry-links">Not sure yet? Read the cohort details first:</p>
+          <ul class="inquiry-cohorts">
+            {COHORT_OPTIONS.map((c) => <li><a href={to(`/upcoming-cohorts/${c.slug}`)}>{c.label.replace(" cohort", "")}<Icon name="arrow" /></a></li>)}
+          </ul>
+        </div>
+
+        <div class="contact-panel">
+          <form class="form inquiry" data-inquiry action={GOOGLE_FORM_ACTION} method="post" data-home={to("/consultants")}>
+            <fieldset>
+              <legend>About you</legend>
+              <div class="row">
+                <label>First name<input type="text" name={ENTRY.firstName} autocomplete="given-name" required /></label>
+                <label>Last name<input type="text" name={ENTRY.lastName} autocomplete="family-name" required /></label>
+              </div>
+              <div class="row">
+                <label>Country<input type="text" name={ENTRY.country} autocomplete="country-name" required /></label>
+                <label>City<input type="text" name={ENTRY.city} autocomplete="address-level2" required /></label>
+              </div>
+              <div class="row">
+                <label>Email ID<input type="email" name={ENTRY.email} autocomplete="email" required /></label>
+                <label>WhatsApp mobile number
+                  <input type="tel" name={ENTRY.whatsapp} autocomplete="tel" inputmode="tel" required pattern="[+0-9][0-9 ()\-]{6,19}" title="Please enter a valid mobile number. If you are outside India, include the ISD code." placeholder="+91 98765 43210" />
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>I am interested to join <span class="req">*</span></legend>
+              <div class="choices">
+                {COHORT_OPTIONS.map((c, i) => (
+                  <label class="choice"><input type="radio" name={ENTRY.cohort} value={c.label} data-cohort={c.slug} required={i === 0} /><span>{c.label}</span></label>
+                ))}
+              </div>
+              <label class="choice confirm">
+                <input type="checkbox" name={ENTRY.understood} value="Yes" required />
+                <span>I have already gone through and understood the details of the cohort. <small>Haven’t yet? See the cohort pages linked on this page.</small></span>
+              </label>
+            </fieldset>
+
+            <fieldset>
+              <legend>How did you come to know about us? <span class="req">*</span></legend>
+              <div class="choices">
+                {SOURCE_OPTIONS.map((o, i) => (
+                  <label class="choice"><input type="radio" name={ENTRY.source} value={o} required={i === 0} /><span>{o.replace(" (mention their name in the answer to next question)", "")}</span></label>
+                ))}
+              </div>
+              <label class="referred" hidden>I was referred by (full name)<input type="text" name={ENTRY.referredBy} autocomplete="off" /></label>
+            </fieldset>
+
+            <details class="optional">
+              <summary><span>Education and professional background <small>Optional</small></span><Icon name="chevron" /></summary>
+              <div class="optional-body">
+                <fieldset>
+                  <legend>Highest educational qualification</legend>
+                  <div class="choices pills">
+                    {QUALIFICATION_OPTIONS.map((o) => <label class="choice"><input type="radio" name={ENTRY.qualification} value={o} /><span>{o}</span></label>)}
+                  </div>
+                </fieldset>
+                <div class="row">
+                  <label>Stream / specialisation<input type="text" name={ENTRY.stream} /></label>
+                  <label>Year of graduation<input type="number" name={ENTRY.graduationYear} min="2010" max="2028" inputmode="numeric" /></label>
+                </div>
+                <div class="row">
+                  <label>Total years of work experience<input type="number" name={ENTRY.experience} min="0" max="10" step="0.5" inputmode="decimal" /></label>
+                  <label>Current / last company<input type="text" name={ENTRY.company} autocomplete="organization" /></label>
+                </div>
+                <div class="row">
+                  <label>Current / last job title<input type="text" name={ENTRY.jobTitle} autocomplete="organization-title" /></label>
+                  <label>LinkedIn profile URL<input type="url" name={ENTRY.linkedin} placeholder="https://www.linkedin.com/in/…" /></label>
+                </div>
+                <label>Domain experience<textarea name={ENTRY.domain} rows="3" placeholder="Briefly describe your experience that relates to the course you want to opt for"></textarea></label>
+                <label>Expectations<textarea name={ENTRY.expectation} rows="3" placeholder="What do you hope to get from the cohort?"></textarea></label>
+              </div>
+            </details>
+
+            <p class="form-error" role="alert" hidden></p>
+            <button class="btn" type="submit">Send Inquiry</button>
+          </form>
+
+          <div class="form-done" role="status" tabindex="-1" hidden>
+            <span class="form-done-icon"><Icon name="check" /></span>
+            <h2 data-done-title>Thank you. Your inquiry is on its way.</h2>
+            <p data-done-text>Our team will connect with you shortly.</p>
+            <p class="form-done-redirect">Taking you back in <b data-countdown>8</b> seconds. <a href={to("/consultants")}>Go now</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

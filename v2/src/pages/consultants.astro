@@ -12,12 +12,13 @@ import TextLink from "../components/TextLink.astro";
 import cohortData from "../data/cohorts.json";
 import { Image } from "astro:assets";
 import { MODULES, SUITABLE } from "../data/modules";
+import { cohortInquiry } from "../lib/cohort-form";
 import { catalog } from "../data/catalog";
 import CourseCard from "../components/CourseCard.astro";
 import appScreens from "../assets/app/app-screens.png";
 import googlePlay from "../assets/app/google-play.png";
 import appStore from "../assets/app/app-store.png";
-import { APP, APP_STORE, PLAY_STORE, ECAMPUS, LOGIN, COHORT_FORM, to, isExternal } from "../lib/site";
+import { APP, APP_STORE, PLAY_STORE, ECAMPUS, LOGIN, to, isExternal } from "../lib/site";
 const tiles = [
   { icon: "users", label: "Fresher Training Cohorts", note: "for Fresher Grads and Domain Experts", href: "/upcoming-cohorts" },
   { icon: "video", label: "Self-paced Courses", note: "for Oracle Consultants looking for upskilling & cross-skilling", href: "/courses" },
@@ -90,7 +91,7 @@ const figures = [
           <p class="track-suits"><strong>Most suitable for</strong>{c.suits}</p>
           <ul class="track-modules" aria-label="Modules">{c.modules.map((m) => <li>{m}</li>)}</ul>
           <div class="card-btns">
-            <Btn href={COHORT_FORM}>Request Registration</Btn>
+            <Btn href={cohortInquiry(c.slug)}>Send Inquiry</Btn>
             <TextLink href={`/upcoming-cohorts/${c.slug}`}>View Details</TextLink>
           </div>
         </Card>

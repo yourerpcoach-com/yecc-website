@@ -1,5 +1,6 @@
 // Shared site facts and URL helpers.
 import { contact } from "./contact";
+import { cohortInquiry } from "./cohort-form";
 
 export const SITE_NAME = "YourERPCoach";
 export const TAGLINE = "Oracle Cloud ERP enablement, documentation & training for System Integrators and consultants.";
@@ -27,8 +28,8 @@ export type NavItem = { label: string; href: string; children?: { label: string;
 export const APP = "/consultants#get-the-app";
 export const APP_STORE = "https://apps.apple.com/in/app/yecc/id6738484557";
 export const PLAY_STORE = "https://play.google.com/store/apps/details?id=com.yourerpcoach.app&hl=en_IN";
-/** Cohort registration: the Google Form (opens in a new tab, as an external link). */
-export const COHORT_FORM = "https://docs.google.com/forms/d/e/1FAIpQLSeOpj2vDIEViXPIgNYHj70Mny82ozyNJKi6guVa0ma7T-wVFw/viewform";
+/** Cohort inquiry form on this site (it posts to the Google Form). Tiles add their cohort: cohortInquiry(slug). */
+export const COHORT_FORM = cohortInquiry();
 export const ECAMPUS = "https://ecampus.yourerpcoach.com";
 
 // The site has two audiences, each with its own menu. A tab under the logo switches between them.
@@ -48,7 +49,7 @@ export const CONSULTANT_NAV: NavItem[] = [
 ];
 
 /** Pages that belong to the Oracle consultants side of the site. */
-export const CONSULTANT_PATHS = ["/consultants", "/courses", "/upcoming-cohorts"];
+export const CONSULTANT_PATHS = ["/consultants", "/courses", "/upcoming-cohorts", "/cohort-inquiry"];
 
 export const SOCIAL = [
   { icon: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/company/yourerpcoach" },
