@@ -22,6 +22,27 @@ npm run preview   # serves dist/ at http://localhost:4180
 
 ---
 
+## Tech stack
+
+| Layer | What | Version |
+| --- | --- | --- |
+| Framework | [Astro](https://astro.build), static output (no server, no SSR adapter) | 7.3.5 |
+| Bundler / dev server | Vite (bundled with Astro) | 8.x |
+| Styling | [Tailwind CSS](https://tailwindcss.com) v4 via `@tailwindcss/vite`; design tokens in `@theme`, component styles in plain CSS in `src/styles/global.css` | 4.3.3 |
+| Language | TypeScript for data and helpers (`src/lib`, `src/data`), `.astro` components, plain JavaScript in the browser (`src/scripts/site.js`, no framework) | Astro's base tsconfig |
+| Fonts | Self-hosted via Fontsource: Newsreader (serif headings), Hanken Grotesk (body) | 5.3.0 |
+| Images | `astro:assets` optimises images in `src/assets` at build time (WebP and resized) | built in |
+| SEO | `@astrojs/sitemap` (sitemap-index.xml), generated `robots.txt`, canonical, Open Graph, Twitter and JSON-LD tags in `Layout.astro` | 3.7.4 |
+| Icons | inline SVG paths in `src/lib/icons.ts`, no icon library | |
+| Forms | Contact: JSON POST to an API you provide (mailto fallback until then). Cohort inquiry: posts to a Google Form | |
+| Hosting (preview) | GitHub Pages, built and deployed by GitHub Actions (`.github/workflows/deploy.yml`, Node 22) | |
+| Tooling | `tools/fetch_courses.py` (Python 3 + headless Google Chrome) refreshes course data from the old site | |
+| Runtime requirements | Node.js 22+ and npm | |
+
+No UI framework (React, Vue, etc.), no CMS, no database, no backend and no cookies. Content lives in the repo as `.astro` pages and `src/data/*.json` / `*.ts`.
+
+---
+
 ## Handover checklist (what still needs connecting)
 
 | # | Task | Where | Status |
@@ -106,7 +127,7 @@ Example: `window.dataLayer?.push({ event: "generate_lead", form: "contact", subj
 | Variable | Meaning | Example |
 | --- | --- | --- |
 | `SITE_URL` | Origin used for canonical URLs, Open Graph tags and the sitemap | `https://www.yourerpcoach.com` |
-| `BASE_PATH` | Sub-path the site is served from. Leave unset on a real domain. | `/yecc-webpage` (GitHub Pages preview) |
+| `BASE_PATH` | Sub-path the site is served from. Leave unset on a real domain. | `/yecc-website` (GitHub Pages preview) |
 
 Locally both are unset and the site runs at the root of `localhost:4180`.
 
@@ -121,9 +142,10 @@ Then upload `dist/` to any static host: Cloudflare Pages, Netlify, Vercel, S3 wi
 - URLs use trailing slashes (`/eutaas/`). Keep the host's default "directory index" behaviour.
 - `robots.txt` and `sitemap-index.xml` are generated automatically.
 
-**Current preview.** Every push to `main` runs `.github/workflows/deploy.yml`, which builds the site and publishes it to GitHub Pages at `https://urperfectdude.github.io/yecc-webpage/`.
+**Current preview.** Every push to `main` runs `.github/workflows/deploy.yml`, which builds the site and publishes it to GitHub Pages at `https://yourerpcoach-com.github.io/yecc-website/`.
 
 - The preview used to live under `/v2/`. The workflow writes a `404.html` that forwards old `/v1/…` and `/v2/…` links to the same page at the root.
+- The repo used to be `urperfectdude/yecc-webpage`. That repo now only forwards old `urperfectdude.github.io/yecc-webpage/…` links to the same page here. Retire it once nobody uses those links.
 - Drop that step once the site is on its own domain.
 
 ### 5. Cohort inquiry form (Google Form)
