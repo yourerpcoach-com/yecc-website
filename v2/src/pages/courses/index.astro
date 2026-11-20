@@ -1,25 +1,12 @@
 ---
-import { Image } from "astro:assets";
-import type { ImageMetadata } from "astro";
 import Layout from "../../layouts/Layout.astro";
 import Icon from "../../components/Icon.astro";
 import TextLink from "../../components/TextLink.astro";
-import courses from "../../data/courses.json";
+import { catalog } from "../../data/catalog";
+import CourseCard from "../../components/CourseCard.astro";
 import { LOGIN, to } from "../../lib/site";
 
-// Short catalog blurbs in catalog order. Everything else, including the filter tags, comes from courses.json.
-const catalog = [
-  { slug: "erp-business-processes-overview", text: "Start your ERP consulting journey with an overview of essential business processes." },
-  { slug: "basics-of-erp-2024", text: "A beginner-friendly introduction to ERP, its functional areas, and consulting foundations." },
-  { slug: "oracle-cloud-p2p-fast-track-course", text: "Covers Oracle Cloud ERP common concepts, General Accounting, Payables, Procurement basics, and Cash Management." },
-  { slug: "oracle-cloud-expense", text: "Training on Oracle Cloud Expense module processes and setups." },
-  { slug: "oracle-cloud-scm-process-course", text: "Training on Oracle Cloud SCM processes, excluding setups." },
-  { slug: "oracle-cloud-erp-basics-and-general-accounting-2025-26", text: "Key concepts in Oracle Cloud ERP common topics and General Accounting." },
-  { slug: "oracle-cloud-erp-accounts-payable-2025-26", text: "Fundamentals of Oracle Cloud Accounts Payable and P2P concepts from the Payables side." },
-  { slug: "oracle-cloud-erp-cash-management-2025-26", text: "Fundamentals of the Oracle Cloud Cash Management module." },
-  { slug: "oracle-cloud-erp-accounts-receivable-2025-26", text: "Fundamentals of the Oracle Cloud Accounts Receivable module." },
-  { slug: "oracle-cloud-erp-fixed-assets-2025-26", text: "Fundamentals of the Oracle Cloud Fixed Assets module." },
-].map((item) => ({ ...item, course: courses.find((c) => c.slug === item.slug)! }));
+// Short catalog blurbs and the course data live in data/catalog.ts, shared with the consultants page strip.
 // Filter options in the old site's order, keeping only those at least one course is tagged with.
 // (Every course is "Oracle Cloud ERP" and "Paid", so product and pricing filters would not narrow anything.)
 const present = (key: "audience" | "areas", order: string[]) => order.filter((o) => catalog.some((c) => c.course[key].includes(o)));
@@ -27,11 +14,6 @@ const filters = [
   { key: "audience", label: "Audience", all: "All audiences", options: present("audience", ["Fresher Graduates", "Experienced Consultants", "End Users"]) },
   { key: "area", label: "Functional area", all: "All functional areas", options: present("areas", ["Financials", "Supply Chain Management", "Human Capital Management", "Technical", "Enterprise Performance Management", "Project Portfolio Management"]) },
 ];
-const areaLabel = (areas: string[]) => areas[0] + (areas.length > 1 ? ` +${areas.length - 1}` : "");
-
-const images = import.meta.glob<{ default: ImageMetadata }>("../../assets/courses/*", { eager: true });
-const art = (name: string) => images[`../../assets/courses/${name}`]?.default;
-const videos = (content: string) => content.split(" · ")[0];
 ---
 <Layout
   path="/courses"
@@ -63,26 +45,9 @@ const videos = (content: string) => content.split(" · ")[0];
     </form>
 
     <div class="course-grid" id="course-catalog">
-      {catalog.map((item, i) => {
-        const image = art(item.course.thumbnail);
-        return (
-          <a class="course-card reveal" href={to(`/courses/${item.slug}`)} data-audience={item.course.audience.join("|")} data-area={item.course.areas.join("|")} style={`--d:${(i % 3) * 70}ms`}>
-            <div class="course-card-art">{image && <Image src={image} alt="" width={640} />}</div>
-            <div class="course-card-body">
-              <p class="course-card-topic" title={item.course.areas.join(", ")}>{areaLabel(item.course.areas)}</p>
-              <h2>{item.course.title}</h2>
-              <p class="course-card-text">{item.text}</p>
-              <div class="course-card-foot">
-                <span class="muted">
-                  <Icon name="video" />{videos(item.course.content)}
-                  <Icon name="clock" />{item.course.duration.replace(" Hours", " hrs")}
-                </span>
-                <strong>{item.course.price}</strong>
-              </div>
-            </div>
-          </a>
-        );
-      })}
+      {catalog.map((item, i) => (
+        <CourseCard item={item} class="reveal" style={`--d:${(i % 3) * 70}ms`} filters />
+      ))}
     </div>
 
     <div class="filter-empty" data-empty hidden>

@@ -297,16 +297,19 @@
     .lifecycle li.eut { grid-column: 5; grid-row: 2; }
   }
 
-  /* SHERPA: complimentary pilot. The offer and its three inclusions on the left, a summit illustration on the right
-     whose numbered checkpoints match the list. */
+  /* SHERPA: complimentary pilot. The offer and its three inclusions on the left, and on the right the pilot as a hub
+     with the three inclusions as equal spokes, matching the list's icons. */
   .pilot-list { display: grid; gap: 22px; margin: 2rem 0 0; padding: 0; list-style: none; }
   .pilot-list li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 16px; align-items: start; }
-  .pilot-num { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--color-white); border: 3px solid var(--color-red); font-family: var(--font-serif); font-size: 0.95rem; color: var(--color-ink); }
+  .pilot-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--color-white); color: var(--color-blue); }
+  .pilot-icon svg { width: 22px; height: 22px; }
   .pilot-list h3 { margin: 0.35rem 0 0.35rem; font-size: 1.08rem; line-height: 1.35; color: var(--color-white); }
   .pilot-list p { margin: 0; font-size: 0.95rem; color: rgba(255, 255, 255, 0.74); }
   .pilot .btns { margin-top: 2rem; }
-  .pilot-summit { display: block; width: 100%; max-width: 520px; height: auto; margin-inline: auto; }
-  .pilot-summit-num { font-family: var(--font-serif); font-size: 16px; fill: var(--color-ink); }
+  .pilot-hub { display: block; width: 100%; max-width: 520px; height: auto; margin-inline: auto; }
+  .pilot-hub-name { font-family: var(--font-sans); font-size: 19px; font-weight: 700; letter-spacing: 0.06em; fill: var(--color-white); }
+  .pilot-hub-sub { font-family: var(--font-serif); font-size: 17px; fill: rgba(255, 255, 255, 0.85); }
+  .pilot-node-label { font-family: var(--font-sans); font-size: 15px; font-weight: 600; fill: var(--color-white); }
 
   /* Consulting Training: hiring-to-project journey, with the three steps YECC runs bracketed underneath */
   .journey { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
@@ -326,8 +329,8 @@
   .track-suits { display: grid; gap: 0.2rem; }
   /* Track cards line up row by row: icon, name, suits, modules and optional modules start at the same height in all three. */
   @media (min-width: 800px) {
-    .grid.tracks { grid-template-rows: repeat(5, auto); row-gap: 0; }
-    .grid.tracks > .card { display: grid; grid-row: span 5; grid-template-rows: subgrid; row-gap: 0.9rem; }
+    .grid.tracks { grid-template-rows: repeat(var(--rows, 5), auto); row-gap: 0; }
+    .grid.tracks > .card { display: grid; grid-row: span var(--rows, 5); grid-template-rows: subgrid; row-gap: 0.9rem; }
     .grid.tracks > .card > * { align-self: start; }
     .grid.tracks .track-note { margin-top: 0 !important; }
   }
@@ -754,6 +757,20 @@
   .filter-empty { padding: 48px 0; text-align: center; color: var(--color-body); }
   .filter-empty p { margin: 0; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  /* Consultants page: self-paced course cards sliding right to left in a loop */
+  .course-strip-section { padding-bottom: 0; }
+  .course-strip-section .head { margin-bottom: clamp(20px, 3vw, 28px); }
+  .course-strip-section .head .link { margin-top: 1rem; }
+  .course-strip { padding: 0 0 clamp(56px, 8vw, 112px); overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .course-strip-track { display: flex; width: max-content; padding-block: 8px; animation: slide-left 70s linear infinite; }
+  .course-strip:hover .course-strip-track, .course-strip:focus-within .course-strip-track { animation-play-state: paused; }
+  .course-strip .course-card { flex: none; width: min(300px, 78vw); margin-right: 20px; }
+  @keyframes slide-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .course-strip { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+    .course-strip-track { animation: none; padding-inline: var(--gutter); }
+    .course-strip-track > [aria-hidden="true"] { display: none; }
+  }
   .course-grid { display: grid; gap: 20px; }
   @media (min-width: 640px) { .course-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 1040px) { .course-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
@@ -846,7 +863,42 @@
   .footer .social a { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--color-line); border-radius: 50%; }
   .footer .social a:hover { border-color: var(--color-blue); }
   .social svg { width: 18px; height: 18px; }
-  .legal { padding-block: 18px; border-top: 1px solid var(--color-line); font-size: 0.85rem; text-align: center; color: var(--color-soft); }
+  .legal { padding-block: 18px; border-top: 1px solid var(--color-line); font-size: 0.85rem; color: var(--color-soft); }
+  .legal .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.5rem 1.5rem; text-align: center; }
+  .legal nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.25rem; }
+  .legal a:hover { color: var(--color-blue); }
+  @media (min-width: 800px) { .legal .wrap { justify-content: space-between; } }
+
+  /* Legal documents: plain header, a sticky contents list beside long documents, and readable long-form text */
+  .legal-head { padding-block: clamp(48px, 7vw, 88px) clamp(28px, 4vw, 40px); background: var(--color-tint); border-bottom: 1px solid var(--color-line); }
+  .legal-head h1 { margin: 0.6rem 0 0; font-size: clamp(2.1rem, 4.5vw, 3.2rem); }
+  .legal-entity { margin: 0.75rem 0 0; color: var(--color-body); }
+  .legal-body { padding-top: clamp(36px, 5vw, 56px); }
+  .legal-layout { display: grid; gap: 40px; align-items: start; }
+  .legal-layout > * { min-width: 0; }
+  @media (min-width: 1040px) {
+    .legal-layout { grid-template-columns: 260px minmax(0, 1fr); gap: 64px; }
+    .legal-toc { position: sticky; top: 100px; max-height: calc(100vh - 120px); overflow-y: auto; }
+  }
+  .legal-toc { padding: 20px 22px; border: 1px solid var(--color-line); border-radius: 16px; background: var(--color-white); font-size: 0.9rem; }
+  .legal-toc p { margin: 0 0 0.6rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-soft); }
+  .legal-toc ol { display: grid; gap: 0.15rem; }
+  .legal-toc a { display: block; padding: 0.3rem 0; line-height: 1.35; color: var(--color-body); }
+  .legal-toc a:hover { color: var(--color-blue); }
+  .legal-doc { max-width: 76ch; color: var(--color-body); font-size: 1rem; line-height: 1.7; overflow-wrap: break-word; }
+  .legal-doc h2 { margin: 2.6rem 0 0.9rem; padding-top: 1.6rem; border-top: 1px solid var(--color-line); font-size: clamp(1.45rem, 2.4vw, 1.8rem); scroll-margin-top: 100px; }
+  .legal-doc > h2:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+  .legal-doc h3 { margin: 1.8rem 0 0.5rem; font-family: var(--font-sans); font-size: 1.05rem; font-weight: 700; color: var(--color-ink); scroll-margin-top: 100px; }
+  .legal-doc p { margin: 0 0 1rem; }
+  .legal-doc ul, .legal-doc ol { margin: 0 0 1rem; padding-left: 1.4rem; list-style: disc; }
+  .legal-doc ol { list-style: decimal; }
+  .legal-doc li { margin: 0.35rem 0; padding-left: 0.2rem; }
+  .legal-doc li > ul { margin: 0.35rem 0 0; list-style: circle; }
+  .legal-doc strong { color: var(--color-ink); }
+  .legal-doc a { color: var(--color-blue); text-decoration: underline; text-underline-offset: 2px; }
+  .legal-doc table { width: 100%; margin: 0 0 1.25rem; border-collapse: collapse; font-size: 0.93rem; display: block; overflow-x: auto; }
+  .legal-doc th, .legal-doc td { padding: 0.7rem 0.9rem; border: 1px solid var(--color-line); text-align: left; vertical-align: top; }
+  .legal-doc th { background: var(--color-tint); color: var(--color-ink); font-weight: 700; }
   @media (min-width: 640px) { .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 1000px) { .footer-grid { grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr)); } }
 }

@@ -1,0 +1,33 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import Icon from "./Icon.astro";
+import { to } from "../lib/site";
+import type { catalog } from "../data/catalog";
+// One self-paced course: artwork, area, title, blurb, videos, hours and price. Used by the course catalog
+// (with filter data) and by the moving course strip on the consultants page.
+interface Props { item: (typeof catalog)[number]; class?: string; style?: string; filters?: boolean; hidden?: boolean }
+const { item, class: cls, style, filters = false, hidden = false } = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>("../assets/courses/*", { eager: true });
+const image = images[`../assets/courses/${item.course.thumbnail}`]?.default;
+const areaLabel = (areas: string[]) => areas[0] + (areas.length > 1 ? ` +${areas.length - 1}` : "");
+const videos = item.course.content.split(" · ")[0];
+const data = filters ? { "data-audience": item.course.audience.join("|"), "data-area": item.course.areas.join("|") } : {};
+// A hidden copy (the strip's duplicate for a seamless loop) is skipped by screen readers and the keyboard.
+const quiet = hidden ? { "aria-hidden": "true", tabindex: "-1" } : {};
+---
+<a class:list={["course-card", cls]} href={to(`/courses/${item.slug}`)} style={style} {...data} {...quiet}>
+  <div class="course-card-art">{image && <Image src={image} alt="" width={640} />}</div>
+  <div class="course-card-body">
+    <p class="course-card-topic" title={item.course.areas.join(", ")}>{areaLabel(item.course.areas)}</p>
+    <h2>{item.course.title}</h2>
+    <p class="course-card-text">{item.text}</p>
+    <div class="course-card-foot">
+      <span class="muted">
+        <Icon name="video" />{videos}
+        <Icon name="clock" />{item.course.duration.replace(" Hours", " hrs")}
+      </span>
+      <strong>{item.course.price}</strong>
+    </div>
+  </div>
+</a>

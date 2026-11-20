@@ -1,0 +1,36 @@
+---
+import Layout from "../layouts/Layout.astro";
+// A legal document: title, a sticky "On this page" list built from the document's h2 headings, and the text.
+// The text itself lives in src/content/legal/*.html, copied word for word from the published documents.
+interface Props { path: string; title: string; metaTitle: string; description: string; html: string }
+const { path, title, metaTitle, description, html } = Astro.props;
+const decode = (s: string) => s.replace(/&amp;/g, "&").replace(/&#x27;|&#39;/g, "’");
+// ALL-CAPS headings read better as title case in the contents list; the document keeps them as published.
+const small = new Set(["of", "and", "to", "the", "for", "in", "on", "a", "an", "or"]);
+const roman = new Set(["i", "ii", "iii", "iv"]);
+const label = (s: string) =>
+  s !== s.toUpperCase() ? s : s.toLowerCase().split(" ").map((w, i) =>
+    roman.has(w) ? w.toUpperCase() : i > 0 && small.has(w) ? w : w.charAt(0).toUpperCase() + w.slice(1)
+  ).join(" ");
+const toc = [...html.matchAll(/<h2 id="([^"]+)">([^<]+)<\/h2>/g)].map(([, id, text]) => ({ id, text: label(decode(text)) }));
+---
+<Layout path={path} title={metaTitle} description={description}>
+  <section class="legal-head">
+    <div class="wrap">
+      <p class="eyebrow">Legal</p>
+      <h1>{title}</h1>
+      <p class="legal-entity">YECC Learning Technologies Private Limited</p>
+    </div>
+  </section>
+  <section class="section legal-body">
+    <div class="wrap legal-layout">
+      {toc.length > 2 && (
+        <nav class="legal-toc" aria-label="On this page">
+          <p>On this page</p>
+          <ol>{toc.map((t) => <li><a href={`#${t.id}`}>{t.text}</a></li>)}</ol>
+        </nav>
+      )}
+      <article class="legal-doc" set:html={html} />
+    </div>
+  </section>
+</Layout>

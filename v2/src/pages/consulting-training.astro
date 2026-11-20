@@ -12,6 +12,7 @@ import Icon from "../components/Icon.astro";
 import TextLink from "../components/TextLink.astro";
 import { to } from "../lib/site";
 import { contact } from "../lib/contact";
+import { MODULES, SUITABLE } from "../data/modules";
 
 // SI-only page for the Consulting Training service line. Individual fresher cohorts live on the
 // "For Consultants & Grads" side; this page links to them once, from the FAQ.
@@ -30,20 +31,20 @@ const journey = [
 const tracks = [
   {
     icon: "trend", title: "Oracle Fusion Financials",
-    suits: "Commerce, finance and Chartered Accountant hires",
-    modules: ["Common Basics", "General Ledger", "Payables", "Receivables", "Fixed Assets", "Cash Management", "Common Advanced"],
+    suits: SUITABLE.fin,
+    modules: MODULES.fin,
     optional: "Expenses, FAH, Advanced Collections, Risk Management, RMCS",
   },
   {
     icon: "layers", title: "Oracle Fusion SCM",
-    suits: "Engineering, operations and MBA hires, and Supply Chain Domain Experts",
-    modules: ["Common Basics", "SCM Basics", "SSP", "Purchasing", "Sourcing", "SQM", "Inventory", "PDH", "Order Management"],
+    suits: SUITABLE.scm,
+    modules: MODULES.scm,
     optional: "Procurement Contracts, Manufacturing, Planning, Quality",
   },
   {
     icon: "users", title: "Oracle Fusion HCM",
-    suits: "HR, MBA and technical hires moving into functional work",
-    modules: ["Common Basics", "Core HR", "Absence", "Talent", "Recruitment", "Compensation", "Benefits", "Learn"],
+    suits: SUITABLE.hcm,
+    modules: MODULES.hcm,
     optional: "Global and Regional Payroll, OTL, HR Helpdesk",
   },
 ];

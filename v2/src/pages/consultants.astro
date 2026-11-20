@@ -11,6 +11,9 @@ import Checks from "../components/Checks.astro";
 import TextLink from "../components/TextLink.astro";
 import cohortData from "../data/cohorts.json";
 import { Image } from "astro:assets";
+import { MODULES, SUITABLE } from "../data/modules";
+import { catalog } from "../data/catalog";
+import CourseCard from "../components/CourseCard.astro";
 import appScreens from "../assets/app/app-screens.png";
 import googlePlay from "../assets/app/google-play.png";
 import appStore from "../assets/app/app-store.png";
@@ -21,19 +24,21 @@ const tiles = [
   { icon: "app", label: "YECC Mobile App", note: "for Oracle Consultants looking for upskilling & work opportunities", href: APP },
   { icon: "cap", label: "eCampus", note: "for colleges and universities", href: ECAMPUS },
 ];
-const names: Record<string, [string, string]> = {
-  "oracle-hcm": ["Oracle Cloud HCM", "users"],
-  "oracle-financials": ["Oracle Cloud Financials", "layers"],
-  "oracle-scm": ["Oracle Cloud Supply Chain", "refresh"],
+// Per cohort: tile name, icon, who it suits best, and its module chips (shared with the Consulting Training tracks).
+const names: Record<string, { name: string; icon: string; suits: string; modules: readonly string[] }> = {
+  "oracle-hcm": { name: "Oracle Cloud HCM", icon: "users", suits: SUITABLE.hcm, modules: MODULES.hcm },
+  "oracle-financials": { name: "Oracle Cloud Financials", icon: "layers", suits: SUITABLE.fin, modules: MODULES.fin },
+  "oracle-scm": { name: "Oracle Cloud Supply Chain", icon: "refresh", suits: SUITABLE.scm, modules: MODULES.scm },
 };
 const fact = (c: (typeof cohortData)[number], key: string) => c.details.facts.find((f) => f[0] === key)?.[1] ?? "";
 const cohorts = cohortData.map((c) => ({
   slug: c.slug,
-  name: names[c.slug]?.[0] ?? c.code,
-  icon: names[c.slug]?.[1] ?? "cap",
-  lead: c.lead,
-  highlights: c.highlights,
-  tags: [`Starts ${c.month}`, fact(c, "Course duration"), fact(c, "Course fee")].filter(Boolean),
+  name: names[c.slug]?.name ?? c.code,
+  icon: names[c.slug]?.icon ?? "cap",
+  suits: names[c.slug]?.suits ?? "",
+  modules: names[c.slug]?.modules ?? [],
+  // "Starts December 2026", or "Starts early 2027" when the month is not fixed yet.
+  tags: [`Starts ${c.month.replace(/^Early\b/, "early")}`, fact(c, "Course duration"), fact(c, "Course fee")].filter(Boolean),
 }));
 const figures = [
   { value: "150+", label: "learners trained" },
@@ -75,13 +80,15 @@ const figures = [
 
   <Section id="upcoming-cohorts">
     <Head
-      eyebrow="Upcoming cohorts"
+      eyebrow="Upcoming cohorts for fresher graduates and domain experts"
       title="Pick your Oracle path.| Join the next batch."
       lead="Live fresher training cohorts in Oracle Cloud Human Capital, Financials, and Supply Chain."
     />
-    <div class="grid c3">
+    <div class="grid c3 tracks" style="--rows: 6">
       {cohorts.map((c) => (
-        <Card icon={c.icon} title={c.name} text={c.lead} tags={c.tags} bullets={c.highlights}>
+        <Card icon={c.icon} title={c.name} tags={c.tags}>
+          <p class="track-suits"><strong>Most suitable for</strong>{c.suits}</p>
+          <ul class="track-modules" aria-label="Modules">{c.modules.map((m) => <li>{m}</li>)}</ul>
           <div class="card-btns">
             <Btn href={COHORT_FORM}>Request Registration</Btn>
             <TextLink href={`/upcoming-cohorts/${c.slug}`}>View Details</TextLink>
@@ -91,11 +98,29 @@ const figures = [
     </div>
   </Section>
 
+  {/* Self-paced courses: a strip of course cards sliding right to left. The track is doubled so the loop is
+      seamless; the copy is hidden from screen readers and the keyboard. Hover or focus pauses it. */}
+  <Section id="self-paced-courses" class="course-strip-section">
+    <Head
+      eyebrow="Self-paced courses for Oracle consultants, graduates and domain experts"
+      title="Build practical Oracle Cloud ERP skills| at your own pace."
+      lead="Recorded lessons and assessments, for when you want to upskill or cross-skill on your own schedule."
+    >
+      <TextLink href="/courses">Browse all courses</TextLink>
+    </Head>
+  </Section>
+  <div class="course-strip" aria-label="Self-paced courses">
+    <div class="course-strip-track">
+      {catalog.map((item) => <CourseCard item={item} />)}
+      {catalog.map((item) => <CourseCard item={item} hidden />)}
+    </div>
+  </div>
+
   <Section id="get-the-app" class="bg-tint">
     <div class="split">
       <div>
         <Head
-          eyebrow="YECC mobile app"
+          eyebrow="YECC mobile app for Oracle Consultants"
           title="Learn, practise, and find| Oracle roles on the go."
           lead="The YourERPCoach app keeps your learning and your next career move in one place."
         />

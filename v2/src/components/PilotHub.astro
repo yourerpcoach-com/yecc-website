@@ -1,0 +1,60 @@
+---
+// Illustration for the SHERPA pilot: the pilot at the hub, with its three inclusions as equal spokes around it.
+// They are three distinct parts of one offer, not steps, so nothing is numbered or ordered.
+// Each spoke has a small drawing that matches its icon in the list beside it.
+const nodes = [
+  { x: 260, y: 92, label: "Up to 25 processes, free", labelY: 22, icon: "transform" },
+  { x: 118, y: 320, label: "Redwood-ready", labelY: 404, icon: "redwood" },
+  { x: 402, y: 320, label: "In-app delivery", labelY: 404, icon: "inapp" },
+];
+const ink = "#0d2344";
+---
+<svg class="pilot-hub" viewBox="0 0 520 430" fill="none" aria-hidden="true">
+  <circle cx="260" cy="240" r="190" fill="#2b72d9" opacity=".1" />
+  <circle cx="260" cy="240" r="150" stroke="#ffffff" stroke-opacity=".12" stroke-width="2" />
+
+  {nodes.map((n) => <line x1="260" y1="240" x2={n.x} y2={n.y} stroke="#ffffff" stroke-opacity=".5" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9" />)}
+
+  <circle cx="260" cy="240" r="80" fill="#2b72d9" opacity=".25" />
+  <circle cx="260" cy="240" r="62" fill="#2b72d9" />
+  <text x="260" y="238" text-anchor="middle" class="pilot-hub-name">SHERPA</text>
+  <text x="260" y="260" text-anchor="middle" class="pilot-hub-sub">pilot</text>
+
+  {nodes.map((n) => (
+    <g transform={`translate(${n.x - 56} ${n.y - 56})`}>
+      <rect width="112" height="112" rx="24" fill="#ffffff" />
+      {n.icon === "transform" && (
+        <g stroke-linecap="round" stroke-linejoin="round">
+          <rect x="20" y="34" width="30" height="40" rx="4" stroke={ink} stroke-width="3" />
+          <path d="M27 45h16M27 53h16M27 61h10" stroke="#2b72d9" stroke-width="3" />
+          <path d="M56 54h12m-5-5 5 5-5 5" stroke={ink} stroke-width="3" />
+          <circle cx="84" cy="54" r="14" fill="#e53935" />
+          <path d="M80 47 91 54 80 61Z" fill="#ffffff" />
+        </g>
+      )}
+      {n.icon === "redwood" && (
+        <g>
+          <rect x="20" y="28" width="72" height="56" rx="7" stroke={ink} stroke-width="3" />
+          <path d="M20 41h72" stroke={ink} stroke-width="3" />
+          <circle cx="28" cy="34.5" r="2" fill="#e53935" /><circle cx="35" cy="34.5" r="2" fill="#d6e2f5" /><circle cx="42" cy="34.5" r="2" fill="#d6e2f5" />
+          <rect x="27" y="48" width="14" height="29" rx="3" fill="#e8f0fc" />
+          <rect x="47" y="48" width="38" height="11" rx="3" fill="#2b72d9" />
+          <rect x="47" y="64" width="26" height="5" rx="2.5" fill="#d6e2f5" />
+          <rect x="47" y="72" width="32" height="5" rx="2.5" fill="#d6e2f5" />
+        </g>
+      )}
+      {n.icon === "inapp" && (
+        <g stroke-linecap="round" stroke-linejoin="round">
+          <rect x="22" y="38" width="68" height="44" rx="6" stroke={ink} stroke-width="3" />
+          <path d="M56 82v8M44 92h24" stroke={ink} stroke-width="3" />
+          <rect x="30" y="58" width="22" height="6" rx="3" fill="#d6e2f5" />
+          <rect x="30" y="68" width="34" height="6" rx="3" fill="#d6e2f5" />
+          <path d="M52 20h36a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H70l-6 8-6-8h-6a6 6 0 0 1-6-6V26a6 6 0 0 1 6-6Z" fill="#e53935" />
+          <path d="M55 29h24M55 36h16" stroke="#ffffff" stroke-width="3" />
+        </g>
+      )}
+    </g>
+  ))}
+
+  {nodes.map((n) => <text x={n.x} y={n.labelY} text-anchor="middle" class="pilot-node-label">{n.label}</text>)}
+</svg>

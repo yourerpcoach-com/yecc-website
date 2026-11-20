@@ -2,13 +2,14 @@
 import Layout from "../layouts/Layout.astro";
 import Btn from "../components/Btn.astro";
 import Head from "../components/Head.astro";
+import Icon from "../components/Icon.astro";
 import Hero from "../components/Hero.astro";
 import Section from "../components/Section.astro";
 import Checks from "../components/Checks.astro";
 import Col from "../components/Col.astro";
 import Card from "../components/Card.astro";
 import SherpaPhases from "../components/SherpaPhases.astro";
-import PilotSummit from "../components/PilotSummit.astro";
+import PilotHub from "../components/PilotHub.astro";
 import Cta from "../components/Cta.astro";
 import Video from "../components/Video.astro";
 import { contact } from "../lib/contact";
@@ -41,18 +42,18 @@ const flow = [
   },
 ];
 
-// What the complimentary executive pilot includes.
+// What the complimentary executive pilot includes: three distinct parts of one offer, not steps.
 const pilot = [
   {
-    title: "Free transformation of up to 25 self-service processes",
+    icon: "refresh", title: "Free transformation of up to 25 self-service processes",
     text: "Convert your client’s existing static SOPs, PDFs and user manuals into modern training assets (videos, interactive web guides and in-app walkthroughs), covering up to 25 high-usage employee self-service flows at no cost.",
   },
   {
-    title: "Redwood-ready documentation and guidance",
+    icon: "layers", title: "Redwood-ready documentation and guidance",
     text: "Rebuild learning assets to reflect Oracle’s latest Redwood UX, so users are guided correctly on redesigned pages, new navigation patterns and changed interaction models.",
   },
   {
-    title: "Multi-format, in-app delivery for immediate adoption",
+    icon: "monitor", title: "Multi-format, in-app delivery for immediate adoption",
     text: "Deliver the transformed documentation directly where work happens, as videos, web-based guides and contextual in-app guidance, reducing dependency on HR and IT support teams from day one.",
   },
 ];
@@ -148,16 +149,16 @@ const pilot = [
           lead="YECC offers an executive pilot focused on Oracle Fusion self-service adoption, the area with the highest user volume and support demand."
         />
         <ol class="pilot-list">
-          {pilot.map((item, i) => (
+          {pilot.map((item) => (
             <li>
-              <span class="pilot-num">{String(i + 1).padStart(2, "0")}</span>
+              <span class="pilot-icon"><Icon name={item.icon} /></span>
               <div><h3>{item.title}</h3><p>{item.text}</p></div>
             </li>
           ))}
         </ol>
         <div class="btns"><Btn href={contact("sherpa")} arrow>Discuss a SHERPA pilot</Btn></div>
       </div>
-      <PilotSummit />
+      <PilotHub />
     </div>
   </Section>
 
