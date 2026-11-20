@@ -1,33 +1,41 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Icon from "../../components/Icon.astro";
-import Hero from "../../components/Hero.astro";
-import Section from "../../components/Section.astro";
 import posts from "../../data/blogs.json";
 import { to } from "../../lib/site";
+
+// Text-only tiles: a topic label and reading time stand in for thumbnails, so a new post needs no artwork.
+const text = (html: string) => html.replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ")
+  .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16))).replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(+d))
+  .replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
+// The tile summary is the post's opening paragraph, so it always matches the post (most imported excerpts
+// only repeated the title).
+const summary = (post: (typeof posts)[number]) => text(post.html.match(/<p[^>]*>([\s\S]*?)<\/p>/)?.[1] ?? "") || post.excerpt;
+const minutes = (html: string) => Math.max(1, Math.round(html.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length / 200));
 ---
 <Layout
   path="/blogs"
   title="Oracle Cloud ERP Blogs & Practical Guides | YECC"
   description="Explore YECC articles covering ERP foundations and step-by-step Oracle Cloud guidance for consultants and System Integrator delivery teams."
 >
-  <Hero
-    eyebrow="Blogs"
-    title="Oracle Cloud ERP insights| and practical guides."
-    lead="Explore YECC articles covering ERP foundations and step-by-step Oracle Cloud guidance for consultants and delivery teams."
-  />
-  <Section>
-    <div class="grid c3">
-      {posts.map((post) => (
-        <a class="post" href={to(`/blogs/${post.slug}`)}>
-          {post.image && <img src={post.image} alt="" loading="lazy" />}
-          <div>
-            <h2>{post.cardTitle}</h2>
-            <p>{post.excerpt}</p>
-            <span class="link">Read more<Icon name="arrow" /></span>
-          </div>
-        </a>
-      ))}
+  <section class="section blog-list">
+    <div class="wrap">
+      <header class="blog-head">
+        <h1>Blogs</h1>
+        <p>Oracle Cloud ERP insights and step-by-step guides.</p>
+      </header>
+      <div class="grid c3">
+        {posts.map((post) => (
+          <a class="post" href={to(`/blogs/${post.slug}`)}>
+            <div>
+              <p class="post-meta"><span>{post.topic}</span>{minutes(post.html)} min read</p>
+              <h2>{post.cardTitle}</h2>
+              <p>{summary(post)}</p>
+              <span class="link">Read more<Icon name="arrow" /></span>
+            </div>
+          </a>
+        ))}
+      </div>
     </div>
-  </Section>
+  </section>
 </Layout>

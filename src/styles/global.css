@@ -608,7 +608,13 @@
   .stats { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; font-size: 0.88rem; font-weight: 500; color: var(--color-soft); padding-top: 0.9rem; border-top: 1px solid var(--color-line); }
   .post { display: flex; flex-direction: column; border: 1px solid var(--color-line); border-radius: var(--radius); overflow: hidden; background: var(--color-white); transition: border-color 0.18s, transform 0.18s; }
   .post:hover { border-color: var(--color-blue); transform: translateY(-2px); }
-  .post img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--color-tint-2); }
+  /* Blog list: a short title line, then the tiles straight away */
+  .blog-list { padding-top: clamp(64px, 6vw, 72px); }
+  .blog-head { display: grid; gap: 0.5rem; margin-bottom: clamp(20px, 3vw, 32px); }
+  .blog-head h1 { font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.4rem); }
+  .blog-head p { margin: 0; font-size: 1.05rem; color: var(--color-soft); }
+  .post .post-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.7rem; font-size: 0.82rem; -webkit-line-clamp: none; color: var(--color-soft); }
+  .post .post-meta span { padding: 0.2rem 0.6rem; border-radius: 6px; background: var(--color-tint); color: var(--color-blue); font-weight: 600; }
   .post div { display: flex; flex-direction: column; gap: 0.7rem; padding: 22px; flex: 1; }
   .post h2 { font-size: 1.3rem; line-height: 1.2; }
   .post p { margin: 0; font-size: 0.95rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
