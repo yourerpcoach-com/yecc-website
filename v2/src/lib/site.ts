@@ -28,7 +28,7 @@ export const APP = "/consultants#get-the-app";
 export const APP_STORE = "https://apps.apple.com/in/app/yecc/id6738484557";
 export const PLAY_STORE = "https://play.google.com/store/apps/details?id=com.yourerpcoach.app&hl=en_IN";
 /** Cohort registration: the Google Form (opens in a new tab, as an external link). */
-export const COHORT_FORM = "https://bit.ly/3KVOXbF";
+export const COHORT_FORM = "https://docs.google.com/forms/d/e/1FAIpQLSeOpj2vDIEViXPIgNYHj70Mny82ozyNJKi6guVa0ma7T-wVFw/viewform";
 export const ECAMPUS = "https://ecampus.yourerpcoach.com";
 
 // The site has two audiences, each with its own menu. A tab under the logo switches between them.
