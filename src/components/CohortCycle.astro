@@ -1,0 +1,84 @@
+---
+// Illustration for the fresher cohort's weekly rhythm: Watch, Practice and Clarify repeat every week around the
+// ring; from Clarify a path leads out to the mock CRP and final presentation at the end of the cohort.
+// Thin lines in the logo colours, matching the SHERPA pilot hub.
+const ink = "#0d2344";
+const soft = "#7189b0";
+const blue = "#2b72d9";
+const red = "#e53935";
+
+// Ring: centre (250, 220), radius 130. Nodes sit at 180°, 300° and 60°; arcs run clockwise between them.
+const nodes = [
+  { x: 120, y: 220, label: "Watch", lx: 72, ly: 225, anchor: "end", icon: "watch" },
+  { x: 315, y: 107.4, label: "Practice", lx: 315, ly: 55, anchor: "middle", icon: "practice" },
+  { x: 315, y: 332.6, label: "Clarify", lx: 315, ly: 395, anchor: "middle", icon: "clarify" },
+];
+const arcs = [
+  "M130.3 169.2A130 130 0 0 1 265.8 91",
+  "M353.8 141.8A130 130 0 0 1 353.8 298.2",
+  "M265.8 349A130 130 0 0 1 130.3 270.8",
+];
+---
+<svg class="cohort-cycle" viewBox="0 0 560 440" fill="none" role="img" aria-labelledby="cohort-cycle-title">
+  <title id="cohort-cycle-title">Every week: watch the videos, practise with quizzes and assignments, clarify doubts in live sessions. At the end of the cohort: mock CRP and final presentation.</title>
+  <defs>
+    <marker id="cycle-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1.5 7 5 1 8.5" stroke={soft} stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    </marker>
+    <marker id="cycle-arrow-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M1 1.5 7 5 1 8.5" stroke={red} stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    </marker>
+  </defs>
+
+  <rect width="560" height="440" rx="24" fill="#ffffff" />
+  <circle cx="250" cy="220" r="96" fill={blue} opacity=".06" />
+
+  {arcs.map((d) => <path d={d} stroke={soft} stroke-width="1.6" stroke-linecap="round" marker-end="url(#cycle-arrow)" />)}
+
+  <text x="250" y="214" text-anchor="middle" class="cycle-hub">Every</text>
+  <text x="250" y="240" text-anchor="middle" class="cycle-hub">week</text>
+
+  {/* From Clarify, out to the end of the cohort */}
+  <path d="M357 332.6H414" stroke={red} stroke-width="1.6" stroke-linecap="round" stroke-dasharray="1 6" marker-end="url(#cycle-arrow-red)" />
+  <text x="386" y="320" text-anchor="middle" class="cycle-note">final week</text>
+
+  {nodes.map((n) => (
+    <g>
+      <circle cx={n.x} cy={n.y} r="38" fill="#ffffff" stroke={ink} stroke-width="1.6" />
+      <g transform={`translate(${n.x} ${n.y})`} stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+        {n.icon === "watch" && (
+          <>
+            <rect x="-16" y="-12" width="32" height="22" rx="3" stroke={ink} />
+            <path d="M-3-6 5-1-3 4Z" fill={red} stroke="none" />
+            <path d="M-8 15H8" stroke={soft} />
+          </>
+        )}
+        {n.icon === "practice" && (
+          <>
+            <rect x="-12" y="-16" width="24" height="31" rx="3" stroke={ink} />
+            <path d="M-6-7l2.5 2.5L0-9M-6 3l2.5 2.5L0 1" stroke={red} />
+            <path d="M3-6h4M3 4h4" stroke={soft} />
+          </>
+        )}
+        {n.icon === "clarify" && (
+          <>
+            <path d="M-17-13h20a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3h-11l-5 5v-5h-4a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3Z" stroke={ink} />
+            <path d="M-11-6h12M-11-1h7" stroke={soft} />
+            <path d="M10 1h4a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3h-1v4l-4-4H2a3 3 0 0 1-3-3" stroke={red} />
+          </>
+        )}
+      </g>
+      <text x={n.lx} y={n.ly} text-anchor={n.anchor} class="cycle-label">{n.label}</text>
+    </g>
+  ))}
+
+  {/* Mock CRP and final presentation */}
+  <rect x="420" y="290" width="112" height="86" rx="18" fill="#ffffff" stroke={red} stroke-width="1.6" />
+  <g transform="translate(476 333)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+    <rect x="-22" y="-20" width="44" height="28" rx="3" stroke={ink} />
+    <path d="M-12 1v-6M-4 1v-11M4 1v-8M12 1v-13" stroke={soft} />
+    <path d="M0 8v8M-8 22l8-6 8 6" stroke={ink} />
+  </g>
+  <text x="476" y="404" text-anchor="middle" class="cycle-label">Mock CRP</text>
+  <text x="476" y="424" text-anchor="middle" class="cycle-note">and final presentation</text>
+</svg>
