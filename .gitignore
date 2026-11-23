@@ -13,3 +13,4 @@ tools/.cache/
 /scribe.com-*/
 /legacy/
 /yecc_logo.png
+.claude/launch.json
