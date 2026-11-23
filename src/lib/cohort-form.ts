@@ -48,5 +48,3 @@ export const SOURCE_OPTIONS = [
   "I found out through Social Media",
   "I got your reference from someone (mention their name in the answer to next question)",
 ];
-
-export const QUALIFICATION_OPTIONS = ["B.Com", "BBA", "MBA", "CA", "B.Tech", "M.Tech", "M.Com", "Other"];

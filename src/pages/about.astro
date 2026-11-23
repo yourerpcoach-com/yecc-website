@@ -1,24 +1,194 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Btn from "../components/Btn.astro";
-import Section from "../components/Section.astro";
-import Cta from "../components/Cta.astro";
-import paragraphs from "../data/about.json";
+import Icon from "../components/Icon.astro";
 import { contact } from "../lib/contact";
+import { to, isExternal, APP, ECAMPUS } from "../lib/site";
+
+// The YECC story, told as chapters along a dotted route. Each chapter has a sticker (a date or a headline
+// figure) and, where the copy has a good aside, a tilted margin note.
+const chapters = [
+  {
+    title: "An online school for Oracle",
+    sticker: "Late 2021",
+    text: [
+      "Late 2021. Rajesh had a simple idea: build an online school where fresh graduates and people with domain experience could learn Oracle Cloud ERP properly, and then get placed with consulting firms.",
+      "Saurabh, a family friend and former business partner of Rajesh, joined hands, and the work was divided. Saurabh took on the tech and the small crew building the platform. Rajesh took on product and the learning content.",
+    ],
+  },
+  {
+    title: "The long first year",
+    sticker: "Year one",
+    text: [
+      "There were no classes in the first year. There was a lot of building.",
+      "Rajesh recorded more than 100 hours of studio-grade content for Oracle Cloud Financials. Meanwhile, the tech team built the first version of yourerpcoach.com: an e-learning portal with its own LMS, ready to deliver videos, quizzes and practice assignments.",
+    ],
+    note: { big: "100+ hours", small: "of Oracle Financials, On Camera" },
+  },
+  {
+    title: "Ten learners and a good sign",
+    sticker: "Sept 2022",
+    text: [
+      "In September 2022, about ten fresh graduates joined our very first Oracle Cloud Financials cohort. Six months later, almost everyone who completed it was placed.",
+      "For a young company, that was the encouragement we needed. We have now run close to 20 cohorts across Financials, Supply Chain and HCM. Along the way, consulting firms started asking us to train their own fresher hires too, and corporate training became part of our work.",
+    ],
+    note: { big: "Almost all", small: "of cohort one placed within six months" },
+  },
+  {
+    title: "More people to train",
+    sticker: "The bigger gap",
+    text: [
+      "While training the consultants, a bigger gap and the opportunity unfolded. Every Oracle project also has a much larger group of people who need to learn the system: the business users who will run it every day after go-live.",
+      "We already knew how to teach Oracle, so End User Training was a natural next line of business alongside our consultant training. We have since delivered several large onsite and online training assignments and trained more than 5,000 business users.",
+    ],
+    note: { big: "5,000+", small: "business users trained" },
+  },
+  {
+    title: "The tool we built for ourselves",
+    sticker: "SHERPA",
+    text: [
+      "Training thousands of users creates a lot of guides and videos, and every one of them has to match how that client configured Oracle. Spreadsheets and folders could only take us so far. So we built SHERPA, our own training documentation platform. What started as an internal tool now powers our Documentation-as-a-Service offering and sits at the centre of every SI engagement.",
+    ],
+  },
+  {
+    title: "A community, not just a customer list",
+    sticker: "All along",
+    text: [
+      "All along, we have been building something less visible: a community of Oracle consultants. Our free mobile app lets them learn, practise and find Oracle openings, and we bring contracting opportunities their way. That community is still growing, one consultant at a time.",
+    ],
+  },
+  {
+    title: "A co-founder for the next stage",
+    sticker: "2024",
+    text: [
+      "As more System Integrators started working with us, we needed someone to lead that side of the business. So, in 2024, Parth, a long-time colleague of Rajesh, joined as co-founder and Chief Business Officer. He now runs sales, presales and business development, mainly for our B2B offerings.",
+    ],
+  },
+];
+
+const stats = [
+  { value: "2021", label: "the year it started" },
+  { value: "~20", label: "people on the team" },
+  { value: "~20", label: "cohorts run" },
+  { value: "150+", label: "learners trained" },
+  { value: "50+", label: "placed in Oracle roles" },
+  { value: "5,000+", label: "business users trained" },
+];
+
+const audiences = [
+  {
+    label: "For Oracle System Integrators",
+    links: [
+      ["EUT-as-a-Service", "/eutaas"],
+      ["Documentation-as-a-Service", "/docaas"],
+      ["Oracle Resource Augmentation", "/resource-augmentation"],
+      ["Consulting Training", "/consulting-training"],
+      ["SHERPA", "/sherpa"],
+    ],
+  },
+  {
+    label: "For consultants and graduates",
+    links: [
+      ["Fresher cohorts", "/upcoming-cohorts"],
+      ["Self-paced courses", "/courses"],
+      ["The YECC mobile app", APP],
+      ["eCampus", ECAMPUS],
+    ],
+  },
+];
+
+const pad = (n: number) => String(n).padStart(2, "0");
 ---
 <Layout
   path="/about"
   title="About Your ERP Coach | YECC"
-  description="Learn about Your ERP Coach, its ERP training platform, career development pathways, and professional community."
+  description="How YECC grew from an online Oracle Cloud ERP school in 2021 into a 20-person team training consultants, enterprise users and SI delivery teams."
 >
-  <Section>
-    <div class="prose">
-      <p class="eyebrow">Your ERP Coach</p>
-      <h1>About Us</h1>
-      {paragraphs.map((p) => <p>{p}</p>)}
+  <section class="about-hero">
+    <div class="wrap">
+      <p class="eyebrow">About YECC</p>
+      <h1>We started by teaching Oracle. <span class="tone">Today we get whole organisations ready for it.</span></h1>
+      <p class="lead">Every company has an origin story. Ours begins with a fairly modest plan, and with the fact that we kept saying yes to the next useful thing.</p>
+      <a class="about-scroll" href="#chapter-1">Start at chapter 1<Icon name="arrow" /></a>
+      <span class="about-stamp" aria-hidden="true">Est.<b>2021</b></span>
     </div>
-  </Section>
-  <Cta eyebrow="Start a conversation" title="Tell us where user enablement fits into your Oracle delivery.">
-    <Btn href={contact("partnership")}>Contact the YECC Team</Btn>
-  </Cta>
+  </section>
+
+  <section class="section about-story" aria-label="Our story">
+    <div class="wrap">
+      <ol class="chapters">
+        {chapters.map((c, i) => (
+          <li class="chapter" id={`chapter-${i + 1}`}>
+            <div class="chapter-mark">
+              <span class="chapter-num">{pad(i + 1)}</span>
+              <span class="sticker" style={`--tilt:${i % 2 ? 3 : -3}deg`}>{c.sticker}</span>
+            </div>
+            <div class="chapter-body">
+              <p class="chapter-kicker">Chapter {i + 1}</p>
+              <h2>{c.title}</h2>
+              {c.text.map((p) => <p>{p}</p>)}
+            </div>
+            {c.note && (
+              <aside class="chapter-note" style={`--tilt:${i % 2 ? -2.5 : 2.5}deg`}>
+                <b>{c.note.big}</b>
+                <span>{c.note.small}</span>
+              </aside>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="about-numbers bg-navy" aria-label="YECC in numbers">
+    <div class="wrap">
+      <p class="eyebrow">So far, in numbers</p>
+      <dl>
+        {stats.map((s, i) => (
+          <div style={`--tilt:${[-2, 1.5, -1, 2, -1.5, 1][i]}deg`}>
+            <dt>{s.label}</dt>
+            <dd>{s.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section about-now">
+    <div class="wrap">
+      <div class="about-now-head">
+        <p class="eyebrow">Today</p>
+        <h2>Where the story <span class="tone">has reached</span></h2>
+        <p class="lead">The team that started with a few people building an online ERP training school is now about 20 strong. Together we serve two audiences:</p>
+      </div>
+      <div class="about-aud">
+        {audiences.map((a) => (
+          <div class="aud-card">
+            <h3>{a.label}</h3>
+            <ul>
+              {a.links.map(([label, href]) => (
+                <li><a href={to(href)} {...(isExternal(href) ? { target: "_blank", rel: "noopener" } : {})}>{label}<Icon name="arrow" /></a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="about-next">
+    <div class="wrap">
+      <div class="next-card">
+        <p class="chapter-kicker">Chapter <span class="chapter-n">n</span></p>
+        <h2>The next chapter</h2>
+        <p>We started out wanting to teach Oracle Cloud ERP well. We still do. These days, that covers consultants preparing for their first project, as well as the enterprises preparing for go-live. With training, documentation, SHERPA, and a growing consultant community now working together, we're looking forward to what comes next.</p>
+        <p class="next-wink">Maybe, the next conversation with you brings that to us, who knows?</p>
+        <div class="btns">
+          <Btn href={contact("general")}>Contact the YECC Team</Btn>
+          <Btn href="/consultants" ghost>For Consultants &amp; Grads</Btn>
+        </div>
+        <span class="next-blank" aria-hidden="true">to be written<br />together</span>
+      </div>
+    </div>
+  </section>
 </Layout>

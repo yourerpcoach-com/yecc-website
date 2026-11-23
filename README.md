@@ -50,7 +50,7 @@ No UI framework (React, Vue, etc.), no CMS, no database, no backend and no cooki
 | 1 | Contact form API (email to the YECC team) | `src/lib/contact.ts`, `CONTACT_ENDPOINT` | **Not connected.** For now the form opens the visitor's email app instead. |
 | 2 | Google Tag / Google Tag Manager / analytics | `src/layouts/Layout.astro`, inside `<head>` | **Not added.** |
 | 3 | Conversion events for the two forms | `src/scripts/site.js` | **Not added.** The success points are marked below. |
-| 4 | Production domain and hosting | `SITE_URL` / `BASE_PATH` env vars | GitHub Pages preview only. |
+| 4 | Production domain and hosting | `SITE_URL` / `BASE_PATH` env vars | GitHub Pages preview only (kept out of Google automatically). |
 | 5 | Cohort inquiry form to Google Form | `src/lib/cohort-form.ts` | **Working.** Do a live test submission and check the responses sheet. |
 | 6 | Spam protection on forms (optional) | both forms | None yet. Turnstile or reCAPTCHA can go in with the contact API. |
 
@@ -130,6 +130,8 @@ Example: `window.dataLayer?.push({ event: "generate_lead", form: "contact", subj
 | `BASE_PATH` | Sub-path the site is served from. Leave unset on a real domain. | `/yecc-website` (GitHub Pages preview) |
 
 Locally both are unset and the site runs at the root of `localhost:4180`.
+
+**Search indexing.** Any build whose `SITE_URL` is a `*.github.io` address puts `<meta name="robots" content="noindex, nofollow">` on every page (see `Layout.astro`). That keeps the preview out of Google, so it never competes with the real domain. A production build, such as `SITE_URL=https://www.yourerpcoach.com`, is indexable automatically. To block indexing on any other staging host, build with `NOINDEX=true`.
 
 **Building for a domain:**
 
